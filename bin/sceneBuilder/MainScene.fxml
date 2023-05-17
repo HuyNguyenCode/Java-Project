@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.MainSceneController">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="166.0" text="Book Store">
+               <font>
+                  <Font name="Edwardian Script ITC" size="36.0" />
+               </font>
+            </Label>
+            <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="24.0" prefWidth="0.0" />
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="290.0" styleClass="round-layout" stylesheets="@../css/styles.css">
+               <children>
+                  <TextField prefHeight="26.0" prefWidth="237.0" promptText="Search" styleClass="transparent" stylesheets="@../css/styles.css" />
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/search-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="253.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="140.0" text="User Name">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icon/user-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox fx:id="sideNav" prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="240.0" prefWidth="250.0" spacing="6.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="140.0" text="User Name">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox fx:id="btnDashboard" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Dashboard">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btnAvailableBooks" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/book-stack.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Available books">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="btnPurchase" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/buy.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Purchase">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="240.0" prefWidth="250.0" spacing="6.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="140.0" text="Your books">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox fx:id="btnReading" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="41.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/reading-book.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Reading">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btnFavorite" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="38.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/favorite.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Favorite">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btnHistory" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/transaction-history.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="History">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="199.0" prefWidth="250.0" spacing="6.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="140.0" text="Shelves">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox fx:id="btnShelves" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/bookshelf.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Your Shelves">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="250.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: #FF5056;" styleClass="transparent" stylesheets="@../css/styles.css" text="Create a Shelf" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="pnShelves" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="round-layout" />
+                  <String fx:value="white-background" />
+               </styleClass>
+               <children>
+                  <BorderPane prefHeight="699.0" prefWidth="1081.0" VBox.vgrow="ALWAYS">
+                     <center>
+                        <VBox prefHeight="699.0" prefWidth="141.0">
+                           <children>
+                              <Label prefHeight="50.0" prefWidth="140.0" text="Category">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="18.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="58.0" prefWidth="214.0">
+                                       <children>
+                                          <Label prefHeight="61.0" prefWidth="89.0" text="All genre">
+                                             <font>
+                                                <Font name="Berlin Sans FB" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox prefHeight="58.0" prefWidth="214.0">
+                                       <children>
+                                          <Label prefHeight="63.0" prefWidth="221.0" text="Art &amp; Photography">
+                                             <font>
+                                                <Font name="Berlin Sans FB" size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="58.0" prefWidth="214.0">
+                                       <children>
+                                          <Label prefHeight="63.0" prefWidth="221.0" text="Biography &amp; Memories">
+                                             <font>
+                                                <Font name="Berlin Sans FB" size="18.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </center>
+                     <right>
+                        <ScrollPane prefHeight="699.0" prefWidth="980.0">
+                           <content>
+                              <GridPane fx:id="bookGridPane" prefHeight="0.0" prefWidth="0.0">
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </right>
+                  </BorderPane>
+               </children>
+            </VBox>
+            <VBox fx:id="pnAvailableBooks" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="181.0" stylesheets="@../css/styles.css" text="Recently Added">
+                     <font>
+                        <Font name="Berlin Sans FB" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane prefHeight="250.0" prefWidth="200.0" styleClass="transparent" stylesheets="@../css/styles.css">
+                     <content>
+                        <HBox fx:id="cardLayout" alignment="CENTER_LEFT" prefHeight="234.0" prefWidth="1064.0" spacing="20.0" styleClass="transparent" stylesheets="@../css/styles.css">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <Label prefHeight="31.0" prefWidth="239.0" stylesheets="@../css/styles.css" text="Recommended for you">
+                     <font>
+                        <Font name="Berlin Sans FB" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane prefHeight="354.0" prefWidth="1099.0" styleClass="transparent" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS">
+                     <content>
+                        <GridPane fx:id="bookContainer" prefHeight="0.0" prefWidth="0.0">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="round-layout" />
+                  <String fx:value="white-background" />
+               </styleClass>
+            </VBox>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
