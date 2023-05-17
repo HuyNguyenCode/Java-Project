@@ -41,7 +41,7 @@ public class JDBCUtil {
         if (c != null) {
             try {
                 java.sql.DatabaseMetaData mtdt = c.getMetaData();
-                Sysâtem.out.println(mtdt.toString());
+                System.out.println(mtdt.toString());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

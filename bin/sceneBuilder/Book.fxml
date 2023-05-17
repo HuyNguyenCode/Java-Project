@@ -19,7 +19,7 @@
             <Image url="@../img/book/sapiens.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="bookName" prefHeight="7.0" prefWidth="230.0" text="Sapiens">
+      <Label fx:id="bookTitle" prefHeight="7.0" prefWidth="230.0" text="Sapiens">
          <font>
             <Font name="Berlin Sans FB" size="18.0" />
          </font>
