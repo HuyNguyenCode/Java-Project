@@ -64,7 +64,7 @@
    <left>
       <VBox fx:id="sideNav" prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="240.0" prefWidth="250.0" spacing="6.0">
+            <VBox prefHeight="282.0" prefWidth="250.0" spacing="6.0">
                <children>
                   <Label prefHeight="50.0" prefWidth="169.0" text="Books management">
                      <font>
@@ -92,7 +92,7 @@
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/book-stack.png" />
+                              <Image url="@../img/icon/add-book.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="37.0" prefWidth="134.0" text="Add new book">
@@ -102,11 +102,11 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="btnDelete" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnDelete" alignment="CENTER" onMouseClicked="#handleUpdate" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/buy.png" />
+                              <Image url="@../img/icon/remove-book.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="37.0" prefWidth="134.0" text="Delete book">
@@ -116,10 +116,24 @@
                         </Label>
                      </children>
                   </HBox>
+                  <HBox fx:id="btnUpdate" alignment="CENTER" onMouseClicked="#handleUpdate" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/reading-book.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Update book">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
-            <VBox prefHeight="240.0" prefWidth="250.0" spacing="6.0">
+            <VBox prefHeight="171.0" prefWidth="250.0" spacing="6.0">
                <children>
                   <Label prefHeight="50.0" prefWidth="140.0" text="Your books">
                      <font>
@@ -129,20 +143,6 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox fx:id="btnReading" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
-                     <children>
-                        <ImageView fitHeight="41.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icon/reading-book.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="37.0" prefWidth="134.0" text="Reading">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
                   <HBox fx:id="btnFavorite" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="38.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -316,14 +316,14 @@
                               <Font name="Berlin Sans FB" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="btnTableView" minWidth="-Infinity" prefHeight="34.0" prefWidth="85.0" text="Table view">
+                        <Label fx:id="btnTableView" minWidth="-Infinity" onMouseClicked="#handleClicks" prefHeight="34.0" prefWidth="85.0" text="Table view">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <StackPane>
+                  <StackPane fx:id="stackPane">
                      <children>
                         <ScrollPane fx:id="booksBookstoreView" prefHeight="354.0" prefWidth="1099.0" styleClass="transparent" stylesheets="@../css/styles.css">
                            <content>
@@ -334,7 +334,7 @@
                               </GridPane>
                            </content>
                         </ScrollPane>
-                        <TableView fx:id="booksTableView" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="booksTableView" onMouseClicked="#handleUpdate" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="colID" prefWidth="75.0" text="ID" />
                             <TableColumn fx:id="colTitle" prefWidth="75.0" text="Title " />
