@@ -35,12 +35,33 @@
 	-fx-focus-color: -fx-secondary-color;
 }
 
-/* .text-field{
+#signup_input{
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 0 ;
  }
 
- .text-field:focused {
+ #signup_input:focused {
     -fx-background-color: -fx-focus-color, -fx-background ;
-} */
+}
+
+#highlight_text {
+    -fx-text-decoration: underline;
+    -fx-text-fill: #007acc;
+    -fx-underline: true;
+}
+
+#btn_signup {
+    -fx-background-radius: 58;
+    -fx-background-color: black;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#btn_google {
+    -fx-background-radius: 58;
+    -fx-background-color: white;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+

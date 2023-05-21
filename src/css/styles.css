@@ -35,12 +35,60 @@
 	-fx-focus-color: -fx-secondary-color;
 }
 
-/* .text-field{
+/*Custom btn in authentication UI*/
+#auth_input {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 0 ;
  }
 
- .text-field:focused {
+#auth_input:focused {
     -fx-background-color: -fx-focus-color, -fx-background ;
-} */
+}
+
+#termsOfService_text {
+    -fx-text-decoration: underline;
+    -fx-text-fill: #007acc;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0 0 1 0;
+    -fx-underline: true;
+}
+
+#auth_switch_btn {
+    -fx-text-decoration: underline;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+#btn_auth {
+    -fx-background-radius: 58;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#btn_google {
+    -fx-background-radius: 58;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+
+/*Custom checkbox*/
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px; 
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #28a3f4;
+}
+
