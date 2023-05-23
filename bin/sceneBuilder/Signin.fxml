@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.SigninController">
    <children>
       <AnchorPane layoutX="332.0" layoutY="-3.0" prefHeight="506.0" prefWidth="457.0">
          <children>
-            <Label layoutX="28.0" layoutY="14.0" prefWidth="313.0" text="Bookstore management ">
+            <Label layoutX="28.0" layoutY="14.0" prefWidth="313.0" text="Bookstore Management ">
                <font>
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>
@@ -29,7 +29,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="45.0" prefWidth="394.0" promptText="Password">
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Password" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -43,7 +43,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="45.0" prefWidth="394.0" promptText="Email">
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Email" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -57,23 +57,23 @@
                   </Label>
                   <VBox alignment="CENTER" prefHeight="134.0" prefWidth="394.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign in">
+                        <Button fx:id="btn_auth" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign in">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="15.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" text="Sign in with Google">
+                        <Button fx:id="btn_google" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign in with Google">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true">
@@ -96,7 +96,7 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label text="Sign up.">
+                              <Label fx:id="auth_switch_btn" onMouseClicked="#switchScene" stylesheets="@../css/styles.css" text="Sign up.">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

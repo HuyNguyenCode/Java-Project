@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="signup_scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.SignupController">
    <children>
       <AnchorPane layoutX="332.0" layoutY="-3.0" prefHeight="506.0" prefWidth="457.0">
          <children>
@@ -30,7 +30,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="signup_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Fullname" stylesheets="@../css/styles.css">
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Fullname" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -44,7 +44,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="signup_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Password" stylesheets="@../css/styles.css">
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Password" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -58,7 +58,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="signup_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Email" stylesheets="@../css/styles.css">
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Enter your Email" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -67,8 +67,8 @@
                   </VBox>
                   <HBox>
                      <children>
-                        <CheckBox mnemonicParsing="false" prefHeight="46.0" prefWidth="150.0" text="I agree all statements in" />
-                        <Label fx:id="highlight_text" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="90.0" text="terms of service">
+                        <CheckBox mnemonicParsing="false" prefHeight="46.0" prefWidth="151.0" stylesheets="@../css/styles.css" text="I agree all statements in" />
+                        <Label fx:id="termsOfService_text" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="90.0" stylesheets="@../css/styles.css" text="terms of service">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -77,12 +77,12 @@
                   </HBox>
                   <VBox fx:id="btn_input" alignment="CENTER" prefHeight="134.0" prefWidth="394.0">
                      <children>
-                        <Button fx:id="btn_signup" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign up">
+                        <Button fx:id="btn_auth" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign up">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                            <VBox.margin>
                               <Insets bottom="15.0" />
@@ -93,7 +93,7 @@
                               <Insets />
                            </opaqueInsets>
                            <font>
-                              <Font size="16.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="20.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true">
@@ -116,7 +116,7 @@
                                     <Insets right="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Sign In." underline="true">
+                              <Label fx:id="auth_switch_btn" onMouseClicked="#switchScene" stylesheets="@../css/styles.css" text="Sign In." underline="true">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

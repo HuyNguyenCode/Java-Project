@@ -35,33 +35,89 @@
 	-fx-focus-color: -fx-secondary-color;
 }
 
-#signup_input{
+/*Custom btn in authentication UI*/
+#auth_input {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 0 ;
- }
+}
 
- #signup_input:focused {
+#auth_input:focused {
     -fx-background-color: -fx-focus-color, -fx-background ;
 }
 
-#highlight_text {
+#termsOfService_text {
     -fx-text-decoration: underline;
     -fx-text-fill: #007acc;
     -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0 0 1 0;
+    -fx-underline: true;
 }
 
-#btn_signup {
+#auth_switch_btn {
+    -fx-text-decoration: underline;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+#btn_auth {
     -fx-background-radius: 58;
     -fx-background-color: black;
-    -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-cursor: hand;
 }
 
 #btn_google {
     -fx-background-radius: 58;
     -fx-background-color: white;
-    -fx-font-weight: bold;
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
+
+/*Custom checkbox*/
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px; 
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #28a3f4;
+}
+
+/*Custom invoice pop up*/
+
+#newInvoiceInput {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+    
+    /* -fx-background-color: white , white , white; */
+    /* -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1; */
+}
+
+#newInvoiceInput:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+
+    /* -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1; */
+}
+
+
+/*Custome Tableview*/
+.table-view .filler {
+    -fx-border-insets: 10;
+}
+
+.table-view .show-hide-columns-button {
+    -fx-background-color: red;
+    -fx-border-color: -fx-box-border;
+    -fx-border-insets: -1 -1 0 0;
+}

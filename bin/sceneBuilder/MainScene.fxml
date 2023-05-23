@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.MainSceneController">
+<BorderPane fx:id="pnBooks" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.MainSceneController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +35,7 @@
                   <TextField fx:id="searchInput" onKeyReleased="#searchBook" prefHeight="26.0" prefWidth="237.0" promptText="Search" styleClass="transparent" stylesheets="@../css/styles.css" />
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/search-icon.png" />
+                        <Image url="@../img/icon/search_icon.png" />
                      </image>
                   </ImageView>
                </children>
@@ -62,7 +62,7 @@
       </HBox>
    </top>
    <left>
-      <VBox fx:id="sideNav" prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="282.0" prefWidth="250.0" spacing="6.0">
                <children>
@@ -200,7 +200,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="65.0" prefWidth="250.0">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #FF5056;" styleClass="transparent" stylesheets="@../css/styles.css" text="Create a Shelf" textFill="WHITE">
+                        <Button fx:id="btnInvoice" mnemonicParsing="false" onAction="#switchScene" style="-fx-background-color: #FF5056;" styleClass="transparent" stylesheets="@../css/styles.css" text="Invoice" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
