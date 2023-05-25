@@ -99,8 +99,8 @@ public class ControllDB {
         return false;
     }
 
-    public static void main(String[] args) {
-        Book t = new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance");
-        ControllDB.deleteFromBook(t);
-    }
+    // public static void main(String[] args) {
+    //     Book t = new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance");
+    //     ControllDB.deleteFromBook(t);
+    // }
 }
