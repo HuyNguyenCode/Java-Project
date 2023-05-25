@@ -2,6 +2,11 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,6 +16,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -64,16 +70,8 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0" styleClass="white-background" stylesheets="@../css/styles.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="282.0" prefWidth="250.0" spacing="6.0">
+            <VBox prefHeight="306.0" prefWidth="250.0" spacing="6.0">
                <children>
-                  <Label prefHeight="50.0" prefWidth="169.0" text="Books management">
-                     <font>
-                        <Font name="Berlin Sans FB" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </Label>
                   <HBox fx:id="btnDashboard" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -87,7 +85,15 @@
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+                     </VBox.margin>
                   </HBox>
+                  <Button fx:id="btnbookManage" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="47.0" prefWidth="190.0" text="Books management" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+                     </font>
+                  </Button>
                   <HBox fx:id="btnAddBook" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -101,6 +107,9 @@
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox fx:id="btnDelete" alignment="CENTER" onMouseClicked="#handleUpdate" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
@@ -115,6 +124,9 @@
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox fx:id="btnUpdate" alignment="CENTER" onMouseClicked="#handleUpdate" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
@@ -129,83 +141,131 @@
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
-            <VBox prefHeight="171.0" prefWidth="250.0" spacing="6.0">
+            <VBox prefHeight="436.0" prefWidth="250.0" stylesheets="@../css/styles.css">
                <children>
-                  <Label prefHeight="50.0" prefWidth="140.0" text="Your books">
+                  <Label prefHeight="50.0" prefWidth="170.0" text="Management">
                      <font>
-                        <Font name="Berlin Sans FB" size="18.0" />
+                        <Font name="Berlin Sans FB" size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="20.0" left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox fx:id="btnFavorite" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnBooks" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" stylesheets="@../css/styles.css">
                      <children>
-                        <ImageView fitHeight="38.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/favorite.png" />
+                              <Image url="@../img/icon/book_selected_icon.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="37.0" prefWidth="134.0" text="Favorite">
+                        <Label prefHeight="38.0" prefWidth="59.0" text="Books">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </Label>
                      </children>
-                  </HBox>
-                  <HBox fx:id="btnHistory" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
-                     <children>
-                        <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icon/transaction-history.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="37.0" prefWidth="134.0" text="History">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <Separator prefWidth="200.0" />
-            <VBox prefHeight="199.0" prefWidth="250.0" spacing="6.0">
-               <children>
-                  <Label prefHeight="50.0" prefWidth="140.0" text="Shelves">
-                     <font>
-                        <Font name="Berlin Sans FB" size="18.0" />
-                     </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
                      </VBox.margin>
-                  </Label>
-                  <HBox fx:id="btnShelves" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="btnInvoices" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </VBox.margin>
                      <children>
-                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/icon/bookshelf.png" />
+                              <Image url="@../img/icon/invoice_icon.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="37.0" prefWidth="134.0" text="Your Shelves">
+                        <Label prefHeight="38.0" prefWidth="59.0" text="Invoices">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="250.0">
+                  <HBox alignment="CENTER" />
+                  <HBox fx:id="btnStaffs" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
-                        <Button fx:id="btnInvoice" mnemonicParsing="false" onAction="#switchScene" style="-fx-background-color: #FF5056;" styleClass="transparent" stylesheets="@../css/styles.css" text="Invoice" textFill="WHITE">
+                        <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/staff_icon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="38.0" prefWidth="59.0" text="Staffs">
                            <font>
-                              <Font size="16.0" />
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="btnSuppliers" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/supplier_icon.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="20.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label contentDisplay="CENTER" prefHeight="38.0" prefWidth="68.0" text="Suppliers" HBox.hgrow="SOMETIMES">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button fx:id="btnExit" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="37.0" prefWidth="214.0" style="-fx-background-color: #FF5056;" styleClass="transparent" stylesheets="@../css/styles.css" text="Exit" textFill="WHITE">
+                           <font>
+                              <Font name="Berlin Sans FB Demi Bold" size="20.0" />
                            </font>
                         </Button>
                      </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
@@ -215,82 +275,110 @@
    <center>
       <StackPane BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="pnShelves" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+            <VBox fx:id="pnDashboard" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css">
                <styleClass>
                   <String fx:value="round-layout" />
                   <String fx:value="white-background" />
                </styleClass>
                <children>
-                  <BorderPane prefHeight="699.0" prefWidth="1081.0" VBox.vgrow="ALWAYS">
-                     <center>
-                        <VBox prefHeight="699.0" prefWidth="141.0">
+                  <HBox prefHeight="193.0" prefWidth="1003.0">
+                     <children>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="321.0" style="-fx-background-radius: 15; -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 10);" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="white-background" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="170.0" prefWidth="321.0" style="-fx-background-radius: 15; -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 10);" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="white-background" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="173.0" prefWidth="321.0" style="-fx-background-radius: 15; -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 10);" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="white-background" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="450.0" stylesheets="@../css/styles.css">
+                           <styleClass>
+                              <String fx:value="dashboard_background" />
+                              <String fx:value="white-background" />
+                           </styleClass>
                            <children>
-                              <Label prefHeight="50.0" prefWidth="140.0" text="Category">
-                                 <font>
-                                    <Font name="Berlin Sans FB" size="18.0" />
-                                 </font>
-                              </Label>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <BarChart fx:id="priceChart" layoutX="-36.0" layoutY="14.0" prefHeight="505.6" prefWidth="450.4" title="Total Price chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </AnchorPane>
+                        <VBox prefHeight="506.0" prefWidth="670.0">
+                           <children>
+                              <AnchorPane prefHeight="252.0" prefWidth="524.0" stylesheets="@../css/styles.css">
+                                 <styleClass>
+                                    <String fx:value="dashboard_background" />
+                                    <String fx:value="white-background" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
                                  <children>
-                                    <HBox prefHeight="58.0" prefWidth="214.0">
-                                       <children>
-                                          <Label prefHeight="61.0" prefWidth="89.0" text="All genre">
-                                             <font>
-                                                <Font name="Berlin Sans FB" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                       <padding>
-                                          <Insets left="20.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox prefHeight="58.0" prefWidth="214.0">
-                                       <children>
-                                          <Label prefHeight="63.0" prefWidth="221.0" text="Art &amp; Photography">
-                                             <font>
-                                                <Font name="Berlin Sans FB" size="18.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="20.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="58.0" prefWidth="214.0">
-                                       <children>
-                                          <Label prefHeight="63.0" prefWidth="221.0" text="Biography &amp; Memories">
-                                             <font>
-                                                <Font name="Berlin Sans FB" size="18.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="20.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
+                                    <PieChart fx:id="categoryChart" layoutX="-101.0" layoutY="-66.0" prefHeight="200.0" prefWidth="528.0" title="Category Static chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
-                              </VBox>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="234.0" prefWidth="494.0" stylesheets="@../css/styles.css">
+                                 <styleClass>
+                                    <String fx:value="white-background" />
+                                    <String fx:value="dashboard_background" />
+                                 </styleClass>
+                                 <children>
+                                    <StackedBarChart layoutX="-156.0" layoutY="-166.0" prefHeight="234.4" prefWidth="528.0" title="Stock Static Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </StackedBarChart>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </VBox>
-                     </center>
-                     <right>
-                        <ScrollPane prefHeight="699.0" prefWidth="980.0">
-                           <content>
-                              <GridPane fx:id="bookGridPane" prefHeight="0.0" prefWidth="0.0">
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </content>
-                        </ScrollPane>
-                     </right>
-                  </BorderPane>
+                     </children>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
             </VBox>
-            <VBox fx:id="pnAvailableBooks" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css">
+            <VBox fx:id="pnBooksManagement" prefHeight="650.0" prefWidth="983.0" spacing="10.0" style="-fx-border-radius: 20;" stylesheets="@../css/styles.css" visible="false">
                <children>
                   <Label prefHeight="31.0" prefWidth="230.0" stylesheets="@../css/styles.css" text="Recommended books">
                      <font>
