@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.SigninController">
+   <children>
+      <AnchorPane layoutX="332.0" layoutY="-3.0" prefHeight="506.0" prefWidth="457.0">
+         <children>
+            <Label layoutX="28.0" layoutY="14.0" prefWidth="313.0" text="Bookstore Management ">
+               <font>
+                  <Font name="Berlin Sans FB" size="27.0" />
+               </font>
+            </Label>
+            <VBox layoutX="28.0" layoutY="71.0" prefHeight="368.0" prefWidth="394.0">
+               <children>
+                  <VBox prefHeight="80.0" prefWidth="423.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="65.0" text="Password">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Password" stylesheets="@../css/styles.css">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="80.0" prefWidth="328.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="38.0" text="Email">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="auth_input" prefHeight="45.0" prefWidth="394.0" promptText="Email" stylesheets="@../css/styles.css">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <Label prefHeight="55.0" prefWidth="118.0" text="Forget password">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="134.0" prefWidth="394.0">
+                     <children>
+                        <Button fx:id="btn_auth" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign in">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btn_google" mnemonicParsing="false" prefHeight="45.0" prefWidth="394.0" stylesheets="@../css/styles.css" text="Sign in with Google">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/google.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </Button>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Don't you have account ?">
+                                 <opaqueInsets>
+                                    <Insets left="10.0" />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="auth_switch_btn" onMouseClicked="#switchScene" stylesheets="@../css/styles.css" text="Sign up.">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="499.0" fitWidth="365.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/cover/cover_sigup.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

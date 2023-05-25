@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="535.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.AddBookController">
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <content>
+      <AnchorPane prefHeight="418.0" prefWidth="491.0">
+         <children>
+            <Label layoutY="14.0" text="Add new book">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Label>
+            <Separator layoutX="14.0" layoutY="44.0" prefHeight="0.0" prefWidth="518.0" />
+            <GridPane layoutX="14.0" layoutY="77.0" prefHeight="62.0" prefWidth="165.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Book ID">
+                     <opaqueInsets>
+                        <Insets left="15.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <TextField fx:id="textfiledID" prefHeight="30.0" prefWidth="158.0" text="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="193.0" layoutY="77.0" prefHeight="62.0" prefWidth="165.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Stock" />
+                  <TextField fx:id="textfiledStock" prefHeight="30.0" prefWidth="181.0" text="2" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="14.0" layoutY="161.0" prefHeight="62.0" prefWidth="520.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Title" />
+                  <TextField fx:id="textfiledTitle" prefHeight="30.0" prefWidth="181.0" text="A" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="370.0" layoutY="77.0" prefHeight="62.0" prefWidth="165.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Price" />
+                  <TextField fx:id="textfiledPrice" prefHeight="30.0" prefWidth="181.0" text="3" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="14.0" layoutY="250.0" prefHeight="62.0" prefWidth="520.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Author" />
+                  <TextField fx:id="textfiledAuthor" prefHeight="30.0" prefWidth="181.0" text="VB" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="16.0" layoutY="334.0" prefHeight="62.0" prefWidth="520.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Publisher" />
+                  <TextField fx:id="textfiledPublisher" prefHeight="30.0" prefWidth="181.0" text="C" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="273.0" layoutY="405.0" prefHeight="62.0" prefWidth="257.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Year" />
+                  <TextField fx:id="textfiledYear" prefHeight="30.0" prefWidth="181.0" text="2022" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane layoutX="16.0" layoutY="405.0" prefHeight="62.0" prefWidth="241.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Category" />
+                  <TextField fx:id="textfiledCategory" prefHeight="30.0" prefWidth="181.0" text="C" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>
