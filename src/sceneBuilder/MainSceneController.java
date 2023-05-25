@@ -8,24 +8,22 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
-import javax.naming.Binding;
-import javax.swing.Action;
-
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 // import javafx.geometry.Insets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -39,8 +37,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -153,7 +149,10 @@ public class MainSceneController implements Initializable {
     private TextField searchInput;
 
     @FXML
-    private BarChart<?, ?> priceChart;
+    private BarChart<String, Double> priceChart;
+
+    @FXML
+    private StackedAreaChart<Integer, Integer> stockChart;
     
     @FXML
     private PieChart categoryChart;
@@ -161,8 +160,9 @@ public class MainSceneController implements Initializable {
     private Stage primaryStage;
 
     
-    ObservableList<Book> books = FXCollections.observableArrayList();                  
+    ObservableList<Book> books = FXCollections.observableArrayList();   
 
+    // @SuppressWarnings("unchecked")
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         recommendedBooks = new ArrayList<>(recommendedBooks());
@@ -199,34 +199,52 @@ public class MainSceneController implements Initializable {
             // }      
             
 
-            XYChart.Series chart = new XYChart.Series();
+            // BarChart - priceChart
+            XYChart.Series<String, Double> chart = new XYChart.Series<>();
             chart.setName("Product sold");
-            
-            chart.getData().add(new XYChart.Data("PA", 2000));
-            chart.getData().add(new XYChart.Data("PB", 3000));
-            chart.getData().add(new XYChart.Data("PC", 1500));
-            chart.getData().add(new XYChart.Data("PD", 100));
-
+            chart.getData().add(new XYChart.Data<String, Double>("PA", 2000.0));
+            chart.getData().add(new XYChart.Data<String, Double>("PB", 3000.0));
+            chart.getData().add(new XYChart.Data<String, Double>("PC", 1500.0));
+            chart.getData().add(new XYChart.Data<String, Double>("PD", 1000.0));
             priceChart.getData().add(chart);
             
 
-
+            // PieChart - categoryChart
             ObservableList <PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("PA", 40),
                 new PieChart.Data("PB", 20),
                 new PieChart.Data("PC", 18),
                 new PieChart.Data("PD", 70),
-                new PieChart.Data("PE", 29)
+                new PieChart.Data("PE", 10)
             );
-
             categoryChart.setClockwise(true);
             categoryChart.setLabelLineLength(50);
             categoryChart.setLabelsVisible(true);
             categoryChart.setStartAngle(180);
-        
-            
             categoryChart.getData().addAll(pieChartData);
-            // categoryChart.getData().add(pieChartData); 
+            categoryChart.setLegendSide(Side.LEFT);
+            
+            // StackedChart - stockChart
+            XYChart.Series<Integer, Integer> stackedChart1 = new XYChart.Series<>();
+            stackedChart1.setName("2012");
+            stackedChart1.getData().add(new XYChart.Data<>(12, 25));
+            stackedChart1.getData().add(new XYChart.Data<>(15, 18));
+            stackedChart1.getData().add(new XYChart.Data<>(18, 15));
+            stackedChart1.getData().add(new XYChart.Data<>(24, 19));
+            stackedChart1.getData().add(new XYChart.Data<>(22, 21));
+
+            XYChart.Series<Integer, Integer> stackedChart2 = new XYChart.Series<>();
+            stackedChart2.setName("2011");
+            stackedChart2.getData().add(new XYChart.Data<>(16, 12));
+            stackedChart2.getData().add(new XYChart.Data<>(17, 26));
+            stackedChart2.getData().add(new XYChart.Data<>(11, 21));
+            stackedChart2.getData().add(new XYChart.Data<>(12, 29));
+            stackedChart2.getData().add(new XYChart.Data<>(15, 23));
+
+            stockChart.getData().addAll(stackedChart1, stackedChart2);
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
