@@ -18,7 +18,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <AnchorPane prefHeight="418.0" prefWidth="491.0">
+      <AnchorPane prefHeight="418.0" prefWidth="491.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
             <Label layoutY="14.0" text="Update book">
                <opaqueInsets>

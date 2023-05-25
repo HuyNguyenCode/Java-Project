@@ -46,7 +46,7 @@
                         <Insets left="15.0" />
                      </opaqueInsets>
                   </Label>
-                  <TextField fx:id="textfiledID" prefHeight="30.0" prefWidth="158.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledID" prefHeight="30.0" prefWidth="158.0" text="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="193.0" layoutY="77.0" prefHeight="62.0" prefWidth="165.0">
@@ -59,7 +59,7 @@
                </rowConstraints>
                <children>
                   <Label text="Stock" />
-                  <TextField fx:id="textfiledStock" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledStock" prefHeight="30.0" prefWidth="181.0" text="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="161.0" prefHeight="62.0" prefWidth="520.0">
@@ -72,7 +72,7 @@
                </rowConstraints>
                <children>
                   <Label text="Title" />
-                  <TextField fx:id="textfiledTitle" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledTitle" prefHeight="30.0" prefWidth="181.0" text="A" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="370.0" layoutY="77.0" prefHeight="62.0" prefWidth="165.0">
@@ -85,7 +85,7 @@
                </rowConstraints>
                <children>
                   <Label text="Price" />
-                  <TextField fx:id="textfiledPrice" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledPrice" prefHeight="30.0" prefWidth="181.0" text="3" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="250.0" prefHeight="62.0" prefWidth="520.0">
@@ -98,7 +98,7 @@
                </rowConstraints>
                <children>
                   <Label text="Author" />
-                  <TextField fx:id="textfiledAuthor" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledAuthor" prefHeight="30.0" prefWidth="181.0" text="VB" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="16.0" layoutY="334.0" prefHeight="62.0" prefWidth="520.0">
@@ -111,7 +111,7 @@
                </rowConstraints>
                <children>
                   <Label text="Publisher" />
-                  <TextField fx:id="textfiledPublisher" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledPublisher" prefHeight="30.0" prefWidth="181.0" text="C" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="273.0" layoutY="405.0" prefHeight="62.0" prefWidth="257.0">
@@ -124,7 +124,7 @@
                </rowConstraints>
                <children>
                   <Label text="Year" />
-                  <TextField fx:id="textfiledYear" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledYear" prefHeight="30.0" prefWidth="181.0" text="2022" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="16.0" layoutY="405.0" prefHeight="62.0" prefWidth="241.0">
@@ -137,7 +137,7 @@
                </rowConstraints>
                <children>
                   <Label text="Category" />
-                  <TextField fx:id="textfiledCategory" prefHeight="30.0" prefWidth="181.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfiledCategory" prefHeight="30.0" prefWidth="181.0" text="C" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>

@@ -14,10 +14,14 @@
 
 .selected {
     -fx-background-color: #f3f3f3;
+    
+    /* -fx-border-radius: 58; */
+    /* -fx-background-radius: 10; */
+
 }
 
 .mouse-moved:hover {
-    -fx-background-color: #e4e4e4;
+    -fx-background-color: #f3f3f3;
 }
 
 .shadow {
@@ -35,7 +39,24 @@
 	-fx-focus-color: -fx-secondary-color;
 }
 
-/*Custom btn in authentication UI*/
+/*Custom btn side bar*/
+#btnInvoiceDashboard,
+#btnAddInvoice,
+#btnDeleteInvoice, 
+#btnUpdateInvoice,
+#btnDashboard,
+#btnAddBook,
+#btnDelete,
+#btnUpdate,
+#btnInvoices,
+#btnBooks,
+#btnStaffs,
+#btnSuppliers,
+#btnExit {
+    -fx-cursor: hand;   
+}
+
+/*Custom btn and textfiled in authentication UI*/
 #auth_input {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
@@ -76,7 +97,6 @@
     -fx-cursor: hand;
 }
 
-
 /*Custom checkbox*/
 .check-box .box {
     -fx-background-color: white;
@@ -93,7 +113,6 @@
 }
 
 /*Custom invoice pop up*/
-
 #newInvoiceInput {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
@@ -120,4 +139,25 @@
     -fx-background-color: red;
     -fx-border-color: -fx-box-border;
     -fx-border-insets: -1 -1 0 0;
+}
+
+/*Custom adding and update pop up book*/
+/* .text-field {
+	-fx-accent: -fx-primary-color;
+	-fx-background-color: -fx-grey-color, white;
+	-fx-background-insets: 0, 0 0 1 0;
+	-fx-background-radius: 0;
+}
+.text-field:focused {
+	-fx-background-color: -fx-primary-color, white;
+} */
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
 }

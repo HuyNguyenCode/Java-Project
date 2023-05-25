@@ -16,7 +16,7 @@
    <children>
       <AnchorPane layoutX="332.0" layoutY="-3.0" prefHeight="506.0" prefWidth="457.0">
          <children>
-            <Label layoutX="28.0" layoutY="14.0" prefWidth="313.0" text="Bookstore management ">
+            <Label layoutX="28.0" layoutY="14.0" prefWidth="313.0" text="Bookstore Management ">
                <font>
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>

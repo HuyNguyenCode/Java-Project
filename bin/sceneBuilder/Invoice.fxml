@@ -129,19 +129,19 @@
                </children>
             </VBox>
             <Separator prefWidth="200.0" />
-            <VBox prefHeight="434.0" prefWidth="250.0" stylesheets="@../css/styles.css">
+            <VBox prefHeight="436.0" prefWidth="250.0" stylesheets="@../css/styles.css">
                <children>
                   <Label prefHeight="50.0" prefWidth="170.0" text="Management">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="20.0" left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox fx:id="btnInvoices" alignment="CENTER">
+                  <HBox fx:id="btnInvoices" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" stylesheets="@../css/styles.css">
                      <VBox.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
@@ -158,8 +158,12 @@
                            </font>
                         </Button>
                      </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="selected" />
+                     </styleClass>
                   </HBox>
-                  <HBox alignment="CENTER">
+                  <HBox fx:id="btnBooks" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -176,11 +180,11 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" />
-                  <HBox fx:id="btnStaffs" alignment="CENTER">
+                  <HBox fx:id="btnStaffs" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -200,10 +204,10 @@
                         <Insets />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox fx:id="btnSuppliers" alignment="CENTER">
+                  <HBox fx:id="btnSuppliers" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -220,7 +224,7 @@
                         </Button>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox fx:id="btnExit" alignment="CENTER">
