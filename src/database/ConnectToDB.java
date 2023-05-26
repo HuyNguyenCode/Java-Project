@@ -13,16 +13,18 @@ public class ConnectToDB{
         System.out.println("Connecting Database............");
         
         try {
-            String databaseName = "QLSach";
+            String serverName = "LAPTOP-1D1J7CQK";
+            String databaseName = "BookStore";
             String user = "sa";
-            String password = "1";
-            String url = "jdbc:sqlserver://localhost:1433;databasename=" + databaseName + ";encrypt=true;trustServerCertificate=true;";
+            String password = "sa";
+            String url = "jdbc:sqlserver://" + serverName + ":1433;databasename=" + databaseName + ";encrypt=true;trustServerCertificate=true;";
             
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(url, user, password);       
             
             System.out.println("Success!");     
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Connecting Error!");
         }
         return con;
