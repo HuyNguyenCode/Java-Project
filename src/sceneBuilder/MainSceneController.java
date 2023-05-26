@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-// import javafx.geometry.Insets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedAreaChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -107,7 +105,6 @@ public class MainSceneController implements Initializable {
     private GridPane bookContainer;
 
     private List<Book> recommendedBooks;
-    // private List<Book> recommended;
 
     @FXML
     private GridPane bookGridPane;
@@ -162,14 +159,9 @@ public class MainSceneController implements Initializable {
     
     ObservableList<Book> books = FXCollections.observableArrayList();   
 
-    // @SuppressWarnings("unchecked")
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         recommendedBooks = new ArrayList<>(recommendedBooks());
-        // recommended = new ArrayList<>(books());
-
-        // int colGridRecommend = 0;
-        // int rowGridRecommend = 1;
 
         try {
             
@@ -181,23 +173,7 @@ public class MainSceneController implements Initializable {
                 CardController cardController = fxmlLoader.getController();
                 cardController.setData(recommendedBooks.get(i));
                 cardLayout.getChildren().add(carBox);
-            }
-
-            //load fxml and controller
-            // for (Book book : recommended) {
-            //     FXMLLoader fxmlLoader = new FXMLLoader();
-            //     fxmlLoader.setLocation(getClass().getResource("Book.fxml"));
-            //     VBox bookBox = fxmlLoader.load();
-            //     BookController bookController = fxmlLoader.getController();
-            //     bookController.setData(book);
-            //     if (colGridRecommend == 6) {
-            //         colGridRecommend = 0;
-            //         ++rowGridRecommend; 
-            //     }
-            //     bookContainer.add(bookBox, colGridRecommend++, rowGridRecommend);
-            //     GridPane.setMargin(bookBox, new Insets(10));
-            // }      
-            
+            }            
 
             // BarChart - priceChart
             XYChart.Series<String, Double> chart = new XYChart.Series<>();
@@ -274,82 +250,6 @@ public class MainSceneController implements Initializable {
         return ls;
     }
 
-    // private List<Book> books() {
-    //     List<Book> ls = new ArrayList<>();
-    //     Book book = new Book();
-    //     book.setTitle("RICH DAD\nPOOR DAD");
-    //     book.setImageSrc("/img/book/rich_dad_poor_dad.jpg");
-    //     book.setAuthor("Robert T.Kiyosaki");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THE WARREN\nBUFFET WAY");
-    //     book.setImageSrc("/img/book/the_warren_buffet_way.jpg");
-    //     book.setAuthor("Robert G.Hagstorm");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THE SEVEN HABITS\nOF HIGHLY EFFECTIVE PEOPLE");
-    //     book.setImageSrc("/img/book/the_seven_habits_of_highly_effective_people.jpg");
-    //     book.setAuthor("Stephen R.Covey");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("SAPIENS");
-    //     book.setImageSrc("/img/book/sapiens.jpg");
-    //     book.setAuthor("Yuval Noah Harari");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("ATOMIC HABITS");
-    //     book.setImageSrc("/img/book/atomic_habits.jpg");
-    //     book.setAuthor("James Clear");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THE POWER OF NOW");
-    //     book.setImageSrc("/img/book/the_power_of_now.jpg");
-    //     book.setAuthor("Eckhart Tolle");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THINKING FAST AND SLOW");
-    //     book.setImageSrc("/img/book/thinking_fast_and_slow.jpg");
-    //     book.setAuthor("Daniel Kahneman");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("OUTLIERS");
-    //     book.setImageSrc("/img/book/outliers.jpg");
-    //     book.setAuthor("Malcom Gladwell");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THE MAGIC OF\nTHINKING BIG");
-    //     book.setImageSrc("/img/book/the_magic_of_thinking_big.jpg");
-    //     book.setAuthor("David Joseph Schwartz");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("THE HAPPINESS PROJECT");
-    //     book.setImageSrc("/img/book/the_happiness_project.jpg");
-    //     book.setAuthor("Gretchen Rubin");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("HOW TO STOP WORRYING\nAND START LIVING");
-    //     book.setImageSrc("/img/book/how_to_stop_worrying_and_start_living.jpg");
-    //     book.setAuthor("Dale Carnegie");
-    //     ls.add(book);
-
-    //     book = new Book();
-    //     book.setTitle("AWAKEN THE GIANT WITHIN");
-    //     book.setImageSrc("/img/book/awaken_the_giant_within.jpg");
-    //     book.setAuthor("Tony Robbins");
-    //     ls.add(book);
-    //     return ls;
-    // } 
-
     void removeStyleClass() {
         List<HBox> ls = new ArrayList<>();
         ls.add(btnDashboard);
@@ -391,12 +291,6 @@ public class MainSceneController implements Initializable {
             dialog.showAndWait();
 
       
-            
-            // FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBook.fxml"));
-            // AddBookController addBook = loader.load();
-
-            // Get controller of AddBook.fxml through fxmlLoader
-            // FXMLLoader loader = new FXMLLoader(getClass().getResource("AddBook.fxml"));
             AddBookController addBook = fxmlLoader.getController();  
 
 
@@ -524,7 +418,7 @@ public class MainSceneController implements Initializable {
         
                     for (Book book : currentTableData) {
                         if(book.getId() == currentID) {
-        
+    
                             book.setTitle(updateBook.getTextfiledTitle().getText());
                             book.setAuthor(updateBook.getTextfiledAuthor().getText());
                             book.setCategory(updateBook.getTextfiledCategory().getText());
@@ -558,7 +452,6 @@ public class MainSceneController implements Initializable {
                         return true;
                     } 
                     String toLowerCaseFilter = newValue.toLowerCase();
-                    
                     if (String.valueOf(cust.getId()).contains(newValue)) {
                         return true;
                     } else if (cust.getCategory().toLowerCase().contains(toLowerCaseFilter)) {
@@ -585,9 +478,4 @@ public class MainSceneController implements Initializable {
             booksTableView.setItems(booksSortedList);
         });
     }
-
-    // @FXML
-    // void handleBarchart() {
-        
-    // }
 }
