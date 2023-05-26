@@ -16,16 +16,22 @@
     -fx-background-color: #f3f3f3;
     
     /* -fx-border-radius: 58; */
-    /* -fx-background-radius: 10; */
+    -fx-background-radius: 10;
 
 }
 
 .mouse-moved:hover {
     -fx-background-color: #f3f3f3;
+    -fx-background-radius: 10;
 }
 
 .shadow {
     -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 10);
+}
+
+.dashboard_background {
+    -fx-effect: dropShadow(three-pass-box, rgba(0, 0, 0, 0.4), 6, 0, 0, 0);
+    -fx-background-radius: 8px;
 }
 
 .layer {
@@ -43,6 +49,7 @@
 #btnInvoiceDashboard,
 #btnAddInvoice,
 #btnDeleteInvoice, 
+#btnbookManage,
 #btnUpdateInvoice,
 #btnDashboard,
 #btnAddBook,
@@ -131,15 +138,35 @@
 
 
 /*Custome Tableview*/
-.table-view .filler {
-    -fx-border-insets: 10;
+/* .table-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-border-color:  linear-gradient(to bottom right, #bdc3c7, #2c3e50);
+
+    -fx-border-width:2px;
+    -fx-border-radius:8px;
 }
 
-.table-view .show-hide-columns-button {
-    -fx-background-color: red;
-    -fx-border-color: -fx-box-border;
-    -fx-border-insets: -1 -1 0 0;
+.table-view .table-column {
+    -fx-alignment: CENTER;
 }
+
+.table-view .column-header-background {
+    -fx-background-color:  linear-gradient(to bottom right, #bdc3c7, #2c3e50);
+    -fx-background-radius: 8px, 8px, 0px, 0px;
+    -fx-background-inset: 0, 0, 0, 0;
+}
+
+.table-view .column-header, .filter {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header, .lable {
+    -fx-text-fill:  #fff;
+    -fx-font-family: "Arial";
+} */
+
 
 /*Custom adding and update pop up book*/
 /* .text-field {
@@ -161,3 +188,24 @@
 .text-field:focused {
     -fx-background-color: -fx-focus-color, -fx-background ;
 }
+
+#btnbookManage {
+    -fx-background-color: #34a953;
+    /* -fx-background-radius: 10px ; */
+    -fx-border-radius: 0 58 58 0;
+    -fx-background-radius: 0 58 58 0;
+  
+    /* -fx-border-radius: 58; */
+    -fx-background-color: 
+        #45e370,
+        linear-gradient(#45e370 50%, #45d16a 100%),
+        radial-gradient(center 50% -40%, radius 200%, #45e370 45%, #45d16a 50%);
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+/* #btnDashboard {
+    -fx-background-color: #FF5056;
+    -fx-background-radius: 10;
+} */

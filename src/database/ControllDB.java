@@ -15,7 +15,7 @@ public class ControllDB {
 
         try {
             String tableName = "books";
-            String sql = "insert into " + tableName + " values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into " + tableName + " values(?,?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             int id = book.getId();
             String title = book.getTitle();
@@ -102,7 +102,7 @@ public class ControllDB {
 
     public static boolean updateBooks(Book book){
         try {
-            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("update books set tile=?, author=?, publisher=?, year=?, category=?, price=?, stock=? where id=?");
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("update books set title=?, author=?, publisher=?, year=?, category=?, price=?, stock=? where id=?");
             pst.setString(1, book.getTitle());
             pst.setString(2, book.getAuthor());
             pst.setString(3, book.getPublisher());
@@ -148,20 +148,20 @@ public class ControllDB {
     // public static void main(String[] args) {
     //     // Book t = new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance");
     //     // ControllDB.deleteFromBook(t);
-    //     try {
-    //         PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("insert into books values(?,?,?,?,?,?,?,?)");
-    //         pst.setInt(1, 21);
-    //         pst.setString(2, "Ngo van manh");
-    //         pst.setString(3, "Manh");
-    //         pst.setString(4, "mmmm");
-    //         pst.setInt(5, 2003);
-    //         pst.setString(6, "The loai");
-    //         pst.setDouble(7, 100);
-    //         pst.setInt(8, 2000);
-    //         pst.executeUpdate();
-    //     } catch (SQLException e) {
-    //         // TODO Auto-generated catch block
-    //         e.printStackTrace();
-    //     }
+    //     // try {
+    //     //     PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("insert into books values(?,?,?,?,?,?,?,?)");
+    //     //     pst.setInt(1, 21);
+    //     //     pst.setString(2, "Ngo van manh");
+    //     //     pst.setString(3, "Manh");
+    //     //     pst.setString(4, "mmmm");
+    //     //     pst.setInt(5, 2003);
+    //     //     pst.setString(6, "The loai");
+    //     //     pst.setDouble(7, 100);
+    //     //     pst.setInt(8, 2000);
+    //     //     pst.executeUpdate();
+    //     // } catch (SQLException e) {
+    //     //     // TODO Auto-generated catch block
+    //     //     e.printStackTrace();
+    //     // }
     // }
 }
