@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+import database.ControllDB;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.collections.FXCollections;
@@ -220,7 +221,16 @@ public class MainSceneController implements Initializable {
             stockChart.getData().addAll(stackedChart1, stackedChart2);
 
 
-
+            books = ControllDB.getListFromBooks();
+            colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
+            colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
+            colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
+            colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
+            colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
+            colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
+            booksTableView.setItems(books);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -268,16 +278,6 @@ public class MainSceneController implements Initializable {
 
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
-        
-        //Switch between tableview and bookstores view
-        // ObservableList<Node> childs = stackPane.getChildren();
-        // if (event.getSource() == btnTableView) {
-        //     if (childs.size() > 1) {
-        //         Node topNode = childs.get(childs.size()-1);
-        //         topNode.toBack();
-        //      }
-        // }
-
         //Handle event on addbtn
         if (event.getSource() == btnAddBook) {
 
@@ -322,6 +322,17 @@ public class MainSceneController implements Initializable {
                         alertError.showAndWait();
                     } else {
                         books.add(new Book(
+                            addBook.getTextfiledID(), 
+                            addBook.getTextfiledYear(), 
+                            addBook.getTextfiledStock(), 
+                            addBook.getTextfiledPrice(), 
+                            addBook.getTextfiledTitle(),
+                            null, 
+                            addBook.getTextfiledAuthor(), 
+                            addBook.getTextfiledPublisher(), 
+                            addBook.getTextfiledCategory()
+                        ));
+                        ControllDB.insertValuesIntoBooks(new Book(
                             addBook.getTextfiledID(), 
                             addBook.getTextfiledYear(), 
                             addBook.getTextfiledStock(), 
@@ -427,6 +438,7 @@ public class MainSceneController implements Initializable {
                             book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
                             book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
                             
+                            ControllDB.updateBooks(book);
                             booksTableView.setItems(currentTableData);
                             booksTableView.refresh();
                             break;
@@ -439,6 +451,7 @@ public class MainSceneController implements Initializable {
 
         if (event.getSource() == btnDelete) { 
             booksTableView.getItems().removeAll(clickedBook);
+            ControllDB.deleteFromBooks(clickedBook);
         }  
     }
 
