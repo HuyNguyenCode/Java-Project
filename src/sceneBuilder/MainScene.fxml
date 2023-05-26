@@ -72,7 +72,7 @@
          <children>
             <VBox prefHeight="306.0" prefWidth="250.0" spacing="6.0">
                <children>
-                  <HBox fx:id="btnDashboard" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnDashboard" alignment="CENTER" onMouseClicked="#handleSwitch" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -89,7 +89,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="btnbookManage" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="47.0" prefWidth="190.0" text="Books management" textFill="WHITE">
+                  <Button fx:id="btnbookManage" mnemonicParsing="false" onMouseClicked="#handleSwitch" prefHeight="47.0" prefWidth="190.0" text="Books management" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="18.0" />
                      </font>

@@ -100,12 +100,11 @@ public class InvoiceController {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(addInvoiceDialogPane);
             dialog.setTitle("Add new invoice");
-            dialog.showAndWait();
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
       
             AddInvoiceController addInvoice = fxmlLoader.getController();  
 
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             if (clickedButton.get() == ButtonType.OK) { 
                 //Adding Confirmation 
@@ -154,7 +153,13 @@ public class InvoiceController {
         }
 
         if (event.getSource() == btnExit) {
-            javafx.application.Platform.exit();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm to exit program !");
+            alert.setContentText("Do you want to exit ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) { 
+                javafx.application.Platform.exit();
+            }
         }
 
         if (event.getSource() == btnBooks) {
@@ -196,38 +201,50 @@ public class InvoiceController {
         
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(updateInvoiceDialogPane);
-                dialog.setTitle("Update invoice");
-                dialog.showAndWait();
-        
+                dialog.setTitle("Update invoice");        
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
         
                 if(clickedButton.get() == ButtonType.APPLY) { 
-    
-                    ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirm invoice information update!");
+                    alert.setContentText("Do you want to update invoice information ?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) { 
+                        ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
 
-                    int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
-                    for (Invoice invoice : currentTableData) {
-                        if(invoice.getInvoiceID() == currentID) {
-    
-                            invoice.setProductName(updateInvoice.getTextfiledProductName().getText());
-                            invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
-                            invoice.setAmount(Integer.parseInt(updateInvoice.getTextfiledAmount().getText()));
-                            invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
-                            invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
-                        
-                            invoiceTableView.setItems(currentTableData);
-                            invoiceTableView.refresh();
-                            break;
+                        int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
+                        for (Invoice invoice : currentTableData) {
+                            if(invoice.getInvoiceID() == currentID) {
+                                invoice.setProductName(updateInvoice.getTextfiledProductName().getText());
+                                invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
+                                invoice.setAmount(Integer.parseInt(updateInvoice.getTextfiledAmount().getText()));
+                                invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
+                                invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
+                                invoiceTableView.setItems(currentTableData);
+                                invoiceTableView.refresh();
+                                break;
+                            }
                         }
                     }
-        
                 }
             }
-
         }
 
         if (event.getSource() == btnDeleteInvoice) { 
-            invoiceTableView.getItems().removeAll(clickedInvoice);
+            if(invoices.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Empty board error!");
+                alert.setContentText("Unable to update the information in the table because the table is empty !");
+                alert.showAndWait(); 
+            } else  {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm to delete a invoice !");
+                alert.setContentText("Do you want to delete a invoice ?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) { 
+                    invoiceTableView.getItems().removeAll(clickedInvoice);
+                }
+            }
         }    
     }
 
@@ -241,7 +258,6 @@ public class InvoiceController {
                         return true;
                     } 
                     String toLowerCaseFilter = newValue.toLowerCase();
-                    
                     if (String.valueOf(cust.getInvoiceID()).contains(newValue)) {
                         return true;
                     } else if (cust.getProductName().toLowerCase().contains(toLowerCaseFilter)) {

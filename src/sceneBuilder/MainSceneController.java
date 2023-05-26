@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-
-import database.ControllDB;
+// import database.ControllDB;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.collections.FXCollections;
@@ -221,16 +220,16 @@ public class MainSceneController implements Initializable {
             stockChart.getData().addAll(stackedChart1, stackedChart2);
 
 
-            books = ControllDB.getListFromBooks();
-            colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
-            colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
-            colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
-            colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
-            colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
-            colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
-            colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
-            colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
-            booksTableView.setItems(books);
+            // books = ControllDB.getListFromBooks();
+            // colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
+            // colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
+            // colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
+            // colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
+            // colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
+            // colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
+            // colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
+            // colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
+            // booksTableView.setItems(books);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -260,27 +259,30 @@ public class MainSceneController implements Initializable {
         return ls;
     }
 
-    void removeStyleClass() {
-        List<HBox> ls = new ArrayList<>();
-        ls.add(btnDashboard);
-        ls.add(btnDashboard);
-        ls.add(btnFavorite);
-        ls.add(btnHistory);
-        ls.add(btnPurchase);
-        ls.add(btnUpdate);
-        ls.add(btnShelves);
+    @FXML
+    void handleSwitch(MouseEvent event) throws IOException {
+        List<VBox> ls = new ArrayList<>();
+        ls.add(pnBooksManagement);
+        ls.add(pnDashboard);
 
-        for (HBox hBox : ls) {
-            hBox.getStyleClass().remove("selected");
+        for (VBox vBox : ls) {
+            vBox.setVisible(false);
+            if (event.getSource() == btnDashboard) {
+                pnDashboard.setVisible(true);
+            }  else if (event.getSource() == btnbookManage) {
+                pnBooksManagement.setVisible(true);
+            }
         }
-    }
 
+
+    }
 
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
         //Handle event on addbtn
         if (event.getSource() == btnAddBook) {
-
+            pnBooksManagement.setVisible(true);
+            pnDashboard.setVisible(false);
             //Show dialog to add a new book
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("AddBook.fxml"));
@@ -288,13 +290,10 @@ public class MainSceneController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(addBookDialogPane);
             dialog.setTitle("Add new book");
-            dialog.showAndWait();
-
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
       
             AddBookController addBook = fxmlLoader.getController();  
 
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             if (clickedButton.get() == ButtonType.OK) { 
                 //Adding Confirmation 
@@ -318,7 +317,7 @@ public class MainSceneController implements Initializable {
                     if (isTitleDuplicate) {
                         Alert alertError = new Alert(Alert.AlertType.ERROR);
                         alertError.setTitle("Can't add new book!");
-                        alertError.setContentText("You have entered an existing ID");
+                        alertError.setContentText("You have entered an existing book title");
                         alertError.showAndWait();
                     } else {
                         books.add(new Book(
@@ -332,17 +331,17 @@ public class MainSceneController implements Initializable {
                             addBook.getTextfiledPublisher(), 
                             addBook.getTextfiledCategory()
                         ));
-                        ControllDB.insertValuesIntoBooks(new Book(
-                            addBook.getTextfiledID(), 
-                            addBook.getTextfiledYear(), 
-                            addBook.getTextfiledStock(), 
-                            addBook.getTextfiledPrice(), 
-                            addBook.getTextfiledTitle(),
-                            null, 
-                            addBook.getTextfiledAuthor(), 
-                            addBook.getTextfiledPublisher(), 
-                            addBook.getTextfiledCategory()
-                        ));
+                        // ControllDB.insertValuesIntoBooks(new Book(
+                        //     addBook.getTextfiledID(), 
+                        //     addBook.getTextfiledYear(), 
+                        //     addBook.getTextfiledStock(), 
+                        //     addBook.getTextfiledPrice(), 
+                        //     addBook.getTextfiledTitle(),
+                        //     null, 
+                        //     addBook.getTextfiledAuthor(), 
+                        //     addBook.getTextfiledPublisher(), 
+                        //     addBook.getTextfiledCategory()
+                        // ));
 
                         books.add(new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance"));
                         books.add(new Book(641, 2021, 0, 120000, "THE WARREN BUFFET WAY", null, "Robert G.Hagstorm", "Alpha Books", "Business/investing"));
@@ -366,7 +365,13 @@ public class MainSceneController implements Initializable {
         }
 
         if (event.getSource() == btnExit) {
-            javafx.application.Platform.exit();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm to exit program !");
+            alert.setContentText("Do you want to exit ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) { 
+                javafx.application.Platform.exit();
+            }
         }
 
         if (event.getSource() == btnInvoices) {
@@ -377,16 +382,9 @@ public class MainSceneController implements Initializable {
             primaryStage.setTitle("Invoices Management");
             primaryStage.show(); 
         }
-
-        if (event.getSource() == btnDashboard) {
-            // btnDashboard.getStyleClass().add("selected");
-            pnBooksManagement.setVisible(false);
-            pnDashboard.setVisible(true);
-        } else if (event.getSource() == btnbookManage) {
-            pnBooksManagement.setVisible(true);
-            pnDashboard.setVisible(false);
-        }
     }
+
+ 
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
@@ -399,8 +397,8 @@ public class MainSceneController implements Initializable {
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
         
-        if (event.getSource() == btnUpdate) {
 
+        if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Empty board error!");
@@ -418,40 +416,54 @@ public class MainSceneController implements Initializable {
         
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(updateBookDialogPane);
-                dialog.setTitle("Update book");
-                dialog.showAndWait();
-        
+                dialog.setTitle("Update book");        
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
+
                 if(clickedButton.get() == ButtonType.APPLY) { 
-    
-                    ObservableList<Book> currentTableData = booksTableView.getItems();
-                    int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
-        
-                    for (Book book : currentTableData) {
-                        if(book.getId() == currentID) {
-    
-                            book.setTitle(updateBook.getTextfiledTitle().getText());
-                            book.setAuthor(updateBook.getTextfiledAuthor().getText());
-                            book.setCategory(updateBook.getTextfiledCategory().getText());
-                            book.setPublisher(updateBook.getTextfiledPublisher().getText());
-                            book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
-                            book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
-                            book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                            
-                            ControllDB.updateBooks(book);
-                            booksTableView.setItems(currentTableData);
-                            booksTableView.refresh();
-                            break;
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirm book information update!");
+                    alert.setContentText("Do you want to update book information ?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) { 
+                        ObservableList<Book> currentTableData = booksTableView.getItems();
+                        int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
+            
+                        for (Book book : currentTableData) {
+                            if(book.getId() == currentID) {
+                                book.setTitle(updateBook.getTextfiledTitle().getText());
+                                book.setAuthor(updateBook.getTextfiledAuthor().getText());
+                                book.setCategory(updateBook.getTextfiledCategory().getText());
+                                book.setPublisher(updateBook.getTextfiledPublisher().getText());
+                                book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
+                                book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
+                                book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
+                                // ControllDB.updateBooks(book);
+                                booksTableView.setItems(currentTableData);
+                                booksTableView.refresh();
+                                break;
+                            }
                         }
                     }
-        
                 }
             }
         }
 
         if (event.getSource() == btnDelete) { 
-            booksTableView.getItems().removeAll(clickedBook);
-            ControllDB.deleteFromBooks(clickedBook);
+            if(books.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Empty board error!");
+                alert.setContentText("Unable to update the information in the table because the table is empty !");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm to delete a book !");
+                alert.setContentText("Do you want to delete a book ?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) { 
+                    booksTableView.getItems().removeAll(clickedBook);
+                    // ControllDB.deleteFromBooks(clickedBook);
+                }
+            }
         }  
     }
 

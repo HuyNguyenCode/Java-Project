@@ -1,9 +1,6 @@
 package database;
 
 import java.sql.*;
-
-import model.Book;
-
 public class ConnectToDB{
     
     private static Connection con;

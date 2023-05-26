@@ -1,7 +1,5 @@
 package database;
 import java.sql.*;
-import java.util.Locale.Category;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
