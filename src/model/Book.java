@@ -20,7 +20,7 @@ public class Book {
         this.stock = stock;
         this.price = price;
         this.title = title;
-        ImageSrc = imageSrc;
+        this.ImageSrc = imageSrc;
         this.author = author;
         this.publisher = publisher;
         this.category = category;

@@ -6,11 +6,25 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ControllDB",
+            "request": "launch",
+            "mainClass": "database.ControllDB",
+            "projectName": "Java-Project_41c9ffa1"
+        },
+        {
+            "type": "java",
+            "name": "ConnectToDB",
+            "request": "launch",
+            "mainClass": "database.ConnectToDB",
+            "projectName": "Java-Project_41c9ffa1"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "sceneBuilder.App",
-            "projectName": "java_project_a376c6d1",
-            "vmArgs": "--module-path \"E:/Program Files/Java/javafx-sdk-20/lib\" --add-modules javafx.controls,javafx.fxml"
-        },
+            "projectName": "Java-Project_41c9ffa1",
+            "vmArgs": "--module-path \"C:\\Users\\vanma\\Downloads\\openjfx-20.0.1_windows-x64_bin-sdk\\javafx-sdk-20.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
+        }
     ]
 }
