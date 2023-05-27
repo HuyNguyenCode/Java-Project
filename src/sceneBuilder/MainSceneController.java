@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-// import database.ControllDB;
+
+import database.ControllDB;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.collections.FXCollections;
@@ -220,16 +221,22 @@ public class MainSceneController implements Initializable {
             stockChart.getData().addAll(stackedChart1, stackedChart2);
 
 
-            // books = ControllDB.getListFromBooks();
-            // colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
-            // colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
-            // colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
-            // colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
-            // colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
-            // colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
-            // colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
-            // colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
-            // booksTableView.setItems(books);
+            //books = ControllDB.getListFromBooks();
+            books.add(new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance"));
+            books.add(new Book(641, 2021, 0, 120000, "THE WARREN BUFFET WAY", null, "Robert G.Hagstorm", "Alpha Books", "Business/investing"));
+            books.add(new Book(721, 2018, 5, 159690, "ATOMIC HABITS", null, "James Clear", "Avery", "Self-help"));
+            books.add(new Book(653, 2020, 10, 196000, "THE SEVEN HABITS OF HIGHLY EFFECTIVE PEOPLE", null, "Stephen R.Covey", "Simon & Schuster", "Business/Self-help"));
+            books.add(new Book(925, 2022, 0, 330600, "AWAKEN THE GIANT WITHIN", null, "Tony Robbins", "Efinito", "Self-help"));
+
+            colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
+            colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
+            colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
+            colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
+            colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
+            colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
+            booksTableView.setItems(books);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -342,13 +349,6 @@ public class MainSceneController implements Initializable {
                         //     addBook.getTextfiledPublisher(), 
                         //     addBook.getTextfiledCategory()
                         // ));
-
-                        books.add(new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance"));
-                        books.add(new Book(641, 2021, 0, 120000, "THE WARREN BUFFET WAY", null, "Robert G.Hagstorm", "Alpha Books", "Business/investing"));
-                        books.add(new Book(721, 2018, 5, 159690, "ATOMIC HABITS", null, "James Clear", "Avery", "Self-help"));
-                        books.add(new Book(653, 2020, 10, 196000, "THE SEVEN HABITS OF HIGHLY EFFECTIVE PEOPLE", null, "Stephen R.Covey", "Simon & Schuster", "Business/Self-help"));
-                        books.add(new Book(925, 2022, 0, 330600, "AWAKEN THE GIANT WITHIN", null, "Tony Robbins", "Efinito", "Self-help"));
-        
                         
                         colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
                         colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
