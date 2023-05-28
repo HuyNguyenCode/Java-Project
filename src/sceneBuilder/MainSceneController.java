@@ -140,6 +140,9 @@ public class MainSceneController implements Initializable {
     private TableColumn<Book, String> colTitle;
 
     @FXML
+    private TableColumn<Book, Button> colDetail;
+
+    @FXML
     private StackPane stackPane;
 
     @FXML
