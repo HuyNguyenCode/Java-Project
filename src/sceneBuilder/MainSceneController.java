@@ -273,8 +273,6 @@ public class MainSceneController implements Initializable {
                 pnBooksManagement.setVisible(true);
             }
         }
-
-
     }
 
     @FXML
@@ -358,6 +356,7 @@ public class MainSceneController implements Initializable {
                         colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
                         colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
                         colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
+
                         booksTableView.setItems(books);
                     }
                 }

@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.Invoice;
 
 public class InvoiceController {
@@ -75,6 +77,9 @@ public class InvoiceController {
     private TableColumn<Invoice, Double> colTotal;
 
     @FXML
+    private TableColumn<Invoice, String> colDetail;
+
+    @FXML
     private TableView<Invoice> invoiceTableView;
 
     @FXML
@@ -89,6 +94,7 @@ public class InvoiceController {
 
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
+        
         //Handle event on addbtn
         if (event.getSource() == btnAddInvoice) {
 
@@ -146,6 +152,56 @@ public class InvoiceController {
                         colAmount.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Amount"));
                         colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
                         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
+
+
+                        Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
+                            @Override
+                            public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
+                                final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
+                                    final Button btnDetail = new Button("Show Detail");
+                                    @Override
+                                    public void updateItem(String item, boolean empty) {
+                                        super.updateItem(item, empty);
+                                        if (empty) {
+                                            setGraphic(null);
+                                            setText(null);
+                                        } else {
+                                            btnDetail.setOnMouseClicked((MouseEvent event) -> {
+                                                Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
+                                                FXMLLoader fxmlLoader = new FXMLLoader();
+                                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetail.fxml"));
+
+                                                DialogPane invoiceDetailDialogPane;
+                                                try {
+                            
+                                                    invoiceDetailDialogPane = fxmlLoader.load();
+                                                    InvoiceDetailController invoiceDetail = fxmlLoader.getController();
+
+                                                    // invoiceDetail.setBookID_detail(null);
+                                                    invoiceDetail.setInvoiceID_detail(String.valueOf(invoiceClicked.getInvoiceID()));
+                                                    invoiceDetail.setQuantity_detail(String.valueOf(invoiceClicked.getAmount()));
+                                                    invoiceDetail.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
+                                                    invoiceDetail.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
+                                                    invoiceDetail.setInvoiceNo_detail(String.valueOf(String.format("%03d", getIndex() + 1)));
+
+                                                    Dialog<ButtonType> dialog = new Dialog<>();
+                                                    dialog.setDialogPane(invoiceDetailDialogPane);
+                                                    dialog.setTitle("Invoice Detail");
+                                                    dialog.showAndWait();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            });
+                                            setGraphic(btnDetail);
+                                            setText(null);
+                                        }
+                                    }
+                                };
+                                return cell;
+                            }
+                        };
+        
+                        colDetail.setCellFactory(cellFactory);
                         invoiceTableView.setItems(invoices);
                     }
                 }

@@ -282,6 +282,7 @@
                   <TableColumn fx:id="colAmount" prefWidth="75.0" text="Amount" />
                   <TableColumn fx:id="colStaff" prefWidth="75.0" text="Staff" />
                   <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
+                  <TableColumn fx:id="colDetail" prefWidth="75.0" text="Detail" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

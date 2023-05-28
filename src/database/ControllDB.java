@@ -115,7 +115,6 @@ public class ControllDB {
                 return true;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println("Update fail!");
         }
@@ -158,7 +157,6 @@ public class ControllDB {
     //     //     pst.setInt(8, 2000);
     //     //     pst.executeUpdate();
     //     // } catch (SQLException e) {
-    //     //     // TODO Auto-generated catch block
     //     //     e.printStackTrace();
     //     // }
     // }

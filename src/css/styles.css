@@ -168,17 +168,6 @@
 } */
 
 
-/*Custom adding and update pop up book*/
-/* .text-field {
-	-fx-accent: -fx-primary-color;
-	-fx-background-color: -fx-grey-color, white;
-	-fx-background-insets: 0, 0 0 1 0;
-	-fx-background-radius: 0;
-}
-.text-field:focused {
-	-fx-background-color: -fx-primary-color, white;
-} */
-
 .text-field {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
@@ -208,4 +197,28 @@
 /* #btnDashboard {
     -fx-background-color: #FF5056;
     -fx-background-radius: 10;
+} */
+
+/*Custome invoice detail*/
+
+#gridpaneDetail {
+    -fx-background-color: black, white ;
+    -fx-padding: 10 ;
+    -fx-background-insets: 0, 1 1 1 1 ;
+}
+/* #gridpaneDetail.first-row {
+    -fx-background-fill: black, white ;
+
+    -fx-background-insets: 0, 1 1 1 0 ;
+}
+#gridpaneDetail.first-column {
+    -fx-background-insets: 0, 0 1 1 1 ;
+}
+#gridpaneDetail.first-row.first-column {
+    -fx-background-insets: 0, 1 ;
+}
+
+#gridpaneDetail.first-row {
+    -fx-background-color: black, white ;
+    -fx-background-insets: 0, 1 1 1 1 ;
 } */

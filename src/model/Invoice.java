@@ -8,6 +8,7 @@ public class Invoice {
     int amount;
     String productName;
     
+
     public Invoice(int invoiceID, String invoiceDate, String staff, double total, int amount, String productName) {
         this.invoiceID = invoiceID;
         this.invoiceDate = invoiceDate;
