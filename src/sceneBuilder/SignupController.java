@@ -7,8 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -17,8 +20,18 @@ import javafx.stage.Stage;
 
 public class SignupController {
 
+
     @FXML
-    private TextField auth_input;
+    private CheckBox agreeCheckbox;
+
+    @FXML
+    private TextField email_signup;
+
+    @FXML
+    private TextField fullname_signup;
+
+    @FXML
+    private PasswordField password_signup;
 
     @FXML
     private Label auth_switch_btn;
@@ -47,6 +60,56 @@ public class SignupController {
         primaryStage.setScene(signInScene);
         primaryStage.setTitle("Sign In");
         primaryStage.show(); 
+    }
+
+
+    void setPassword(PasswordField password_signup) {
+        this.password_signup = password_signup;
+    }
+
+    void setFullname(TextField fullname_signup) {
+        this.fullname_signup = fullname_signup;
+    }
+
+    String getFullname() {
+        return fullname_signup.getText();
+    }
+
+    void setEmail(TextField email_signup) {
+        this.email_signup = email_signup;
+    }
+
+    String getPassword() {
+        return password_signup.getText();
+    }
+
+    String getEmail() {
+        return email_signup.getText();
+    }
+
+    @FXML
+    void handleClicks(MouseEvent event) {
+        if(event.getSource() == btn_auth) {
+            if (agreeCheckbox.isSelected()) {
+             // Handle the event after ticking the checkbox and clicking "Sign up" here
+       
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Agree on term !");
+                alert.setContentText("Please indicate that you have read and agree to the 'Terms of service'!");
+                alert.showAndWait(); 
+            }
+        }
+
+        if(event.getSource() == btn_google) {
+            // Handle event after clicking "Sign up with Google" button here
+            
+        }
+
+        if(event.getSource() == termsOfService_text) {
+            // Handle event after clicking "term of service"
+
+        }
     }
 
 }
