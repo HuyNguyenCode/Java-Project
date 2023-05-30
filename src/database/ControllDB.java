@@ -3,6 +3,7 @@ import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
+import model.Invoice;
 
 public class ControllDB {
 
@@ -105,4 +106,23 @@ public class ControllDB {
 
         return books;
     }
+
+    // public boolean insertValuesIntoInvoice(Invoice invoice){
+    //     try {
+    //         String sql = "insert into Invoice values(?,?,?,?)";
+    //         PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+    //         pst.setInt(1, invoice.getInvoiceID());
+    //         pst.setDate(2, invoice.getInvoiceDate());
+    //         pst.setDouble(3, invoice.getTotal());
+    //         int check = pst.executeUpdate();
+    //         if(check != 0){
+    //             System.out.println("Insert Invoice Success!");
+    //             return true;
+    //         }
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //     }
+    //     System.out.println("Insert Invoice Fail!");
+    //     return false;
+    // }
 }

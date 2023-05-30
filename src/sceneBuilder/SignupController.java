@@ -46,7 +46,7 @@ public class SignupController {
         Scene signInScene = new Scene(root);
         primaryStage.setScene(signInScene);
         primaryStage.setTitle("Sign In");
-        primaryStage.show(); 
+        primaryStage.show();
     }
 
 }
