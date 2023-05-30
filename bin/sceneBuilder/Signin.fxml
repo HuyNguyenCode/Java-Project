@@ -25,12 +25,12 @@
                <children>
                   <VBox prefHeight="80.0" prefWidth="423.0">
                      <children>
-                        <Label prefHeight="28.0" prefWidth="65.0" text="Email">
+                        <Label prefHeight="28.0" prefWidth="118.0" text="Email/UserName">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="email_signin" prefHeight="45.0" prefWidth="394.0" promptText="Email" stylesheets="@../css/styles.css">
+                        <TextField fx:id="email_signin" prefHeight="45.0" prefWidth="394.0" promptText="Email or UserName" stylesheets="@../css/styles.css">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -51,7 +51,7 @@
                         </PasswordField>
                      </children>
                   </VBox>
-                  <Label fx:id="btnForgetPassword" onMouseClicked="#handleForgetPassword" prefHeight="55.0" prefWidth="118.0" stylesheets="@../css/styles.css" text="Forget password">
+                  <Label fx:id="btnForgetPassword" onMouseClicked="#handleForgetPassword" prefHeight="55.0" prefWidth="118.0" style="-fx-cursor: hand;" stylesheets="@../css/styles.css" text="Forgot password">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

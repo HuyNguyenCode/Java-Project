@@ -72,14 +72,19 @@ public class SigninController {
 
         if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign in with Google" button here
-            
         }
     }
 
     @FXML
-    void handleForgetPassword(MouseEvent event) {
+    void handleForgetPassword(MouseEvent event) throws IOException {
         if(event.getSource() == btnForgetPassword) {
             // Handle event after clicking "Forget Password" button here
+            Parent root = FXMLLoader.load(getClass().getResource("ForgotPassword.fxml"));
+            Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene signupScene = new Scene(root);
+            primaryStage.setScene(signupScene);
+            primaryStage.setTitle("Forgot Password");
+            primaryStage.show(); 
         }
     }
 
