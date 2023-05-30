@@ -89,7 +89,7 @@
                <children>
                   <HBox layoutX="18.0" layoutY="75.0" prefHeight="39.0" prefWidth="786.0">
                      <children>
-                        <TextField fx:id="invoiceIDTextfield" prefHeight="38.0" prefWidth="146.0" promptText="Invoice ID" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+                        <TextField fx:id="invoiceIDTextfield" prefHeight="38.0" prefWidth="146.0" promptText="Invoice ID" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -97,7 +97,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="bookIDTextfield" prefHeight="38.0" prefWidth="162.0" promptText="Book ID" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+                        <TextField fx:id="bookIDTextfield" prefHeight="38.0" prefWidth="162.0" promptText="Book ID" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="2">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -105,7 +105,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="unitPriceTextfield" prefHeight="38.0" prefWidth="163.0" promptText="Unit Pirice" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+                        <TextField fx:id="unitPriceTextfield" prefHeight="38.0" prefWidth="163.0" promptText="Unit Pirice" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="3">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -113,7 +113,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </TextField>
-                        <TextField fx:id="quantityTextfield" prefHeight="36.0" prefWidth="192.0" promptText="Quantity" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+                        <TextField fx:id="quantityTextfield" prefHeight="36.0" prefWidth="192.0" promptText="Quantity" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="4">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -132,7 +132,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TextField fx:id="bookTitleTextfield" layoutX="20.0" layoutY="24.0" prefHeight="38.0" prefWidth="782.0" promptText="BOOKS TITLE" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+                  <TextField fx:id="bookTitleTextfield" layoutX="20.0" layoutY="24.0" prefHeight="38.0" prefWidth="782.0" promptText="BOOKS TITLE" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="H">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

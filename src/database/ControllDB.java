@@ -101,29 +101,6 @@ public class ControllDB {
             Book book = new Book(id, year, stock, price, title,null, author, publisher, category);
             books.add(book);
         }
-
         return books;
-<<<<<<< HEAD
-    } 
-    // public static void main(String[] args) {
-    //     // Book t = new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance");
-    //     // ControllDB.deleteFromBook(t);
-    //     // try {
-    //     //     PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("insert into books values(?,?,?,?,?,?,?,?)");
-    //     //     pst.setInt(1, 21);
-    //     //     pst.setString(2, "Ngo van manh");
-    //     //     pst.setString(3, "Manh");
-    //     //     pst.setString(4, "mmmm");
-    //     //     pst.setInt(5, 2003);
-    //     //     pst.setString(6, "The loai");
-    //     //     pst.setDouble(7, 100);
-    //     //     pst.setInt(8, 2000);
-    //     //     pst.executeUpdate();
-    //     // } catch (SQLException e) {
-    //     //     e.printStackTrace();
-    //     // }
-    // }
-=======
-    }
->>>>>>> 0f759b41c4cc96e1afdbd3de9601d5cff6dc271c
+    }   
 }
