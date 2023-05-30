@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="479.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.AddInvoiceController">
+<DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="401.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.AddInvoiceController">
    <buttonTypes>
       <ButtonType fx:constant="OK" />
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <AnchorPane prefHeight="326.0" prefWidth="568.0" styleClass="white-background" stylesheets="@../css/styles.css">
+      <AnchorPane prefHeight="135.0" prefWidth="553.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
             <Label layoutY="14.0" text="Add new invoice">
                <opaqueInsets>
@@ -37,12 +37,6 @@
                   <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" />
                </children>
             </VBox>
-            <VBox layoutX="14.0" layoutY="197.0" prefHeight="103.0" prefWidth="364.0">
-               <children>
-                  <Label prefHeight="40.0" prefWidth="62.0" text="PRODUCTS" />
-                  <TextField fx:id="textfiledProductName" prefHeight="45.0" prefWidth="291.0" promptText="Product name" stylesheets="@../css/styles.css" text="Book" />
-               </children>
-            </VBox>
             <TextField fx:id="textfiledID" layoutX="14.0" layoutY="53.0" prefHeight="45.0" prefWidth="173.0" promptText="Invoice ID" stylesheets="@../css/styles.css" text="123" />
             <VBox layoutX="200.0" layoutY="108.0" prefHeight="80.0" prefWidth="322.0">
                <children>
@@ -50,8 +44,7 @@
                   <TextField fx:id="textfiledStaff" prefHeight="45.0" prefWidth="322.0" text="Kay" />
                </children>
             </VBox>
-            <TextField fx:id="textfiledAmount" layoutX="403.0" layoutY="237.0" prefHeight="45.0" prefWidth="128.0" promptText="Amout" stylesheets="@../css/styles.css" text="10" />
-            <VBox layoutX="403.0" layoutY="300.0" prefHeight="88.0" prefWidth="135.0">
+            <VBox layoutX="14.0" layoutY="216.0" prefHeight="88.0" prefWidth="135.0">
                <children>
                   <Label prefHeight="40.0" prefWidth="62.0" text="TOTAL" />
                   <TextField fx:id="textfiledTotal" prefHeight="45.0" prefWidth="291.0" promptText="Total" stylesheets="@../css/styles.css" text="100" />

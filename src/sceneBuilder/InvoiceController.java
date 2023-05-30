@@ -28,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Invoice;
+import model.InvoiceDetail;
 
 public class InvoiceController {
 
@@ -59,16 +60,10 @@ public class InvoiceController {
     private HBox btnUpdateInvoice;
 
     @FXML
-    private TableColumn<Invoice, Integer> colAmount;
-
-    @FXML
     private TableColumn<Invoice, String> colDate;
 
     @FXML
     private TableColumn<Invoice, Integer> colIDInvoice;
-
-    @FXML
-    private TableColumn<Invoice, String> colName;
 
     @FXML
     private TableColumn<Invoice, String> colStaff;
@@ -141,15 +136,11 @@ public class InvoiceController {
                             addInvoice.getTextfiledID(),
                             addInvoice.getDatePickerDates(), 
                             addInvoice.getTextfiledStaff(), 
-                            addInvoice.getTextfiledTotal(),
-                            addInvoice.getTextfiledAmount(),
-                            addInvoice.getTextfiledProductName()
+                            addInvoice.getTextfiledTotal()
                         ));
 
                         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
-                        colName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("productName"));
                         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-                        colAmount.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Amount"));
                         colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
                         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
 
@@ -169,20 +160,43 @@ public class InvoiceController {
                                             btnDetail.setOnMouseClicked((MouseEvent event) -> {
                                                 Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
                                                 FXMLLoader fxmlLoader = new FXMLLoader();
-                                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetail.fxml"));
+                                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
 
                                                 DialogPane invoiceDetailDialogPane;
-                                                try {
-                            
+                                                try {                            
+                                                                                                        
                                                     invoiceDetailDialogPane = fxmlLoader.load();
-                                                    InvoiceDetailController invoiceDetail = fxmlLoader.getController();
+                                                    InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
 
                                                     // invoiceDetail.setBookID_detail(null);
-                                                    invoiceDetail.setInvoiceID_detail(String.valueOf(invoiceClicked.getInvoiceID()));
-                                                    invoiceDetail.setQuantity_detail(String.valueOf(invoiceClicked.getAmount()));
-                                                    invoiceDetail.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
-                                                    invoiceDetail.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
-                                                    invoiceDetail.setInvoiceNo_detail(String.valueOf(String.format("%03d", getIndex() + 1)));
+
+                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(123, 456, "Book_1", 56.000, 10, 5000));
+                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
+                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
+
+                                                    invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
+                                                        invoiceClicked.getInvoiceID(),
+                                                        123,
+                                                        "Book_1",
+                                                        23.000,
+                                                        10,
+                                                        1000
+                                                    ));
+                                                    invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
+                                                    invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
+                                                    invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
+                                                    invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
+                                                    invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
+                                                    // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
+                                                    invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
+                                                    invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
+                                                    invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
+                                                    invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
+                                                    // final Button btnAdd = new Button("Add");
+                                                    // btnAdd.setOnMouseClicked((MouseEvent addEvent) -> {
+
+                                                    // });
+
 
                                                     Dialog<ButtonType> dialog = new Dialog<>();
                                                     dialog.setDialogPane(invoiceDetailDialogPane);
@@ -249,10 +263,8 @@ public class InvoiceController {
                 alert.showAndWait();
             } else { 
                 updateInvoice.setTextfiledID(String.valueOf(clickedInvoice.getInvoiceID()));
-                updateInvoice.setTextfiledAmount(String.valueOf(clickedInvoice.getAmount()));
                 updateInvoice.setTextfiledTotal(String.valueOf(clickedInvoice.getTotal()));
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
-                updateInvoice.setTextfiledProductName(clickedInvoice.getProductName());
                 updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
         
                 Dialog<ButtonType> dialog = new Dialog<>();
@@ -271,9 +283,7 @@ public class InvoiceController {
                         int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
                         for (Invoice invoice : currentTableData) {
                             if(invoice.getInvoiceID() == currentID) {
-                                invoice.setProductName(updateInvoice.getTextfiledProductName().getText());
                                 invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
-                                invoice.setAmount(Integer.parseInt(updateInvoice.getTextfiledAmount().getText()));
                                 invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
                                 invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
                                 invoiceTableView.setItems(currentTableData);
@@ -316,13 +326,9 @@ public class InvoiceController {
                     String toLowerCaseFilter = newValue.toLowerCase();
                     if (String.valueOf(cust.getInvoiceID()).contains(newValue)) {
                         return true;
-                    } else if (cust.getProductName().toLowerCase().contains(toLowerCaseFilter)) {
-                        return true;
                     } else if (cust.getStaff().toLowerCase().contains(toLowerCaseFilter)) {
                         return true;
                     } else if (String.valueOf(cust.getTotal()).contains(newValue)) {
-                        return true;
-                    } else if (String.valueOf(cust.getAmount()).contains(newValue)) {
                         return true;
                     } else if (String.valueOf(cust.getInvoiceDate()).contains(newValue)) {
                         return true;

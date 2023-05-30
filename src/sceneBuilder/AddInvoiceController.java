@@ -51,9 +51,4 @@ public class AddInvoiceController {
     public Double getTextfiledTotal() {
         return Double.parseDouble(textfiledTotal.getText());
     }
-
-   
-
-
-
 }

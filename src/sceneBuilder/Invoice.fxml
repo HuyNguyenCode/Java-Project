@@ -277,9 +277,7 @@
             <TableView fx:id="invoiceTableView" onMouseClicked="#handleUpdate" prefHeight="902.0" prefWidth="1028.0" stylesheets="@../css/styles.css">
                <columns>
                   <TableColumn fx:id="colIDInvoice" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="colName" prefWidth="75.0" text="Product Name" />
                   <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="colAmount" prefWidth="75.0" text="Amount" />
                   <TableColumn fx:id="colStaff" prefWidth="75.0" text="Staff" />
                   <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
                   <TableColumn fx:id="colDetail" prefWidth="75.0" text="Detail" />

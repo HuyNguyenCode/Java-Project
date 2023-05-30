@@ -5,17 +5,13 @@ public class Invoice {
     String invoiceDate;
     String staff;
     double total;
-    int amount;
-    String productName;
     
 
-    public Invoice(int invoiceID, String invoiceDate, String staff, double total, int amount, String productName) {
+    public Invoice(int invoiceID, String invoiceDate, String staff, double total) {
         this.invoiceID = invoiceID;
         this.invoiceDate = invoiceDate;
         this.staff = staff;
         this.total = total;
-        this.amount = amount;
-        this.productName = productName;
     }
 
 
@@ -46,21 +42,5 @@ public class Invoice {
     }
     public void setTotal(double total) {
         this.total = total;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 }

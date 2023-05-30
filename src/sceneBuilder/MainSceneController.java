@@ -386,8 +386,6 @@ public class MainSceneController implements Initializable {
         }
     }
 
- 
-
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
