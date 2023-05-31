@@ -121,7 +121,6 @@ public class ControllDB {
             }
             return "-1";
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -139,7 +138,6 @@ public class ControllDB {
                 return true;
             }
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Insert User Fail!");
         }
         return false;

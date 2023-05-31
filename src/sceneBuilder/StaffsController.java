@@ -127,6 +127,15 @@ public class StaffsController {
             primaryStage.setTitle("Books Management");
             primaryStage.show(); 
         }
+
+        if (event.getSource() == btnDashboard) {
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene dashboardScene = new Scene(root);
+            primaryStage.setScene(dashboardScene);
+            primaryStage.setTitle("Dashboard");
+            primaryStage.show(); 
+        }
     }
 
 }

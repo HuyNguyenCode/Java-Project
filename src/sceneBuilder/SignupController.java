@@ -1,9 +1,6 @@
 package sceneBuilder;
 
 import java.io.IOException;
-
-import javax.swing.event.ChangeEvent;
-
 import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

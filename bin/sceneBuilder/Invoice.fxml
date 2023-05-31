@@ -62,7 +62,7 @@
          <children>
             <VBox prefHeight="306.0" prefWidth="250.0" spacing="6.0">
                <children>
-                  <HBox fx:id="btnInvoiceDashboard" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnInvoiceDashboard" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="29.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

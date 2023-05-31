@@ -260,6 +260,15 @@ public class InvoiceController {
             primaryStage.show(); 
         }
 
+        if (event.getSource() == btnInvoiceDashboard) {
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene dashboardScene = new Scene(root);
+            primaryStage.setScene(dashboardScene);
+            primaryStage.setTitle("Dashboard");
+            primaryStage.show(); 
+        }
+
     }
 
     @FXML
