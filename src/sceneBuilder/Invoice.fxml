@@ -199,7 +199,7 @@
                      </styleClass>
                   </HBox>
                   <HBox alignment="CENTER" />
-                  <HBox fx:id="btnStaffs" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnStaffs" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -222,7 +222,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox fx:id="btnSuppliers" alignment="CENTER" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnSuppliers" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="250.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                            <image>

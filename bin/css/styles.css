@@ -13,7 +13,9 @@
 }
 
 .selected {
-    -fx-background-color: #f3f3f3;    
+    -fx-background-color: #f3f3f3;
+    
+    /* -fx-border-radius: 58; */
     -fx-background-radius: 10;
 
 }
@@ -57,8 +59,7 @@
 #btnBooks,
 #btnStaffs,
 #btnSuppliers,
-#btnExit,
-#btnSignup {
+#btnExit {
     -fx-cursor: hand;   
 }
 
@@ -179,9 +180,11 @@
 
 #btnbookManage {
     -fx-background-color: #34a953;
+    /* -fx-background-radius: 10px ; */
     -fx-border-radius: 0 58 58 0;
     -fx-background-radius: 0 58 58 0;
   
+    /* -fx-border-radius: 58; */
     -fx-background-color: 
         #45e370,
         linear-gradient(#45e370 50%, #45d16a 100%),
@@ -195,3 +198,28 @@
     -fx-background-color: #FF5056;
     -fx-background-radius: 10;
 } */
+
+/*Custome invoice detail*/
+
+#gridpaneDetail {
+    -fx-background-color: black, white ;
+    -fx-padding: 10 ;
+    -fx-background-insets: 0, 1 1 1 1 ;
+}
+/* #gridpaneDetail.first-row {
+    -fx-background-fill: black, white ;
+
+    -fx-background-insets: 0, 1 1 1 0 ;
+}
+#gridpaneDetail.first-column {
+    -fx-background-insets: 0, 0 1 1 1 ;
+}
+#gridpaneDetail.first-row.first-column {
+    -fx-background-insets: 0, 1 ;
+}
+
+#gridpaneDetail.first-row {
+    -fx-background-color: black, white ;
+    -fx-background-insets: 0, 1 1 1 1 ;
+} */
+

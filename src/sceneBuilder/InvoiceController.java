@@ -241,6 +241,25 @@ public class InvoiceController {
             primaryStage.show(); 
         }
 
+        
+        if (event.getSource() == btnSuppliers) {
+            Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene supplierScene = new Scene(root);
+            primaryStage.setScene(supplierScene);
+            primaryStage.setTitle("Suppliers Management");
+            primaryStage.show(); 
+        }
+
+        if (event.getSource() == btnStaffs) {
+            Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene staffScene = new Scene(root);
+            primaryStage.setScene(staffScene);
+            primaryStage.setTitle("Staffs Management");
+            primaryStage.show(); 
+        }
+
     }
 
     @FXML
