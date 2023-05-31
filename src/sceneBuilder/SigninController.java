@@ -93,15 +93,13 @@ public class SigninController {
 
         if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign in with Google" button here
-            
         }
     }
 
     @FXML
-    void handleForgetPassword(MouseEvent event) {
+    void handleForgetPassword(MouseEvent event) throws IOException {
         if(event.getSource() == btnForgetPassword) {
             // Handle event after clicking "Forget Password" button here
-            
         }
     }
 
