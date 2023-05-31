@@ -1,9 +1,13 @@
 package database;
 import java.sql.*;
+
+import javax.sound.sampled.SourceDataLine;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
 import model.Invoice;
+import model.User;
 
 public class ControllDB {
 
@@ -78,7 +82,6 @@ public class ControllDB {
                 return true;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println("Update fail!");
         }
@@ -103,26 +106,42 @@ public class ControllDB {
             Book book = new Book(id, year, stock, price, title,null, author, publisher, category);
             books.add(book);
         }
-
         return books;
     }
 
-    // public boolean insertValuesIntoInvoice(Invoice invoice){
-    //     try {
-    //         String sql = "insert into Invoice values(?,?,?,?)";
-    //         PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
-    //         pst.setInt(1, invoice.getInvoiceID());
-    //         pst.setDate(2, invoice.getInvoiceDate());
-    //         pst.setDouble(3, invoice.getTotal());
-    //         int check = pst.executeUpdate();
-    //         if(check != 0){
-    //             System.out.println("Insert Invoice Success!");
-    //             return true;
-    //         }
-    //     } catch (Exception e) {
-    //         // TODO: handle exception
-    //     }
-    //     System.out.println("Insert Invoice Fail!");
-    //     return false;
-    // }
+    public static String getPasswordFromDB(String email){
+        try {
+            String res = "";
+            Statement st = ConnectToDB.getConnection().createStatement();
+            String sql = "select password from Users where email = '" + email + "'";
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                res = rs.getString(1);
+                return res;
+            }
+            return "-1";
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static boolean insertValuesIntoUsers(User user){
+        try {
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("insert into users values (?,?,?)");
+            pst.setString(1, user.getFullName());
+            pst.setString(2, user.getEmail());
+            pst.setString(3, user.getPassword());
+            int isUpdate = pst.executeUpdate();
+            if(isUpdate != 0){
+                System.out.println("Insert User Success!");
+                return true;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Insert User Fail!");
+        }
+        return false;
+    }
 }

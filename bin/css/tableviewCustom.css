@@ -1,0 +1,97 @@
+* {
+	-fx-primary-color: #007acc;
+	-fx-secondary-color: #4B6EAF;
+	-fx-accent-color: #B6FF00;
+	-fx-grey-color: #b9b9b9;
+	-fx-light-grey-color: #d1d1d1;
+	-fx-lightest-grey-color: #F9F9FB;
+	-fx-focus-color: -fx-secondary-color;
+}
+
+.table-view{
+    -fx-background-color: white;
+    -fx-font-size: 14;
+    /* -fx-border-width: 2;  */
+    /* -fx-border-color: derive(black, -60%); */
+}
+
+.table-view:focused{
+    -fx-background-color: derive(-fx-primary, 20%);
+}
+
+.table-view .column-header-background{
+    -fx-background-color: white;
+    -fx-padding: 20 0 20 10;
+
+}
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: #b8c1cf;
+    -fx-text-weight:strong;
+    -fx-padding: 20 0 0 10;
+    -fx-alignment: center-left;
+
+ }
+.table-view .column-header {
+    -fx-background-color: transparent;
+ }
+
+.table-view .table-cell{
+    -fx-text-fill: black;
+    -fx-alignment:center-left;
+    -fx-border-style:solid inside;
+    -fx-border-width: 0 0 2 0;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:focused, .table-cell:focused{
+
+}
+.table-row-cell{
+    /* -fx-background-color: -fx-primary; */
+    -fx-border-style:solid inside;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 10 0 10 10;
+    -fx-border-color: #f6f6f7;
+    /* -fx-table-cell-border-color: transparent; */
+}
+
+.table-row-cell:empty{
+    -fx-background-color:white;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+ .table-row-cell:hover{
+    -fx-background-color:skyblue;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color:skyblue;
+    /* -fx-text-fill: white; */
+    -fx-background-insets: 0;
+}
+
+.table-row-cell:selected .table-cell{
+    -fx-text-fill: white;
+}
+
+
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow, 
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
