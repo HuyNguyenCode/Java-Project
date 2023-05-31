@@ -100,6 +100,7 @@ public class SigninController {
     void handleForgetPassword(MouseEvent event) throws IOException {
         if(event.getSource() == btnForgetPassword) {
             // Handle event after clicking "Forget Password" button here
+            
         }
     }
 
