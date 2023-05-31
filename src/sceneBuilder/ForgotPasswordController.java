@@ -1,10 +1,12 @@
 package sceneBuilder;
 import java.io.IOException;
 
+import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.Node;
@@ -42,7 +44,20 @@ public class ForgotPasswordController {
     @FXML
     void handleClicks(MouseEvent event) {
         if (event.getSource() == btn_auth) {
-            System.out.println(getEmail());
+            //handle Forgot password
+            String password = ControllDB.getPasswordFromDB(getEmail());
+            if(password.equals("-1")){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Get Password Fail!");
+                alert.setContentText("Your account not exists!");
+                alert.showAndWait(); 
+            }
+            else if (password != null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Get Password Success!");
+                alert.setContentText("Your Password: " + password);
+                alert.showAndWait();
+            }
         }
     }
 

@@ -1,12 +1,13 @@
 package sceneBuilder;
 import java.io.IOException;
 
-
+import database.ControllDB;
 import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -66,8 +67,28 @@ public class SigninController {
     void handleSignin(MouseEvent event) {
         if(event.getSource() == btn_auth) {
             // Handle event after clicking "Sign in" button here
-            System.out.println(getEmail());
-            System.out.println(getPassword());
+            String email = email_signin.getText();
+            String password = password_signin.getText();
+            String p = ControllDB.getPasswordFromDB(email);
+            if(email.isEmpty() || password.isEmpty()) return;
+            if(p.equals("-1")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("SignIn Fail!");
+                alert.setContentText("Your account not exists!");
+                alert.showAndWait(); 
+            }
+            else if(password.equals(p)){
+                // App run
+                //
+                //
+                System.out.println("Login Success!");
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Login Fail!");
+                alert.setContentText("Your password Wrong!");
+                alert.showAndWait(); 
+            }
         }
 
         if(event.getSource() == btn_google) {
@@ -79,12 +100,7 @@ public class SigninController {
     void handleForgetPassword(MouseEvent event) throws IOException {
         if(event.getSource() == btnForgetPassword) {
             // Handle event after clicking "Forget Password" button here
-            Parent root = FXMLLoader.load(getClass().getResource("ForgotPassword.fxml"));
-            Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene signupScene = new Scene(root);
-            primaryStage.setScene(signupScene);
-            primaryStage.setTitle("Forgot Password");
-            primaryStage.show(); 
+            
         }
     }
 

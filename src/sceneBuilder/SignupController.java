@@ -2,6 +2,9 @@ package sceneBuilder;
 
 import java.io.IOException;
 
+import javax.swing.event.ChangeEvent;
+
+import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.User;
 
 public class SignupController {
 
@@ -59,7 +63,7 @@ public class SignupController {
         Scene signInScene = new Scene(root);
         primaryStage.setScene(signInScene);
         primaryStage.setTitle("Sign In");
-        primaryStage.show(); 
+        primaryStage.show();
     }
 
 
@@ -92,7 +96,17 @@ public class SignupController {
         if(event.getSource() == btn_auth) {
             if (agreeCheckbox.isSelected()) {
              // Handle the event after ticking the checkbox and clicking "Sign up" here
-       
+                String fullName = fullname_signup.getText();
+                String email = email_signup.getText();
+                String password = password_signup.getText();
+                User temp = new User(fullName,email,password);
+                boolean checkSignUp = ControllDB.insertValuesIntoUsers(temp);
+                if(checkSignUp == false){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("SignUp Fail!");
+                    alert.setContentText("Your account already exists!");
+                    alert.showAndWait(); 
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Agree on term !");
