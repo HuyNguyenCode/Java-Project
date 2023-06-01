@@ -72,7 +72,7 @@ public class InvoiceController implements Initializable {
     private TableColumn<Invoice, Integer> colIDInvoice;
 
     @FXML
-    private TableColumn<Invoice, String> colStaff;
+    private TableColumn<Invoice, Integer> colStaff;
 
     @FXML
     private TableColumn<Invoice, Double> colTotal;
@@ -97,12 +97,11 @@ public class InvoiceController implements Initializable {
         try {
             invoices = ControllDB.getListFromInvoices();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
+        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
         Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
             @Override
@@ -227,7 +226,7 @@ public class InvoiceController implements Initializable {
 
                         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
                         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-                        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
+                        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
                         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
 
 

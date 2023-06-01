@@ -491,14 +491,4 @@ public class MainSceneController implements Initializable {
             booksTableView.setItems(booksSortedList);
         });
     }
-
-    private int getMaxId(){
-        int maxId = -1;
-        for(Book b : books){
-            if(maxId < b.getId()){
-                maxId = b.getId();
-            }
-        }
-        return maxId;
-    }
 }
