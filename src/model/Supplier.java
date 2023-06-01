@@ -4,9 +4,9 @@ public class Supplier {
     private int id;
     private String supplierName;
     private String address;
-    private int phone;
+    private String phone;
 
-    public Supplier(int id, String supplierName, String address, int phone) {
+    public Supplier(int id, String supplierName, String address, String phone) {
         this.id = id;
         this.supplierName = supplierName;
         this.address = address;
@@ -40,11 +40,11 @@ public class Supplier {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

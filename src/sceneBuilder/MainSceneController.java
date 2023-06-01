@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-// import database.ControllDB;
+import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -166,16 +166,16 @@ public class MainSceneController implements Initializable {
                 cardLayout.getChildren().add(carBox);
             }
 
-            // books = ControllDB.getListFromBooks();
-            // colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
-            // colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
-            // colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
-            // colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
-            // colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
-            // colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
-            // colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
-            // colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
-            // booksTableView.setItems(books);
+            books = ControllDB.getListFromBooks();
+            colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
+            colStock.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Stock"));
+            colYear.setCellValueFactory(new PropertyValueFactory<Book, Integer>("Year"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<Book, Double>("Price"));
+            colAuthor.setCellValueFactory(new PropertyValueFactory<Book, String>("Author"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<Book, String>("Category"));
+            colPublisher.setCellValueFactory(new PropertyValueFactory<Book, String>("Publisher"));
+            colTitle.setCellValueFactory(new PropertyValueFactory<Book, String>("Title"));
+            booksTableView.setItems(books);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -283,18 +283,7 @@ public class MainSceneController implements Initializable {
                         alertError.setContentText("You have entered an existing book title");
                         alertError.showAndWait();
                     } else {
-                        books.add(new Book(
-                            addBook.getTextfiledID(), 
-                            addBook.getTextfiledYear(), 
-                            addBook.getTextfiledStock(), 
-                            addBook.getTextfiledPrice(), 
-                            addBook.getTextfiledTitle(),
-                            null, 
-                            addBook.getTextfiledAuthor(), 
-                            addBook.getTextfiledPublisher(), 
-                            addBook.getTextfiledCategory()
-                        ));
-                        // ControllDB.insertValuesIntoBooks(new Book(
+                        // books.add(new Book(
                         //     addBook.getTextfiledID(), 
                         //     addBook.getTextfiledYear(), 
                         //     addBook.getTextfiledStock(), 
@@ -305,12 +294,27 @@ public class MainSceneController implements Initializable {
                         //     addBook.getTextfiledPublisher(), 
                         //     addBook.getTextfiledCategory()
                         // ));
+                        Book book = new Book(
+                            -1,
+                            addBook.getTextfiledYear(), 
+                            addBook.getTextfiledStock(), 
+                            addBook.getTextfiledPrice(), 
+                            addBook.getTextfiledTitle(),
+                            null, 
+                            addBook.getTextfiledAuthor(), 
+                            addBook.getTextfiledPublisher(), 
+                            addBook.getTextfiledCategory()
+                        );
+                        boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
+                        if(checkInsert == true){
+                            books.add(ControllDB.getLastestBook());
+                        }
 
-                        books.add(new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance"));
-                        books.add(new Book(641, 2021, 0, 120000, "THE WARREN BUFFET WAY", null, "Robert G.Hagstorm", "Alpha Books", "Business/investing"));
-                        books.add(new Book(721, 2018, 5, 159690, "ATOMIC HABITS", null, "James Clear", "Avery", "Self-help"));
-                        books.add(new Book(653, 2020, 10, 196000, "THE SEVEN HABITS OF HIGHLY EFFECTIVE PEOPLE", null, "Stephen R.Covey", "Simon & Schuster", "Business/Self-help"));
-                        books.add(new Book(925, 2022, 0, 330600, "AWAKEN THE GIANT WITHIN", null, "Tony Robbins", "Efinito", "Self-help"));
+                        // books.add(new Book(345, 2022, 2, 238000, "RICH DAD POOR DAD", null, "Robert T.Kiyosaki", "Plata Publishing", "Personal finance"));
+                        // books.add(new Book(641, 2021, 0, 120000, "THE WARREN BUFFET WAY", null, "Robert G.Hagstorm", "Alpha Books", "Business/investing"));
+                        // books.add(new Book(721, 2018, 5, 159690, "ATOMIC HABITS", null, "James Clear", "Avery", "Self-help"));
+                        // books.add(new Book(653, 2020, 10, 196000, "THE SEVEN HABITS OF HIGHLY EFFECTIVE PEOPLE", null, "Stephen R.Covey", "Simon & Schuster", "Business/Self-help"));
+                        // books.add(new Book(925, 2022, 0, 330600, "AWAKEN THE GIANT WITHIN", null, "Tony Robbins", "Efinito", "Self-help"));
         
                         
                         colID.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
@@ -383,6 +387,7 @@ public class MainSceneController implements Initializable {
 
         DialogPane updateBookDialogPane = fxmlLoader.load();
         UpdateBookController updateBook = fxmlLoader.getController();
+        updateBook.getTextfiledID().setEditable(false);
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
         
@@ -425,7 +430,7 @@ public class MainSceneController implements Initializable {
                                 book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
                                 book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
                                 book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                                // ControllDB.updateBooks(book);
+                                ControllDB.updateBooks(book);
                                 booksTableView.setItems(currentTableData);
                                 booksTableView.refresh();
                                 break;
@@ -450,7 +455,7 @@ public class MainSceneController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) { 
                     booksTableView.getItems().removeAll(clickedBook);
-                    // ControllDB.deleteFromBooks(clickedBook);
+                    ControllDB.deleteFromBooks(clickedBook);
                 }
             }
         }  
@@ -491,5 +496,15 @@ public class MainSceneController implements Initializable {
             booksSortedList.comparatorProperty().bind(booksTableView.comparatorProperty());
             booksTableView.setItems(booksSortedList);
         });
+    }
+
+    private int getMaxId(){
+        int maxId = -1;
+        for(Book b : books){
+            if(maxId < b.getId()){
+                maxId = b.getId();
+            }
+        }
+        return maxId;
     }
 }
