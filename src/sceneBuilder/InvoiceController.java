@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -38,6 +39,9 @@ import model.InvoiceDetail;
 
 public class InvoiceController implements Initializable {
 
+    @FXML
+    private Label userNameInScene;
+    
     @FXML
     private HBox btnAddInvoice;
 
@@ -91,9 +95,13 @@ public class InvoiceController implements Initializable {
 
     private Stage primaryStage;
 
-    ObservableList<Invoice> invoices = FXCollections.observableArrayList();                  
+    ObservableList<Invoice> invoices = FXCollections.observableArrayList();     
 
     public void initialize(URL location, ResourceBundle resources){
+
+        String userName = "";
+        this.userNameInScene.setText(userName);
+
         try {
             invoices = ControllDB.getListFromInvoices();
         } catch (SQLException e) {
@@ -277,10 +285,7 @@ public class InvoiceController implements Initializable {
                                                     invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
                                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-                                                    // final Button btnAdd = new Button("Add");
-                                                    // btnAdd.setOnMouseClicked((MouseEvent addEvent) -> {
 
-                                                    // });
 
 
                                                     Dialog<ButtonType> dialog = new Dialog<>();

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
 import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +38,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainSceneController implements Initializable {
+
+    @FXML
+    private Label userNameInScene;
 
     @FXML
     private HBox cardLayout;
@@ -146,6 +150,9 @@ public class MainSceneController implements Initializable {
     ObservableList<Book> books = FXCollections.observableArrayList();   
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        String userName = "";
+        this.userNameInScene.setText(userName);
         recommendedBooks = new ArrayList<>(recommendedBooks());
 
         try {
@@ -262,7 +269,7 @@ public class MainSceneController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     //Add books to tableview
 
-                    //Iterate through tableview to check duplicate id
+                    //Iterate through tableview to check duplicate title
                     boolean isTitleDuplicate = false;
                     for (Book book : books) {
                         if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
@@ -277,17 +284,17 @@ public class MainSceneController implements Initializable {
                         alertError.setContentText("You have entered an existing book title");
                         alertError.showAndWait();
                     } else {
-                        // books.add(new Book(
-                        //     addBook.getTextfiledID(), 
-                        //     addBook.getTextfiledYear(), 
-                        //     addBook.getTextfiledStock(), 
-                        //     addBook.getTextfiledPrice(), 
-                        //     addBook.getTextfiledTitle(),
-                        //     null, 
-                        //     addBook.getTextfiledAuthor(), 
-                        //     addBook.getTextfiledPublisher(), 
-                        //     addBook.getTextfiledCategory()
-                        // ));
+                        books.add(new Book(
+                            addBook.getTextfiledID(), 
+                            addBook.getTextfiledYear(), 
+                            addBook.getTextfiledStock(), 
+                            addBook.getTextfiledPrice(), 
+                            addBook.getTextfiledTitle(),
+                            null, 
+                            addBook.getTextfiledAuthor(), 
+                            addBook.getTextfiledPublisher(), 
+                            addBook.getTextfiledCategory()
+                        ));
                         Book book = new Book(
                             -1,
                             addBook.getTextfiledYear(), 
@@ -415,7 +422,6 @@ public class MainSceneController implements Initializable {
                     if (result.get() == ButtonType.OK) { 
                         ObservableList<Book> currentTableData = booksTableView.getItems();
                         int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
-            
                         for (Book book : currentTableData) {
                             if(book.getId() == currentID) {
                                 book.setTitle(updateBook.getTextfiledTitle().getText());
@@ -430,6 +436,7 @@ public class MainSceneController implements Initializable {
                                 booksTableView.refresh();
                                 break;
                             }
+                            
                         }
                     }
                 }

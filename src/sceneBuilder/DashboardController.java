@@ -1,20 +1,16 @@
 package sceneBuilder;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -70,67 +66,58 @@ public class DashboardController implements Initializable{
     private VBox pnDashboard;
 
     @FXML
-    private BarChart<String, Double> priceChart;
+    private Label userNameInScene;
+
+    @FXML
+    private Label totalBooks;
+
+    @FXML
+    private Label totalInvoices;
+
+    @FXML
+    private Label totalStaffs;
+
+    @FXML
+    private LineChart<String, Double> booksSoldChart;
+
+    @FXML
+    private BarChart<String, Integer> salesChart;
 
     @FXML
     private TextField searchInput;
 
-    @FXML
-    private StackedAreaChart<Integer, Integer> stockChart;
-
-
-    @FXML
-    private Label titleStatic;
-
     private Stage primaryStage;
-
-    @SuppressWarnings("unchecked")
 
     public void initialize(URL location, ResourceBundle resources) {
         try {
-                    
-            // BarChart - priceChart
-            XYChart.Series<String, Double> chart = new XYChart.Series<>();
-            chart.setName("Product sold");
-            chart.getData().add(new XYChart.Data<String, Double>("PA", 2000.0));
-            chart.getData().add(new XYChart.Data<String, Double>("PB", 3000.0));
-            chart.getData().add(new XYChart.Data<String, Double>("PC", 1500.0));
-            chart.getData().add(new XYChart.Data<String, Double>("PD", 1000.0));
-            priceChart.getData().add(chart);
+            String userName = "";
+            String totalBooks = "100";   
+            String totalInvoices = "100";    
+            String totalStaffs = "100";  
             
+            this.userNameInScene.setText(userName);
+            this.totalBooks.setText(totalBooks);
+            this.totalInvoices.setText(totalInvoices);
+            this.totalStaffs.setText(totalStaffs);  
 
-            // PieChart - categoryChart
-            ObservableList <PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("PA", 40),
-                new PieChart.Data("PB", 20),
-                new PieChart.Data("PC", 18),
-                new PieChart.Data("PD", 70),
-                new PieChart.Data("PE", 10)
-            );
-            categoryChart.setClockwise(true);
-            categoryChart.setLabelLineLength(50);
-            categoryChart.setLabelsVisible(true);
-            categoryChart.setStartAngle(180);
-            categoryChart.getData().addAll(pieChartData);
-            categoryChart.setLegendSide(Side.LEFT);
-            
-            // StackedChart - stockChart
-            XYChart.Series<Integer, Integer> stackedChart1 = new XYChart.Series<>();
-            stackedChart1.setName("2012");
-            stackedChart1.getData().add(new XYChart.Data<>(12, 25));
-            stackedChart1.getData().add(new XYChart.Data<>(15, 18));
-            stackedChart1.getData().add(new XYChart.Data<>(18, 15));
-            stackedChart1.getData().add(new XYChart.Data<>(24, 19));
-            stackedChart1.getData().add(new XYChart.Data<>(22, 21));
+            // BarChart - salesChart
+            XYChart.Series<String, Integer> barChart = new XYChart.Series<>();
+            barChart.setName("Category");
+            barChart.getData().add(new XYChart.Data<String, Integer>("2020", 20));
+            barChart.getData().add(new XYChart.Data<String, Integer>("2021", 30));
+            barChart.getData().add(new XYChart.Data<String, Integer>("2022", 15));
+            barChart.getData().add(new XYChart.Data<String, Integer>("2023", 10));
+            salesChart.getData().add(barChart);
 
-            XYChart.Series<Integer, Integer> stackedChart2 = new XYChart.Series<>();
-            stackedChart2.setName("2011");
-            stackedChart2.getData().add(new XYChart.Data<>(16, 12));
-            stackedChart2.getData().add(new XYChart.Data<>(17, 26));
-            stackedChart2.getData().add(new XYChart.Data<>(11, 21));
-            stackedChart2.getData().add(new XYChart.Data<>(12, 29));
-            stackedChart2.getData().add(new XYChart.Data<>(15, 23));
-            stockChart.getData().addAll(stackedChart1, stackedChart2);
+            // LineChart - Double
+            XYChart.Series<String, Double> lineChart = new XYChart.Series<>();
+            lineChart.setName("Category");
+            lineChart.getData().add(new XYChart.Data<String, Double>("Category1", 98.3));
+            lineChart.getData().add(new XYChart.Data<String, Double>("Category2", 26.1));
+            lineChart.getData().add(new XYChart.Data<String, Double>("Category3", 72.8));
+            lineChart.getData().add(new XYChart.Data<String, Double>("Category4", 41.6));
+            lineChart.getData().add(new XYChart.Data<String, Double>("Category5", 51.5));
+            booksSoldChart.getData().add(lineChart);
 
         } catch (Exception e) {
             e.printStackTrace();

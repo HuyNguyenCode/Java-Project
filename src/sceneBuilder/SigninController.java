@@ -67,6 +67,7 @@ public class SigninController {
     void handleSignin(MouseEvent event) throws IOException {
         if(event.getSource() == btn_auth) {
             // Handle event after clicking "Sign in" button here
+
             String email = email_signin.getText();
             String password = password_signin.getText();
             String p = ControllDB.getPasswordFromDB(email);
@@ -78,14 +79,13 @@ public class SigninController {
                 alert.showAndWait(); 
             }
             else if(password.equals(p)){
-                // app run
                 System.out.println("Login Success!");
-                Parent root = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
                 primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                Scene dashBoardScene = new Scene(root);
-                primaryStage.setScene(dashBoardScene);
-                primaryStage.setTitle("DashBoard");
-                primaryStage.show(); 
+                Scene dashboardScene = new Scene(root);
+                primaryStage.setScene(dashboardScene);
+                primaryStage.setTitle("Dashboard");
+                primaryStage.show();
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -104,7 +104,12 @@ public class SigninController {
     void handleForgetPassword(MouseEvent event) throws IOException {
         if(event.getSource() == btnForgetPassword) {
             // Handle event after clicking "Forget Password" button here
-            
+            Parent root = FXMLLoader.load(getClass().getResource("ForgotPassword.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene ForgotPasswordScene = new Scene(root);
+            primaryStage.setScene(ForgotPasswordScene);
+            primaryStage.setTitle("Forgot Password");
+            primaryStage.show();
         }
     }
 
