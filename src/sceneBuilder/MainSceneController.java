@@ -39,6 +39,9 @@ import javafx.stage.Stage;
 public class MainSceneController implements Initializable {
 
     @FXML
+    private Label userNameInScene;
+
+    @FXML
     private HBox cardLayout;
 
     //Btn
@@ -146,6 +149,9 @@ public class MainSceneController implements Initializable {
     ObservableList<Book> books = FXCollections.observableArrayList();   
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        String userName = "";
+        this.userNameInScene.setText(userName);
         recommendedBooks = new ArrayList<>(recommendedBooks());
 
         try {
@@ -410,7 +416,6 @@ public class MainSceneController implements Initializable {
                     if (result.get() == ButtonType.OK) { 
                         ObservableList<Book> currentTableData = booksTableView.getItems();
                         int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
-            
                         for (Book book : currentTableData) {
                             if(book.getId() == currentID) {
                                 book.setTitle(updateBook.getTextfiledTitle().getText());
@@ -425,6 +430,7 @@ public class MainSceneController implements Initializable {
                                 booksTableView.refresh();
                                 break;
                             }
+                            
                         }
                     }
                 }

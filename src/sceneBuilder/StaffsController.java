@@ -8,9 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,8 +26,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import model.Staff;
 
-public class StaffsController {
+public class StaffsController implements Initializable {
 
+    @FXML
+    private Label userNameInScene;
+    
     @FXML
     private HBox btnBooks;
 
@@ -74,7 +79,8 @@ public class StaffsController {
 
     // @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        String userName = "";
+        this.userNameInScene.setText(userName);
         try {
             // staffs = ControllDB.getListFromBooks();
             colIDStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
@@ -86,7 +92,6 @@ public class StaffsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
     }
 
     @FXML
@@ -138,4 +143,5 @@ public class StaffsController {
         }
     }
 
+    
 }

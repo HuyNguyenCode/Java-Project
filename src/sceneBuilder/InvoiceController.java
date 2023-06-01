@@ -85,7 +85,7 @@ public class InvoiceController {
 
     private Stage primaryStage;
 
-    ObservableList<Invoice> invoices = FXCollections.observableArrayList();                  
+    ObservableList<Invoice> invoices = FXCollections.observableArrayList();     
 
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
@@ -192,10 +192,7 @@ public class InvoiceController {
                                                     invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
                                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-                                                    // final Button btnAdd = new Button("Add");
-                                                    // btnAdd.setOnMouseClicked((MouseEvent addEvent) -> {
 
-                                                    // });
 
 
                                                     Dialog<ButtonType> dialog = new Dialog<>();

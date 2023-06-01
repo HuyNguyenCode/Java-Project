@@ -67,6 +67,7 @@ public class SigninController {
     void handleSignin(MouseEvent event) throws IOException {
         if(event.getSource() == btn_auth) {
             // Handle event after clicking "Sign in" button here
+
             String email = email_signin.getText();
             String password = password_signin.getText();
             String p = ControllDB.getPasswordFromDB(email);
@@ -85,7 +86,6 @@ public class SigninController {
                 primaryStage.setScene(dashboardScene);
                 primaryStage.setTitle("Dashboard");
                 primaryStage.show();
-
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);

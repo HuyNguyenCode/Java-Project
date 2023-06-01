@@ -10,7 +10,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             Scene invoiceScene = new Scene(root);
             primaryStage.setScene(invoiceScene);
             primaryStage.setTitle("Book Store Management");

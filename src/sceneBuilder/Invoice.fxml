@@ -39,7 +39,7 @@
             <Pane prefHeight="60.0" prefWidth="478.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" prefHeight="60.0" prefWidth="253.0">
                <children>
-                  <Label prefHeight="50.0" prefWidth="140.0" text="User Name">
+                  <Label fx:id="userNameInScene" prefHeight="50.0" prefWidth="140.0" text="User Name">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
@@ -278,7 +278,7 @@
                <columns>
                   <TableColumn fx:id="colIDInvoice" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="colDate" prefWidth="75.0" text="Date" />
-                  <TableColumn fx:id="colStaff" prefWidth="75.0" text="Staff" />
+                  <TableColumn fx:id="colStaff" prefWidth="75.0" text="Staff ID" />
                   <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
                   <TableColumn fx:id="colDetail" prefWidth="75.0" text="Detail" />
                </columns>
