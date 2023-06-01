@@ -3,10 +3,10 @@ package model;
 public class Staff {
     private int id;
     private String staffName;
-    private int phone;
+    private String phone;
     private String email;
 
-    public Staff(int id, String staffName, int phone, String email) {
+    public Staff(int id, String staffName, String phone, String email) {
         this.id = id;
         this.staffName = staffName;
         this.phone = phone;
@@ -32,11 +32,11 @@ public class Staff {
         this.staffName = staffName;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

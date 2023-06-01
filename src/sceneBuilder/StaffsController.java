@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -24,7 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import model.Staff;
 
-public class StaffsController {
+public class StaffsController implements Initializable {
 
     @FXML
     private HBox btnBooks;
@@ -76,7 +79,7 @@ public class StaffsController {
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
-            // staffs = ControllDB.getListFromBooks();
+            staffs = ControllDB.getListFreomStaffs();
             colIDStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
             colEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("email"));
             colName.setCellValueFactory(new PropertyValueFactory<Staff, String>("staffName"));

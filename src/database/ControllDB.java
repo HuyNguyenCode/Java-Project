@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
 import model.Invoice;
+import model.Staff;
+import model.Supplier;
 import model.User;
 
 public class ControllDB {
@@ -180,6 +182,38 @@ public class ControllDB {
             String staffId = _staffId.toString();
             list.add(new Invoice(invoiceId,date,staffId,totalAmount));
         }
+        return list;
+    }
+
+    public static ObservableList<Staff> getListFreomStaffs() throws SQLException{
+        ObservableList<Staff> list = FXCollections.observableArrayList();
+        String sql = "Select * from employees";
+        Statement st = ConnectToDB.getConnection().createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            int id = rs.getInt(1);
+            String name = rs.getString(2);
+            String phone = rs.getString(3);
+            String email = rs.getString(4);
+            list.add(new Staff(id, name, phone, email));
+        }
+
+        return list;
+    }
+
+    public static ObservableList<Supplier> getListFromSuppliers() throws SQLException{
+        ObservableList<Supplier> list = FXCollections.observableArrayList();
+        String sql = "Select * from suppliers";
+        Statement st = ConnectToDB.getConnection().createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            int id = rs.getInt(1);
+            String name = rs.getString(2);
+            String address = rs.getString(3);
+            String phone = rs.getString(4);
+            list.add(new Supplier(id, name, address, phone));
+        }
+
         return list;
     }
 }

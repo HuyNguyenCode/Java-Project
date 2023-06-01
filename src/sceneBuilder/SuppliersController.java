@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,7 +29,7 @@ import javafx.scene.Node;
 import model.Supplier;
 
 
-public class SuppliersController {
+public class SuppliersController implements Initializable {
 
     @FXML
     private HBox btnBooks;
@@ -75,7 +78,7 @@ public class SuppliersController {
    // @Override
    public void initialize(URL location, ResourceBundle resources) {
         try {
-        // suppliers = ControllDB.getListFromBooks();
+        suppliers = ControllDB.getListFromSuppliers();
         colIDSupplier.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
         colAddress.setCellValueFactory(new PropertyValueFactory<Supplier, String>("address"));
         colName.setCellValueFactory(new PropertyValueFactory<Supplier, String>("supplierName"));
