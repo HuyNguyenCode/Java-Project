@@ -11,13 +11,37 @@ import model.User;
 
 public class ControllDB {
 
+    public static Book getLastestBook(){
+        Book res = null;
+        String sql = "Select * from Books where book_id = (select max(book_id) from Books)";
+        Statement st;
+        try {
+            st = ConnectToDB.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                int id = rs.getInt(1);
+                String title = rs.getString(2);
+                String author = rs.getString(3);
+                String publisher = rs.getString(4);
+                int year = rs.getInt(5);
+                String category = rs.getString(6);
+                Double price = rs.getDouble(7);
+                int stock = rs.getInt(8);
+                res = new Book(id, year, stock, price, title,null, author, publisher, category);
+            }
+            else return null;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return res;
+    }
     //them data vao bang tblBook
     public static boolean insertValuesIntoBooks(Book book){
         try {
             String tableName = "books";
-            String sql = "insert into " + tableName + " values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into " + tableName + " values(?,?,?,?,?,?,?)";
             PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
-            int id = book.getId();
             String title = book.getTitle();
             String author = book.getAuthor();
             String publisher = book.getPublisher();
@@ -25,14 +49,13 @@ public class ControllDB {
             String category = book.getCategory();
             Double price = book.getPrice();
             int stock = book.getStock();
-            pst.setInt(1, id);
-            pst.setString(2, title);
-            pst.setString(3, author);
-            pst.setString(4, publisher);
-            pst.setInt(5, year);
-            pst.setString(6, category);
-            pst.setDouble(7, price);
-            pst.setInt(8,stock);
+            pst.setString(1, title);
+            pst.setString(2, author);
+            pst.setString(3, publisher);
+            pst.setInt(4, year);
+            pst.setString(5, category);
+            pst.setDouble(6, price);
+            pst.setInt(7,stock);
             int isUpdate = pst.executeUpdate();
             if(isUpdate != 0){
                 System.out.println("Insert Success!");
@@ -67,7 +90,7 @@ public class ControllDB {
 
     public static boolean updateBooks(Book book){
         try {
-            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("update books set title=?, author=?, publisher=?, year=?, category=?, price=?, stock=? where id=?");
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("update books set title=?, author=?, publisher=?, year=?, category=?, price=?, stock=? where book_id=?");
             pst.setString(1, book.getTitle());
             pst.setString(2, book.getAuthor());
             pst.setString(3, book.getPublisher());
@@ -141,5 +164,22 @@ public class ControllDB {
             System.out.println("Insert User Fail!");
         }
         return false;
+    }
+
+    public static ObservableList<Invoice> getListFromInvoices() throws SQLException{
+        ObservableList list = FXCollections.observableArrayList();
+        String sql = "select * from invoice";
+        Statement st = ConnectToDB.getConnection().createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while(rs.next()){
+            int invoiceId = rs.getInt(1);
+            Date _date = rs.getDate(2);
+            String date = _date.toString();
+            double totalAmount = rs.getDouble(3);
+            Integer _staffId = rs.getInt(4);
+            String staffId = _staffId.toString();
+            list.add(new Invoice(invoiceId,date,staffId,totalAmount));
+        }
+        return list;
     }
 }
