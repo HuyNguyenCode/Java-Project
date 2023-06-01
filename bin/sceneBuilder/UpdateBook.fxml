@@ -14,8 +14,8 @@
 
 <DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="535.0" prefWidth="568.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.UpdateBookController">
    <buttonTypes>
-      <ButtonType fx:constant="APPLY" />
       <ButtonType fx:constant="CANCEL" />
+      <ButtonType fx:constant="APPLY" />
    </buttonTypes>
    <content>
       <AnchorPane prefHeight="418.0" prefWidth="491.0" styleClass="white-background" stylesheets="@../css/styles.css">
