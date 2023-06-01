@@ -1,8 +1,5 @@
 package database;
 import java.sql.*;
-
-import javax.sound.sampled.SourceDataLine;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
@@ -33,7 +30,6 @@ public class ControllDB {
             }
             else return null;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return res;
@@ -169,7 +165,7 @@ public class ControllDB {
     }
 
     public static ObservableList<Invoice> getListFromInvoices() throws SQLException{
-        ObservableList list = FXCollections.observableArrayList();
+        ObservableList<Invoice> list = FXCollections.observableArrayList();
         String sql = "select * from invoice";
         Statement st = ConnectToDB.getConnection().createStatement();
         ResultSet rs = st.executeQuery(sql);

@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -38,6 +39,9 @@ import model.InvoiceDetail;
 
 public class InvoiceController implements Initializable {
 
+    @FXML
+    private Label userNameInScene;
+    
     @FXML
     private HBox btnAddInvoice;
 
@@ -94,10 +98,13 @@ public class InvoiceController implements Initializable {
     ObservableList<Invoice> invoices = FXCollections.observableArrayList();     
 
     public void initialize(URL location, ResourceBundle resources){
+
+        String userName = "";
+        this.userNameInScene.setText(userName);
+
         try {
             invoices = ControllDB.getListFromInvoices();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));

@@ -69,6 +69,15 @@ public class DashboardController implements Initializable{
     private Label userNameInScene;
 
     @FXML
+    private Label totalBooks;
+
+    @FXML
+    private Label totalInvoices;
+
+    @FXML
+    private Label totalStaffs;
+
+    @FXML
     private LineChart<String, Double> booksSoldChart;
 
     @FXML
@@ -82,7 +91,15 @@ public class DashboardController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         try {
             String userName = "";
+            String totalBooks = "100";   
+            String totalInvoices = "100";    
+            String totalStaffs = "100";  
+            
             this.userNameInScene.setText(userName);
+            this.totalBooks.setText(totalBooks);
+            this.totalInvoices.setText(totalInvoices);
+            this.totalStaffs.setText(totalStaffs);  
+
             // BarChart - salesChart
             XYChart.Series<String, Integer> barChart = new XYChart.Series<>();
             barChart.setName("Category");

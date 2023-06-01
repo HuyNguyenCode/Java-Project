@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import database.ControllDB;
+// import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -84,7 +84,7 @@ public class StaffsController implements Initializable {
         String userName = "";
         this.userNameInScene.setText(userName);
         try {
-            staffs = ControllDB.getListFreomStaffs();
+            // staffs = ControllDB.getListFreomStaffs();
             colIDStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
             colEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("email"));
             colName.setCellValueFactory(new PropertyValueFactory<Staff, String>("staffName"));
