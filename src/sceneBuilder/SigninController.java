@@ -64,7 +64,7 @@ public class SigninController {
     }
 
     @FXML
-    void handleSignin(MouseEvent event) {
+    void handleSignin(MouseEvent event) throws IOException {
         if(event.getSource() == btn_auth) {
             // Handle event after clicking "Sign in" button here
             String email = email_signin.getText();
@@ -78,10 +78,14 @@ public class SigninController {
                 alert.showAndWait(); 
             }
             else if(password.equals(p)){
-                // App run
-                //
-                //
+                // app run
                 System.out.println("Login Success!");
+                Parent root = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
+                primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene dashBoardScene = new Scene(root);
+                primaryStage.setScene(dashBoardScene);
+                primaryStage.setTitle("DashBoard");
+                primaryStage.show(); 
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);

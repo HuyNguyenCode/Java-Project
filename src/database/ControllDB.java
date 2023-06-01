@@ -121,7 +121,6 @@ public class ControllDB {
             }
             return "-1";
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -130,8 +129,8 @@ public class ControllDB {
     public static boolean insertValuesIntoUsers(User user){
         try {
             PreparedStatement pst = ConnectToDB.getConnection().prepareStatement("insert into users values (?,?,?)");
-            pst.setString(1, user.getFullName());
-            pst.setString(2, user.getEmail());
+            pst.setString(1, user.getEmail());
+            pst.setString(2, user.getFullName());
             pst.setString(3, user.getPassword());
             int isUpdate = pst.executeUpdate();
             if(isUpdate != 0){
@@ -139,7 +138,6 @@ public class ControllDB {
                 return true;
             }
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println("Insert User Fail!");
         }
         return false;

@@ -1,9 +1,6 @@
 package sceneBuilder;
 
 import java.io.IOException;
-
-import javax.swing.event.ChangeEvent;
-
 import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -106,10 +103,15 @@ public class SignupController {
                     alert.setTitle("SignUp Fail!");
                     alert.setContentText("Your account already exists!");
                     alert.showAndWait(); 
+                } else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("SignUp Success!");
+                    alert.setContentText("You can signin with new account!");
+                    alert.showAndWait();
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Agree on term !");
+                alert.setTitle("Warning Agree on term!");
                 alert.setContentText("Please indicate that you have read and agree to the 'Terms of service'!");
                 alert.showAndWait(); 
             }

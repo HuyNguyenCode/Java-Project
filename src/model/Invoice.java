@@ -1,10 +1,10 @@
 package model;
 
 public class Invoice {
-    int invoiceID;
-    String invoiceDate;
-    String staff;
-    double total;
+    private int invoiceID;
+    private String invoiceDate;
+    private String staff;
+    private double total;
     
 
     public Invoice(int invoiceID, String invoiceDate, String staff, double total) {
