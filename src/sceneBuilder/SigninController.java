@@ -85,6 +85,7 @@ public class SigninController {
                 primaryStage.setScene(dashboardScene);
                 primaryStage.setTitle("Dashboard");
                 primaryStage.show();
+
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
