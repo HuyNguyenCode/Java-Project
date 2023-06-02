@@ -140,14 +140,17 @@ public class InvoiceController implements Initializable {
                                     // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
                                     // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
 
-                                    invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
-                                        invoiceClicked.getInvoiceID(),
-                                        123,
-                                        "Book_1",
-                                        23.000,
-                                        10,
-                                        1000
-                                    ));
+                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
+                                    //     invoiceClicked.getInvoiceID(),
+                                    //     123,
+                                    //     "Book_1",
+                                    //     23.000,
+                                    //     10,
+                                    //     1000
+                                    // ));
+
+                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+
                                     invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
                                     invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
                                     invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
@@ -267,14 +270,17 @@ public class InvoiceController implements Initializable {
                                                     // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
                                                     // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
 
-                                                    invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
-                                                        invoiceClicked.getInvoiceID(),
-                                                        123,
-                                                        "Book_1",
-                                                        23.000,
-                                                        10,
-                                                        1000
-                                                    ));
+                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
+                                                    //     invoiceClicked.getInvoiceID(),
+                                                    //     123,
+                                                    //     "Book_1",
+                                                    //     23.000,
+                                                    //     10,
+                                                    //     1000
+                                                    // ));
+
+                                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+
                                                     invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
                                                     invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
                                                     invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));

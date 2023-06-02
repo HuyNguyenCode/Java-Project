@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Book;
 import model.Invoice;
+import model.InvoiceDetail;
 import model.Staff;
 import model.Supplier;
 import model.User;
@@ -226,6 +227,32 @@ public class ControllDB {
             list.add(new Supplier(id, name, address, phone));
         }
 
+        return list;
+    }
+
+    public static ObservableList<InvoiceDetail> getDetailsFromDB(int invoiceID){
+        ObservableList<InvoiceDetail> list = FXCollections.observableArrayList();
+        try {
+            String sql = "select d.invoice_id, b.book_id, b.title, d.unit_price, d.quantity, d.unit_price * d.quantity "+
+            "from invoice_detail as d, books as b "+
+            "where d.invoice_id = ? and d.book_id = b.book_id";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setInt(1, invoiceID);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                list.add(new InvoiceDetail(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDouble(4),
+                    rs.getInt(5),
+                    rs.getDouble(6)
+                ));
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
         return list;
     }
 }
