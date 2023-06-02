@@ -190,7 +190,13 @@ public class DashboardController implements Initializable{
         } 
 
         if (event.getSource() == btnLogout) {
-
+            Parent root = FXMLLoader.load(getClass().getResource("Signin.fxml"));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene signinScence = new Scene(root);
+            primaryStage.setScene(signinScence);
+            primaryStage.setTitle("Signin");
+            primaryStage.centerOnScreen();
+            primaryStage.show();
         }
 
         if (event.getSource() == btnSettings) {
@@ -198,7 +204,7 @@ public class DashboardController implements Initializable{
         }
 
         if (event.getSource() == btnReport) {
-
+            
         }
     }
 }
