@@ -183,17 +183,18 @@ public class ControllDB {
 
     public static ObservableList<Invoice> getListFromInvoices() throws SQLException{
         ObservableList<Invoice> list = FXCollections.observableArrayList();
-        String sql = "select * from invoice";
+        String sql = "select i.invoice_id, i.date, e.name, i.total_amount "+
+                        "from invoice as i, employees as e "+
+                        "where i.employee_id = e.employee_id";
         Statement st = ConnectToDB.getConnection().createStatement();
         ResultSet rs = st.executeQuery(sql);
         while(rs.next()){
-            int invoiceId = rs.getInt(1);
-            Date _date = rs.getDate(2);
-            String date = _date.toString();
-            double totalAmount = rs.getDouble(3);
-            Integer _staffId = rs.getInt(4);
-            String staffId = _staffId.toString();
-            list.add(new Invoice(invoiceId,date,staffId,totalAmount));
+            list.add(new Invoice(
+                rs.getInt(1), 
+                rs.getDate(2).toString(),
+                rs.getString(3),
+                rs.getDouble(4)
+            ));
         }
         return list;
     }
