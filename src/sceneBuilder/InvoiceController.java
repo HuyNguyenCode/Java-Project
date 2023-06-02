@@ -318,7 +318,7 @@ public class InvoiceController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnExit) {
+        else if (event.getSource() == btnExit) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm to exit program !");
             alert.setContentText("Do you want to exit ?");
@@ -328,7 +328,7 @@ public class InvoiceController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnBooks) {
+        else if (event.getSource() == btnBooks) {
             Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene bookScene = new Scene(root);
@@ -338,7 +338,7 @@ public class InvoiceController implements Initializable {
         }
 
         
-        if (event.getSource() == btnSuppliers) {
+        else if (event.getSource() == btnSuppliers) {
             Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene supplierScene = new Scene(root);
@@ -347,7 +347,7 @@ public class InvoiceController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnStaffs) {
+        else if (event.getSource() == btnStaffs) {
             Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene staffScene = new Scene(root);
@@ -356,7 +356,7 @@ public class InvoiceController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnInvoiceDashboard) {
+        else if (event.getSource() == btnInvoiceDashboard) {
             Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene dashboardScene = new Scene(root);
@@ -420,7 +420,7 @@ public class InvoiceController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnDeleteInvoice) { 
+        else if (event.getSource() == btnDeleteInvoice) { 
             if(invoices.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Empty board error!");

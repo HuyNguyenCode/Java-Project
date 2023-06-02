@@ -111,7 +111,7 @@ public class SuppliersController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnInvoices) {
+        else if (event.getSource() == btnInvoices) {
             Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene invoiceScene = new Scene(root);
@@ -120,7 +120,7 @@ public class SuppliersController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnStaffs) {
+        else if (event.getSource() == btnStaffs) {
             Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene staffScene = new Scene(root);
@@ -129,7 +129,7 @@ public class SuppliersController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnBooks) {
+        else if (event.getSource() == btnBooks) {
             Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene booksScene = new Scene(root);
@@ -138,7 +138,7 @@ public class SuppliersController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnDashboard) {
+        else if (event.getSource() == btnDashboard) {
             Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene dashboardScene = new Scene(root);

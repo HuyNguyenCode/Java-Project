@@ -117,12 +117,12 @@ public class SignupController {
             }
         }
 
-        if(event.getSource() == btn_google) {
+        else if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign up with Google" button here
             
         }
 
-        if(event.getSource() == termsOfService_text) {
+        else if(event.getSource() == termsOfService_text) {
             // Handle event after clicking "term of service"
 
         }

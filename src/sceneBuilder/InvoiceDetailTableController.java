@@ -146,7 +146,7 @@ public class InvoiceDetailTableController {
             }
         }
 
-        if (event.getSource() == btnAddInvoiceDetail) {
+        else if (event.getSource() == btnAddInvoiceDetail) {
 
             invoicesDetailList.add(new InvoiceDetail(
                 Integer.parseInt(getInvoiceIDTextfield().getText()), 

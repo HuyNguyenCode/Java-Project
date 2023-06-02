@@ -99,7 +99,7 @@ public class SigninController {
             }
         }
 
-        if(event.getSource() == btn_google) {
+        else if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign in with Google" button here
         }
     }

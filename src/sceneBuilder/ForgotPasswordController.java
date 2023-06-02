@@ -72,7 +72,7 @@ public class ForgotPasswordController {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnSignup) {
+        else if (event.getSource() == btnSignup) {
             Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
             Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene signupScene = new Scene(root);

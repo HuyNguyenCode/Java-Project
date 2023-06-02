@@ -333,7 +333,7 @@ public class MainSceneController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnExit) {
+        else if (event.getSource() == btnExit) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm to exit program !");
             alert.setContentText("Do you want to exit ?");
@@ -343,7 +343,7 @@ public class MainSceneController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnInvoices) {
+        else if (event.getSource() == btnInvoices) {
             Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene invoiceScene = new Scene(root);
@@ -352,7 +352,7 @@ public class MainSceneController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnStaffs) {
+        else if (event.getSource() == btnStaffs) {
             Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene staffScene = new Scene(root);
@@ -361,7 +361,7 @@ public class MainSceneController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnSuppliers) {
+        else if (event.getSource() == btnSuppliers) {
             Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene supplierScene = new Scene(root);
@@ -370,7 +370,7 @@ public class MainSceneController implements Initializable {
             primaryStage.show(); 
         }
 
-        if (event.getSource() == btnDashboard) {
+        else if (event.getSource() == btnDashboard) {
             Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Scene dashboardScene = new Scene(root);
@@ -443,7 +443,7 @@ public class MainSceneController implements Initializable {
             }
         }
 
-        if (event.getSource() == btnDelete) { 
+        else if (event.getSource() == btnDelete) { 
             if(books.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Empty board error!");
