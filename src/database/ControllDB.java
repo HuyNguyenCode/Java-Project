@@ -71,7 +71,7 @@ public class ControllDB {
     public static boolean deleteFromBooks(Book book){
         try {
             String tableName = "Books";
-            String sql = "delete from " + tableName + " where id = ?";
+            String sql = "delete from " + tableName + " where book_id = ?";
             PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
             int id = book.getId();
             pst.setInt(1, id);
@@ -254,5 +254,50 @@ public class ControllDB {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static int countBooksFromDB(){
+        try {
+            String sql = "select sum(stock) from books";
+            Statement st = ConnectToDB.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int countStaffsFromDB(){
+        try {
+            String sql = "select count(*) from employees";
+            Statement st = ConnectToDB.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static int countInvoicesFromDB(){
+        try {
+            String sql = "select count(*) from invoice where total_amount is not null";
+            Statement st = ConnectToDB.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

@@ -284,17 +284,17 @@ public class MainSceneController implements Initializable {
                         alertError.setContentText("You have entered an existing book title");
                         alertError.showAndWait();
                     } else {
-                        books.add(new Book(
-                            addBook.getTextfiledID(), 
-                            addBook.getTextfiledYear(), 
-                            addBook.getTextfiledStock(), 
-                            addBook.getTextfiledPrice(), 
-                            addBook.getTextfiledTitle(),
-                            null, 
-                            addBook.getTextfiledAuthor(), 
-                            addBook.getTextfiledPublisher(), 
-                            addBook.getTextfiledCategory()
-                        ));
+                        // books.add(new Book(
+                        //     addBook.getTextfiledID(), 
+                        //     addBook.getTextfiledYear(), 
+                        //     addBook.getTextfiledStock(), 
+                        //     addBook.getTextfiledPrice(), 
+                        //     addBook.getTextfiledTitle(),
+                        //     null, 
+                        //     addBook.getTextfiledAuthor(), 
+                        //     addBook.getTextfiledPublisher(), 
+                        //     addBook.getTextfiledCategory()
+                        // ));
                         Book book = new Book(
                             -1,
                             addBook.getTextfiledYear(), 

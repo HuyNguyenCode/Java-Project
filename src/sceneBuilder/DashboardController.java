@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -91,9 +93,9 @@ public class DashboardController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         try {
             String userName = SigninController.user.getFullName();
-            String totalBooks = "100";   
-            String totalInvoices = "100";    
-            String totalStaffs = "100";  
+            String totalBooks = Integer.toString(ControllDB.countBooksFromDB());   
+            String totalInvoices = Integer.toString(ControllDB.countInvoicesFromDB());    
+            String totalStaffs = Integer.toString(ControllDB.countStaffsFromDB());  
             
             this.userNameInScene.setText(userName);
             this.totalBooks.setText(totalBooks);

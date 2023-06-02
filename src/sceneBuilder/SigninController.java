@@ -89,6 +89,7 @@ public class SigninController {
                 Scene dashboardScene = new Scene(root);
                 primaryStage.setScene(dashboardScene);
                 primaryStage.setTitle("Dashboard");
+                primaryStage.centerOnScreen();
                 primaryStage.show();
             }
             else{
