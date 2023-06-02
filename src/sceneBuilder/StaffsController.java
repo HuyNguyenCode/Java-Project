@@ -84,7 +84,7 @@ public class StaffsController implements Initializable {
         String userName = SigninController.user.getFullName();
         this.userNameInScene.setText(userName);
         try {
-            staffs = ControllDB.getListFreomStaffs();
+            staffs = ControllDB.getListFromStaffs();
             colIDStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
             colEmail.setCellValueFactory(new PropertyValueFactory<Staff, String>("email"));
             colName.setCellValueFactory(new PropertyValueFactory<Staff, String>("staffName"));
