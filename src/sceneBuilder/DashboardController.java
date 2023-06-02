@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import database.ControllDB;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +26,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import model.BarChartData;
+import model.LineChartData;
 
 public class DashboardController implements Initializable{
 
@@ -103,22 +106,34 @@ public class DashboardController implements Initializable{
             this.totalStaffs.setText(totalStaffs);  
 
             // BarChart - salesChart
+            
+            ObservableList<BarChartData> barChartDataList = ControllDB.getBarChartDataFromDB();
+
             XYChart.Series<String, Integer> barChart = new XYChart.Series<>();
-            barChart.setName("Category");
-            barChart.getData().add(new XYChart.Data<String, Integer>("2020", 20));
-            barChart.getData().add(new XYChart.Data<String, Integer>("2021", 30));
-            barChart.getData().add(new XYChart.Data<String, Integer>("2022", 15));
-            barChart.getData().add(new XYChart.Data<String, Integer>("2023", 10));
+            barChart.setName("Number of books by genre");
+            // barChart.getData().add(new XYChart.Data<String, Integer>("2020", 20));
+            // barChart.getData().add(new XYChart.Data<String, Integer>("2021", 30));
+            // barChart.getData().add(new XYChart.Data<String, Integer>("2022", 15));
+            // barChart.getData().add(new XYChart.Data<String, Integer>("2023", 10));
+            for(BarChartData barChartData : barChartDataList){
+                barChart.getData().add(new XYChart.Data<String, Integer>(barChartData.getX(), barChartData.getY()));
+            }
             salesChart.getData().add(barChart);
 
             // LineChart - Double
+            
+            ObservableList<LineChartData> lineChartDataList = ControllDB.getLineChartDataFromDB();
+
             XYChart.Series<String, Double> lineChart = new XYChart.Series<>();
-            lineChart.setName("Category");
-            lineChart.getData().add(new XYChart.Data<String, Double>("Category1", 98.3));
-            lineChart.getData().add(new XYChart.Data<String, Double>("Category2", 26.1));
-            lineChart.getData().add(new XYChart.Data<String, Double>("Category3", 72.8));
-            lineChart.getData().add(new XYChart.Data<String, Double>("Category4", 41.6));
-            lineChart.getData().add(new XYChart.Data<String, Double>("Category5", 51.5));
+            lineChart.setName("Revenue per year");
+            // lineChart.getData().add(new XYChart.Data<String, Double>("Category1", 98.3));
+            // lineChart.getData().add(new XYChart.Data<String, Double>("Category2", 26.1));
+            // lineChart.getData().add(new XYChart.Data<String, Double>("Category3", 72.8));
+            // lineChart.getData().add(new XYChart.Data<String, Double>("Category4", 41.6));
+            // lineChart.getData().add(new XYChart.Data<String, Double>("Category5", 51.5));
+            for(LineChartData lineChartData : lineChartDataList){
+                lineChart.getData().add(new XYChart.Data<String, Double>(lineChartData.getX(), lineChartData.getY()));
+            }
             booksSoldChart.getData().add(lineChart);
 
         } catch (Exception e) {
