@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 public class DashboardController implements Initializable{
 
     @FXML
-    private HBox btnAddBook;
+    private HBox btnLogout;
 
     @FXML
     private HBox btnBooks;
@@ -38,7 +38,7 @@ public class DashboardController implements Initializable{
     private HBox btnDashboard;
 
     @FXML
-    private HBox btnDelete;
+    private HBox btnReport;
 
     @FXML
     private Button btnExit;
@@ -52,8 +52,8 @@ public class DashboardController implements Initializable{
     @FXML
     private HBox btnSuppliers;
 
-    @FXML
-    private HBox btnUpdate;
+     @FXML
+    private HBox btnSettings;
 
     @FXML
     private Button btnbookManage;
@@ -172,6 +172,18 @@ public class DashboardController implements Initializable{
             primaryStage.setScene(booksScene);
             primaryStage.setTitle("Books Management");
             primaryStage.show();
+        } 
+
+        if (event.getSource() == btnLogout) {
+
+        }
+
+        if (event.getSource() == btnSettings) {
+
+        }
+
+        if (event.getSource() == btnReport) {
+
         }
     }
 }
