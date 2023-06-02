@@ -81,7 +81,7 @@ public class StaffsController implements Initializable {
 
     // @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String userName = "";
+        String userName = SigninController.user.getFullName();
         this.userNameInScene.setText(userName);
         try {
             // staffs = ControllDB.getListFreomStaffs();

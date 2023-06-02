@@ -164,6 +164,22 @@ public class ControllDB {
         return false;
     }
 
+    public static User getUserFromDB(String email){
+        String sql = "select * from users where email = '" + email + "'";
+        Statement st;
+        try {
+            st = ConnectToDB.getConnection().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                return new User(rs.getString(2), rs.getString(1), rs.getString(3));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static ObservableList<Invoice> getListFromInvoices() throws SQLException{
         ObservableList<Invoice> list = FXCollections.observableArrayList();
         String sql = "select * from invoice";

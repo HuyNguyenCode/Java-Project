@@ -90,7 +90,7 @@ public class DashboardController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            String userName = "";
+            String userName = SigninController.user.getFullName();
             String totalBooks = "100";   
             String totalInvoices = "100";    
             String totalStaffs = "100";  

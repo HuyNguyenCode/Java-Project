@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.User;
 
 public class SigninController {
 
@@ -36,6 +37,8 @@ public class SigninController {
     private Button btn_google;
 
     private Stage primaryStage;
+
+    public static User user;
 
     @FXML
     void switchScene(MouseEvent event) throws IOException { 
@@ -80,6 +83,7 @@ public class SigninController {
             }
             else if(password.equals(p)){
                 System.out.println("Login Success!");
+                user = ControllDB.getUserFromDB(email);
                 Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
                 primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
                 Scene dashboardScene = new Scene(root);
