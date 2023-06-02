@@ -88,7 +88,7 @@
                         <Font name="Berlin Sans FB Demi Bold" size="18.0" />
                      </font>
                   </Button>
-                  <HBox fx:id="btnAddBook" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnReport" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -105,7 +105,7 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox fx:id="btnDelete" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnSettings" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -122,7 +122,7 @@
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox fx:id="btnUpdate" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
+                  <HBox fx:id="btnLogout" alignment="CENTER" onMouseClicked="#handleClicks" prefHeight="50.0" prefWidth="200.0" spacing="15.0" styleClass="mouse-moved" stylesheets="@../css/styles.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>

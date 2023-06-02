@@ -59,7 +59,10 @@
 #btnBooks,
 #btnStaffs,
 #btnSuppliers,
-#btnExit {
+#btnExit, 
+#btnLogout,
+#btnSettings,
+#btnReport {
     -fx-cursor: hand;   
 }
 
