@@ -36,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Invoice;
 import model.InvoiceDetail;
+import model.Staff;
 
 public class InvoiceController implements Initializable {
 
@@ -79,6 +80,9 @@ public class InvoiceController implements Initializable {
     private TableColumn<Invoice, Integer> colStaff;
 
     @FXML
+    private TableColumn<Staff, String> colStaffName;
+
+    @FXML
     private TableColumn<Invoice, Double> colTotal;
 
     @FXML
@@ -99,89 +103,90 @@ public class InvoiceController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources){
 
-        String userName = SigninController.user.getFullName();
-        this.userNameInScene.setText(userName);
+        // String userName = SigninController.user.getFullName();
+        // this.userNameInScene.setText(userName);
 
-        try {
-            invoices = ControllDB.getListFromInvoices();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
-        colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
-        colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
-        Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
-            @Override
-            public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
-                final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
-                    final Button btnDetail = new Button("Show Detail");
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            btnDetail.setOnMouseClicked((MouseEvent event) -> {
-                                Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
-                                FXMLLoader fxmlLoader = new FXMLLoader();
-                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
+        // try {
+        //     invoices = ControllDB.getListFromInvoices();
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // }
+        // colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
+        // colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
+        // colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
+        // colStaffName.setCellValueFactory(new PropertyValueFactory<Staff, String>("Staff Name"));
+        // colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
+        // Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
+        //     @Override
+        //     public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
+        //         final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
+        //             final Button btnDetail = new Button("Show Detail");
+        //             @Override
+        //             public void updateItem(String item, boolean empty) {
+        //                 super.updateItem(item, empty);
+        //                 if (empty) {
+        //                     setGraphic(null);
+        //                     setText(null);
+        //                 } else {
+        //                     btnDetail.setOnMouseClicked((MouseEvent event) -> {
+        //                         Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
+        //                         FXMLLoader fxmlLoader = new FXMLLoader();
+        //                         fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
 
-                                DialogPane invoiceDetailDialogPane;
-                                try {                            
+        //                         DialogPane invoiceDetailDialogPane;
+        //                         try {                            
                                                                                         
-                                    invoiceDetailDialogPane = fxmlLoader.load();
-                                    InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
+        //                             invoiceDetailDialogPane = fxmlLoader.load();
+        //                             InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
 
-                                    // invoiceDetail.setBookID_detail(null);
+        //                             // invoiceDetail.setBookID_detail(null);
 
-                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(123, 456, "Book_1", 56.000, 10, 5000));
-                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
-                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
+        //                             // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(123, 456, "Book_1", 56.000, 10, 5000));
+        //                             // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
+        //                             // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
 
-                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
-                                    //     invoiceClicked.getInvoiceID(),
-                                    //     123,
-                                    //     "Book_1",
-                                    //     23.000,
-                                    //     10,
-                                    //     1000
-                                    // ));
+        //                             // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
+        //                             //     invoiceClicked.getInvoiceID(),
+        //                             //     123,
+        //                             //     "Book_1",
+        //                             //     23.000,
+        //                             //     10,
+        //                             //     1000
+        //                             // ));
 
-                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+        //                             invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
 
-                                    invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
-                                    invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
-                                    invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
-                                    invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
-                                    invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
-                                    // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
-                                    invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
-                                    invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
-                                    invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
-                                    invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
+        //                             invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
+        //                             invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
+        //                             invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
+        //                             invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
+        //                             invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
+        //                             // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
+        //                             invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
+        //                             invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
+        //                             invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
+        //                             invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
 
 
-                                    Dialog<ButtonType> dialog = new Dialog<>();
-                                    dialog.setDialogPane(invoiceDetailDialogPane);
-                                    dialog.setTitle("Invoice Detail");
-                                    dialog.showAndWait();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                            setGraphic(btnDetail);
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
+        //                             Dialog<ButtonType> dialog = new Dialog<>();
+        //                             dialog.setDialogPane(invoiceDetailDialogPane);
+        //                             dialog.setTitle("Invoice Detail");
+        //                             dialog.showAndWait();
+        //                         } catch (IOException e) {
+        //                             e.printStackTrace();
+        //                         }
+        //                     });
+        //                     setGraphic(btnDetail);
+        //                     setText(null);
+        //                 }
+        //             }
+        //         };
+        //         return cell;
+        //     }
+        // };
 
-        colDetail.setCellFactory(cellFactory);
-        invoiceTableView.setItems(invoices);
+        // colDetail.setCellFactory(cellFactory);
+        // invoiceTableView.setItems(invoices);
     }
 
     @FXML
@@ -212,108 +217,114 @@ public class InvoiceController implements Initializable {
 
                 if (result.get() == ButtonType.OK) {
                     //Add invoice to tableview
+                    
+                    invoices.add(new Invoice(
+                        // addInvoice.getComboboxStaffID(),
+                        123,
+                        addInvoice.getDatePickerDates(), 
+                        addInvoice.getComboboxStaffID(), 
+                        100.0 // Get total from DB
+                    ));
 
-                    // Iterate through tableview to check duplicate id
-                    boolean isDuplicate = false;
-                    for (Invoice invoice : invoices) {
-                        if(addInvoice.getTextfiledID() == invoice.getInvoiceID()) {
-                            isDuplicate = true;
-                            break; 
-                        } 
-                    }
-
-                    if (isDuplicate) {
-                        Alert alertError = new Alert(Alert.AlertType.ERROR);
-                        alertError.setTitle("Can't add new invoice!");
-                        alertError.setContentText("You have entered an existing ID");
-                        alertError.showAndWait();
-                    } else {
-                        invoices.add(new Invoice(
-                            addInvoice.getTextfiledID(),
-                            addInvoice.getDatePickerDates(), 
-                            addInvoice.getTextfiledStaff(), 
-                            addInvoice.getTextfiledTotal()
-                        ));
-
-                        colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
-                        colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-                        colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
-                        colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
-
-
-                        Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
-                            @Override
-                            public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
-                                final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
-                                    final Button btnDetail = new Button("Show Detail");
-                                    @Override
-                                    public void updateItem(String item, boolean empty) {
-                                        super.updateItem(item, empty);
-                                        if (empty) {
-                                            setGraphic(null);
-                                            setText(null);
-                                        } else {
-                                            btnDetail.setOnMouseClicked((MouseEvent event) -> {
-                                                Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
-                                                FXMLLoader fxmlLoader = new FXMLLoader();
-                                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
-
-                                                DialogPane invoiceDetailDialogPane;
-                                                try {                            
-                                                                                                        
-                                                    invoiceDetailDialogPane = fxmlLoader.load();
-                                                    InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
-
-                                                    // invoiceDetail.setBookID_detail(null);
-
-                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(123, 456, "Book_1", 56.000, 10, 5000));
-                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
-                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
-
-                                                    // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
-                                                    //     invoiceClicked.getInvoiceID(),
-                                                    //     123,
-                                                    //     "Book_1",
-                                                    //     23.000,
-                                                    //     10,
-                                                    //     1000
-                                                    // ));
-
-                                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
-
-                                                    invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
-                                                    invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
-                                                    invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
-                                                    invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
-                                                    invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
-                                                    // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
-                                                    invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
-                                                    invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
-                                                    invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
-                                                    invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-
-
-
-                                                    Dialog<ButtonType> dialog = new Dialog<>();
-                                                    dialog.setDialogPane(invoiceDetailDialogPane);
-                                                    dialog.setTitle("Invoice Detail");
-                                                    dialog.showAndWait();
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            });
-                                            setGraphic(btnDetail);
-                                            setText(null);
-                                        }
+                    colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
+                    colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
+                    colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
+                    colStaff.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("Staff"));
+                    // colStaffName.setCellFactory(new PropertyValueFactory<Staff, String>("Staff Name"));
+                    Callback<TableColumn<Staff, String>, TableCell<Staff, String>> staffNamecellFactory = new Callback<TableColumn<Staff, String>, TableCell<Staff, String>>() {
+                        @Override
+                        public TableCell<Staff, String> call(final TableColumn<Staff, String> param) {
+                            final TableCell<Staff, String> cell = new TableCell<Staff, String>() {
+                                @Override
+                                public void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    if (empty) {
+                                        setGraphic(null);
+                                        setText(null);
+                                    } else {
+                                        setText(addInvoice.getTextfiledStaff());
                                     }
-                                };
-                                return cell;
-                            }
-                        };
-        
-                        colDetail.setCellFactory(cellFactory);
-                        invoiceTableView.setItems(invoices);
-                    }
+                                }
+                            };
+                            return cell;
+                        }
+                    };
+
+                    colStaffName.setCellFactory(staffNamecellFactory);
+
+
+                    Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> DetailcellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
+                        @Override
+                        public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
+                            final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
+                                final Button btnDetail = new Button("Show Detail");
+                                @Override
+                                public void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    if (empty) {
+                                        setGraphic(null);
+                                        setText(null);
+                                    } else {
+                                        btnDetail.setOnMouseClicked((MouseEvent event) -> {
+                                            Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
+                                            FXMLLoader fxmlLoader = new FXMLLoader();
+                                            fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
+
+                                            DialogPane invoiceDetailDialogPane;
+                                            try {                            
+                                                                                                    
+                                                invoiceDetailDialogPane = fxmlLoader.load();
+                                                InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
+
+                                                // invoiceDetail.setBookID_detail(null);
+
+                                                // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(123, 456, "Book_1", 56.000, 10, 5000));
+                                                // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(672, 182, "Book_2", 45.000, 12, 5200));
+                                                // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(736, 456, "Book_3", 12.000, 18, 9800));
+
+                                                // invoiceDetailTable.invoicesDetailList.add(new InvoiceDetail(
+                                                //     invoiceClicked.getInvoiceID(),
+                                                //     123,
+                                                //     "Book_1",
+                                                //     23.000,
+                                                //     10,
+                                                //     1000
+                                                // ));
+
+                                                // invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+
+                                                invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
+                                                invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
+                                                invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
+                                                invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
+                                                invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
+                                                // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
+                                                invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
+                                                invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
+                                                invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
+                                                invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
+
+
+
+                                                Dialog<ButtonType> dialog = new Dialog<>();
+                                                dialog.setDialogPane(invoiceDetailDialogPane);
+                                                dialog.setTitle("Invoice Detail");
+                                                dialog.showAndWait();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        });
+                                        setGraphic(btnDetail);
+                                        setText(null);
+                                    }
+                                }
+                            };
+                            return cell;
+                        }
+                    };
+                    colDetail.setCellFactory(DetailcellFactory);
+                    invoiceTableView.setItems(invoices);
+                
                 }
             }
         }
@@ -389,7 +400,7 @@ public class InvoiceController implements Initializable {
                 updateInvoice.setTextfiledID(String.valueOf(clickedInvoice.getInvoiceID()));
                 updateInvoice.setTextfiledTotal(String.valueOf(clickedInvoice.getTotal()));
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
-                updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
+                updateInvoice.setTextfiledStaff(String.valueOf(clickedInvoice.getStaff()));
         
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(updateInvoiceDialogPane);
@@ -407,7 +418,7 @@ public class InvoiceController implements Initializable {
                         int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
                         for (Invoice invoice : currentTableData) {
                             if(invoice.getInvoiceID() == currentID) {
-                                invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
+                                invoice.setStaff(Integer.parseInt(updateInvoice.getTextfiledStaff().getText()));
                                 invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
                                 invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
                                 invoiceTableView.setItems(currentTableData);
@@ -447,10 +458,10 @@ public class InvoiceController implements Initializable {
                     if (newValue == null) {
                         return true;
                     } 
-                    String toLowerCaseFilter = newValue.toLowerCase();
+                    // String toLowerCaseFilter = newValue.toLowerCase();
                     if (String.valueOf(cust.getInvoiceID()).contains(newValue)) {
                         return true;
-                    } else if (cust.getStaff().toLowerCase().contains(toLowerCaseFilter)) {
+                    } else if (String.valueOf(cust.getStaff()).contains(newValue)) {
                         return true;
                     } else if (String.valueOf(cust.getTotal()).contains(newValue)) {
                         return true;
