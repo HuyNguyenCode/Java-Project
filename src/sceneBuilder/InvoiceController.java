@@ -300,27 +300,28 @@ public class InvoiceController implements Initializable {
             }
         }
 
-        else if (event.getSource() == btnDeleteInvoice) { 
-            if(invoices.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR,
-                "Empty board error!", 
-                "Unable to delete the information in the table because the table is empty !"
-                );
-            } else  {
-                Optional<ButtonType> result = showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
-                if (result.get() == ButtonType.OK) { 
-                    if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
-                        invoiceTableView.getItems().removeAll(clickedInvoice);
-                    }
-                    else{
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Can't delete invoice !");
-                        alert.setContentText("Check connect to database...");
-                        result = alert.showAndWait();
-                    }
-                }
-            }
-        }    
+        // else if (event.getSource() == btnDeleteInvoice) { 
+        //     if(invoices.isEmpty()) {
+        //         showAlert(Alert.AlertType.ERROR,
+        //         "Empty board error!", 
+        //         "Unable to delete the information in the table because the table is empty !"
+        //         );
+        //     } else  {
+        //         Optional<ButtonType> result = showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
+        //         if (result.get() == ButtonType.OK) { 
+        //             if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
+        //                 invoiceTableView.getItems().removeAll(clickedInvoice);
+        //             }
+        //             else{
+        //                 showAlert(Alert.AlertType.INFORMATION, "Can't delete invoice !", "Check connect to database...");
+        //                 alert = new Alert(Alert.AlertType.INFORMATION);
+        //                 alert.setTitle();
+        //                 alert.setContentText();
+        //                 result = alert.showAndWait();
+        //             }
+        //         }
+        //     }
+        // }    
     }
 
     @FXML
