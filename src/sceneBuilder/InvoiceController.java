@@ -217,14 +217,10 @@ public class InvoiceController implements Initializable {
 
                 if (result.get() == ButtonType.OK) {
                     //Add invoice to tableview
-                    
-                    invoices.add(new Invoice(
-                        // addInvoice.getComboboxStaffID(),
-                        123,
-                        addInvoice.getDatePickerDates(), 
-                        addInvoice.getComboboxStaffID(), 
-                        100.0 // Get total from DB
-                    ));
+                    boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
+                    if(isUpdate == false) return;
+
+                    invoices.add(ControllDB.getLastestInvoice());
 
                     colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
                     colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
