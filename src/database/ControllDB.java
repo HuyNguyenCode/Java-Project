@@ -201,7 +201,37 @@ public class ControllDB {
         return list;
     }
 
-    public static ObservableList<Staff> getListFreomStaffs() throws SQLException{
+    public static boolean insertValuesIntoInvoices(String date, int staffID){
+        try {
+            String sql = "insert into invoice(date, employee_id) values (?, ?)";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setString(1, date);
+            pst.setInt(2, staffID);
+            int isUpdate = pst.executeUpdate();
+            if(isUpdate != 0) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static Invoice getLastestInvoice(){
+        try {
+            String sql = "select top 1 i.invoice_id, i.date, e.name, i.total_amount "+ 
+            "from invoice as i, employees as e "+
+            "where i.employee_id = e.employee_id "+
+            "order by i.invoice_id desc";
+            ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery(sql);
+            if(rs.next()){
+                return new Invoice(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getDouble(4));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ObservableList<Staff> getListFromStaffs() throws SQLException{
         ObservableList<Staff> list = FXCollections.observableArrayList();
         String sql = "Select * from employees";
         Statement st = ConnectToDB.getConnection().createStatement();
