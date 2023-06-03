@@ -1,13 +1,16 @@
 package sceneBuilder;
 
+import java.net.URL;
 import java.util.Optional;
-
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -18,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import model.InvoiceDetail;
 
-public class InvoiceDetailTableController {
+public class InvoiceDetailTableController implements Initializable{
 
     @FXML TableView<InvoiceDetail> tableviewDetail;
     @FXML TableColumn<InvoiceDetail, Integer> bookID_detail;
@@ -37,19 +40,7 @@ public class InvoiceDetailTableController {
     private Text total_detail;
 
     @FXML
-    private TextField bookIDTextfield;
-
-    @FXML
-    private TextField bookTitleTextfield;
-
-    @FXML
-    private TextField invoiceIDTextfield;
-
-    @FXML
     private TextField quantityTextfield;
-
-    @FXML
-    private TextField unitPriceTextfield;
 
     @FXML
     private Button btnAddInvoiceDetail;
@@ -64,29 +55,29 @@ public class InvoiceDetailTableController {
 
     TableRow<InvoiceDetail> newRow = new TableRow<>();
 
+    @FXML
+    private ComboBox<String> bookTitleCombobox;
 
-    public TextField getBookIDTextfield() {
-        return bookIDTextfield;
+    private ObservableList<String> bookTitleList = FXCollections.observableArrayList();     
+
+
+    public void initialize(URL location, ResourceBundle resources) {
+      
+        setBookTitleCombobox();
+        System.out.println(getBookTitleCombobox());
+        
     }
 
-    public void setBookIDTextfield(TextField bookIDTextfield) {
-        this.bookIDTextfield = bookIDTextfield;
+    public void setBookTitleCombobox() {
+        bookTitleList.add("Book_1"); 
+        bookTitleList.add("Book_2"); 
+        bookTitleList.add("Book_3"); 
+        this.bookTitleCombobox.getItems().addAll(bookTitleList);
+        // System.out.println(comboboxStaffID.getValue());
     }
 
-    public TextField getBookTitleTextfield() {
-        return bookTitleTextfield;
-    }
-
-    public void setBookTitleTextfield(TextField bookTitleTextfield) {
-        this.bookTitleTextfield = bookTitleTextfield;
-    }
-
-    public TextField getInvoiceIDTextfield() {
-        return invoiceIDTextfield;
-    }
-
-    public void setInvoiceIDTextfield(TextField invoiceIDTextfield) {
-        this.invoiceIDTextfield = invoiceIDTextfield;
+    public String getBookTitleCombobox() {
+        return bookTitleCombobox.getValue();
     }
 
     public TextField getQuantityTextfield() {
@@ -97,13 +88,6 @@ public class InvoiceDetailTableController {
         this.quantityTextfield = quantityTextfield;
     }
 
-    public TextField getUnitPriceTextfield() {
-        return unitPriceTextfield;
-    }
-
-    public void setUnitPriceTextfield(TextField unitPriceTextfield) {
-        this.unitPriceTextfield = unitPriceTextfield;
-    }
 
     public void setInvoiceDate_detail(String invoiceDate_detail) {
         this.invoiceDate_detail.setText(invoiceDate_detail);
@@ -149,21 +133,19 @@ public class InvoiceDetailTableController {
         else if (event.getSource() == btnAddInvoiceDetail) {
 
             invoicesDetailList.add(new InvoiceDetail(
-                Integer.parseInt(getInvoiceIDTextfield().getText()), 
-                Integer.parseInt(getBookIDTextfield().getText()),
-                getBookTitleTextfield().getText(),
-                Double.parseDouble(getUnitPriceTextfield().getText()),
+                123,
+                567,
+                getBookTitleCombobox(),
+                30.000,
                 Integer.parseInt(getQuantityTextfield().getText()), 
-                0
-            ));
+                100.0
+                ));
             
             invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
             bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
             bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
             unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
             quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
-            // total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
-            
             tableviewDetail.setItems(invoicesDetailList);
         }
     }

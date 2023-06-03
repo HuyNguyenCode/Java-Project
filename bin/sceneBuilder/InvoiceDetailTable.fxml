@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,13 +16,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane prefHeight="723.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.InvoiceDetailTableController">
+<DialogPane prefHeight="661.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.InvoiceDetailTableController">
    <content>
       <AnchorPane prefHeight="673.0" prefWidth="906.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
             <VBox layoutX="45.0" layoutY="14.0" prefHeight="114.0" prefWidth="211.0">
                <children>
-                  <Label text="Invoice Detail">
+                  <Label text="Invoice Details">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
@@ -85,44 +86,9 @@
                   <TableColumn fx:id="quantity_detail" prefWidth="98.39993896484373" text="QUANTITY" />
               </columns>
             </TableView>
-            <AnchorPane fx:id="updateInvoiceDetail" layoutX="43.0" layoutY="474.0" prefHeight="195.0" prefWidth="819.0" stylesheets="@../css/addNewInvoiceDetailCustom.css">
+            <AnchorPane fx:id="updateInvoiceDetail" layoutX="43.0" layoutY="474.0" prefHeight="138.0" prefWidth="819.0" stylesheets="@../css/addNewInvoiceDetailCustom.css">
                <children>
-                  <HBox layoutX="18.0" layoutY="75.0" prefHeight="39.0" prefWidth="786.0">
-                     <children>
-                        <TextField fx:id="invoiceIDTextfield" prefHeight="38.0" prefWidth="146.0" promptText="Invoice ID" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="1">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <TextField fx:id="bookIDTextfield" prefHeight="38.0" prefWidth="162.0" promptText="Book ID" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="2">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <TextField fx:id="unitPriceTextfield" prefHeight="38.0" prefWidth="163.0" promptText="Unit Pirice" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="3">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <TextField fx:id="quantityTextfield" prefHeight="36.0" prefWidth="192.0" promptText="Quantity" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="4">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
+                  <HBox layoutX="18.0" layoutY="75.0" prefHeight="39.0" prefWidth="194.0" />
                   <Pane layoutX="14.0" layoutY="-10.0" style="-fx-background-color: white;">
                      <children>
                         <Label text="Add new invoice ">
@@ -132,21 +98,22 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TextField fx:id="bookTitleTextfield" layoutX="20.0" layoutY="24.0" prefHeight="38.0" prefWidth="782.0" promptText="BOOKS TITLE" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="H">
+                  <Button fx:id="btnAddInvoiceDetail" layoutX="70.0" layoutY="86.0" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="38.0" prefWidth="283.0" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="Add" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDeleteInvoiceDetail" layoutX="456.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="41.0" prefWidth="294.0" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="Delete" textFill="#d25a79">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <ComboBox fx:id="bookTitleCombobox" layoutX="18.0" layoutY="24.0" prefHeight="38.0" prefWidth="567.0" />
+                  <TextField fx:id="quantityTextfield" layoutX="617.0" layoutY="27.0" prefHeight="36.0" prefWidth="192.0" promptText="Quantity" stylesheets="@../css/addNewInvoiceDetailCustom.css">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </TextField>
-                  <Button fx:id="btnAddInvoiceDetail" layoutX="67.0" layoutY="141.0" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="38.0" prefWidth="283.0" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="Add" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnDeleteInvoiceDetail" layoutX="457.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="41.0" prefWidth="294.0" stylesheets="@../css/addNewInvoiceDetailCustom.css" text="Delete" textFill="#d25a79">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
          </children>

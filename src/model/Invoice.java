@@ -3,11 +3,11 @@ package model;
 public class Invoice {
     private int invoiceID;
     private String invoiceDate;
-    private int staff;
+    private String staff;
     private double total;
     
 
-    public Invoice(int invoiceID, String invoiceDate, int staff, double total) {
+    public Invoice(int invoiceID, String invoiceDate, String staff, double total) {
         this.invoiceID = invoiceID;
         this.invoiceDate = invoiceDate;
         this.staff = staff;
@@ -31,10 +31,10 @@ public class Invoice {
     public void setInvoiceDate(String invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
-    public Integer getStaff() {
+    public String getStaff() {
         return staff;
     }
-    public void setStaff(Integer staff) {
+    public void setStaff(String staff) {
         this.staff = staff;
     }
     public double getTotal() {
