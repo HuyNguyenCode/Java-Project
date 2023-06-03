@@ -95,18 +95,22 @@ public class InvoiceController implements Initializable {
 
     private Stage primaryStage;
 
-    ObservableList<Invoice> invoices = FXCollections.observableArrayList();     
+    ObservableList<Invoice> invoices = FXCollections.observableArrayList();   
 
     public void initialize(URL location, ResourceBundle resources){
 
         // String userName = SigninController.user.getFullName();
         // this.userNameInScene.setText(userName);
 
-        // try {
-        //     invoices = ControllDB.getListFromInvoices();
-        // } catch (SQLException e) {
-        //     e.printStackTrace();
-        // }
+        try {
+            invoices = ControllDB.getListFromInvoices();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        addInvoieToTable(invoices);    
+    }
+
+    public void addInvoieToTable(ObservableList<Invoice> invoices) {
         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
         colStaffName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
@@ -133,12 +137,7 @@ public class InvoiceController implements Initializable {
                                                                                         
                                     invoiceDetailDialogPane = fxmlLoader.load();
                                     InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
-
-                                    // invoiceDetail.setBookID_detail(null);
-
-            
-
-                                    // invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
 
                                     invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
                                     invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
@@ -201,71 +200,8 @@ public class InvoiceController implements Initializable {
                     //Add invoice to tableview
                     boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
                     if(isUpdate == false) return;
-
                     invoices.add(ControllDB.getLastestInvoice());
-                    colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
-                    colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
-                    colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
-                    colStaffName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
-                   
-
-                    Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> DetailcellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
-                        @Override
-                        public TableCell<Invoice, String> call(final TableColumn<Invoice, String> param) {
-                            final TableCell<Invoice, String> cell = new TableCell<Invoice, String>() {
-                                final Button btnDetail = new Button("Show Detail");
-                                @Override
-                                public void updateItem(String item, boolean empty) {
-                                    super.updateItem(item, empty);
-                                    if (empty) {
-                                        setGraphic(null);
-                                        setText(null);
-                                    } else {
-                                        btnDetail.setOnMouseClicked((MouseEvent event) -> {
-                                            Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
-                                            FXMLLoader fxmlLoader = new FXMLLoader();
-                                            fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
-
-                                            DialogPane invoiceDetailDialogPane;
-                                            try {                            
-                                                                                                    
-                                                invoiceDetailDialogPane = fxmlLoader.load();
-                                                InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
-
-                                                // invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
-
-                                                invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
-                                                invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
-                                                invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
-                                                invoiceDetailTable.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
-                                                invoiceDetailTable.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
-                                                // invoiceDetailTable.total_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("total"));
-                                                invoiceDetailTable.setInvoiceDate_detail(invoiceClicked.getInvoiceDate());
-                                                invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
-                                                invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
-                                                invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-
-
-
-                                                Dialog<ButtonType> dialog = new Dialog<>();
-                                                dialog.setDialogPane(invoiceDetailDialogPane);
-                                                dialog.setTitle("Invoice Detail");
-                                                dialog.showAndWait();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                        });
-                                        setGraphic(btnDetail);
-                                        setText(null);
-                                    }
-                                }
-                            };
-                            return cell;
-                        }
-                    };
-                    colDetail.setCellFactory(DetailcellFactory);
-                    invoiceTableView.setItems(invoices);
-                
+                    addInvoieToTable(invoices);
                 }
             }
         }
