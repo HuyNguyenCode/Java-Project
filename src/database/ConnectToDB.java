@@ -11,8 +11,8 @@ public class ConnectToDB{
         
         try {
             //String serverName = "LAPTOP-1D1J7CQK";
-            String serverName = "localhost";
-            String databaseName = "BookStore";
+            String serverName = "MSI";
+            String databaseName = "bookstore";
             String user = "sa";
             String password = "1";
             String url = "jdbc:sqlserver://" + serverName + ":1433;databasename=" + databaseName + ";encrypt=true;trustServerCertificate=true;";

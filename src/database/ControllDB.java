@@ -177,7 +177,6 @@ public class ControllDB {
                 return new User(rs.getString(2), rs.getString(1), rs.getString(3));
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -194,7 +193,7 @@ public class ControllDB {
             list.add(new Invoice(
                 rs.getInt(1), 
                 rs.getDate(2).toString(),
-                rs.getInt(3),
+                rs.getString(3),
                 rs.getDouble(4)
             ));
         }
@@ -221,7 +220,7 @@ public class ControllDB {
             "order by i.invoice_id desc";
             ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery(sql);
             if(rs.next()){
-                return new Invoice(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getDouble(4));
+                return new Invoice(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getDouble(4));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -281,7 +280,6 @@ public class ControllDB {
                 ));
             }
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return list;

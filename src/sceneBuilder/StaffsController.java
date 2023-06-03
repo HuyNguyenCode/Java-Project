@@ -81,8 +81,8 @@ public class StaffsController implements Initializable {
 
     // @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String userName = SigninController.user.getFullName();
-        this.userNameInScene.setText(userName);
+        // String userName = SigninController.user.getFullName();
+        // this.userNameInScene.setText(userName);
         try {
             staffs = ControllDB.getListFromStaffs();
             colIDStaff.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("id"));
