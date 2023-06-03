@@ -2,29 +2,23 @@ package sceneBuilder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 
 public class UpdateInvoiceController {
 
     @FXML
     private DatePicker datePickerDates;
-
+    
     @FXML
-    private TextField textfiledAmount;
+    private ComboBox<Integer> comboboxStaffID;
 
-    @FXML
-    private TextField textfiledID;
+    private ObservableList<Integer> staffIDList = FXCollections.observableArrayList();     
 
-    @FXML
-    private TextField textfiledProductName;
 
-    @FXML
-    private TextField textfiledStaff;
-
-    @FXML
-    private TextField textfiledTotal;
 
     public DatePicker getDatePickerDates() {
         return datePickerDates;
@@ -37,45 +31,15 @@ public class UpdateInvoiceController {
         
         this.datePickerDates.setValue(localDate);
     }
-
-    public TextField getTextfiledAmount() {
-        return textfiledAmount;
+    
+    public void setComboboxStaffID() {
+        staffIDList.add(1); 
+        staffIDList.add(2); 
+        staffIDList.add(3); 
+        this.comboboxStaffID.getItems().addAll(staffIDList);
     }
 
-    public void setTextfiledAmount(String inputAmount) {
-        this.textfiledAmount.setText(inputAmount);
+    public Integer getComboboxStaffID() {
+        return comboboxStaffID.getValue();
     }
-
-    public TextField getTextfiledID() {
-        return textfiledID;
-    }
-
-    public void setTextfiledID(String inputID) {
-        this.textfiledID.setText(inputID);
-    }
-
-    public TextField getTextfiledProductName() {
-        return textfiledProductName;
-    }
-
-    public void setTextfiledProductName(String inputProductName) {
-        this.textfiledProductName.setText(inputProductName); 
-    }
-
-    public TextField getTextfiledStaff() {
-        return textfiledStaff;
-    }
-
-    public void setTextfiledStaff(String inputStaff) {
-        this.textfiledStaff.setText(inputStaff);;
-    }
-
-    public TextField getTextfiledTotal() {
-        return textfiledTotal;
-    }
-
-    public void setTextfiledTotal(String inputTotal) {
-        this.textfiledTotal.setText(inputTotal);
-    }    
-
 }

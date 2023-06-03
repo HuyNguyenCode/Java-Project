@@ -81,6 +81,9 @@ public class InvoiceController implements Initializable {
     private TableColumn<Invoice, String> colStaffName;
 
     @FXML
+    private TableColumn<Invoice, Integer> colStaffID;
+
+    @FXML
     private TableColumn<Invoice, Double> colTotal;
 
     @FXML
@@ -116,6 +119,7 @@ public class InvoiceController implements Initializable {
         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
         colStaffName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
+        colStaffID.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("staffID"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
         Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
             @Override
@@ -167,7 +171,6 @@ public class InvoiceController implements Initializable {
                 return cell;
             }
         };
-
         colDetail.setCellFactory(cellFactory);
         invoiceTableView.setItems(invoices);
     }
@@ -269,34 +272,31 @@ public class InvoiceController implements Initializable {
                  "Empty board error!",
                 "Unable to update the information in the table because the table is empty !");
             } else { 
-                updateInvoice.setTextfiledID(String.valueOf(clickedInvoice.getInvoiceID()));
-                updateInvoice.setTextfiledTotal(String.valueOf(clickedInvoice.getTotal()));
-                updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
-                updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
+                // updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
+                // updateInvoice.setComboboxStaffID();
         
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(updateInvoiceDialogPane);
-                dialog.setTitle("Update invoice");        
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+                // Dialog<ButtonType> dialog = new Dialog<>();
+                // dialog.setDialogPane(updateInvoiceDialogPane);
+                // dialog.setTitle("Update invoice");        
+                // Optional<ButtonType> clickedButton = dialog.showAndWait();
         
-                if(clickedButton.get() == ButtonType.APPLY) { 
-                    Optional<ButtonType> result = showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");
-                    if (result.get() == ButtonType.OK) { 
-                        ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
-                        int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
-                        for (Invoice invoice : currentTableData) {
-                            if(invoice.getInvoiceID() == currentID) {
-                                invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
-                                invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
-                                invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
-                                ControllDB.updateInvoice(invoice);
-                                invoiceTableView.setItems(currentTableData);
-                                invoiceTableView.refresh();
-                                break;
-                            }
-                        }
-                    }
-                }
+                // if(clickedButton.get() == ButtonType.APPLY) { 
+                //     Optional<ButtonType> result = showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");
+                //     if (result.get() == ButtonType.OK) { 
+                //         ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
+                //         int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
+                //         for (Invoice invoice : currentTableData) {
+                //             if(invoice.getInvoiceID() == currentID) {
+                //                 invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
+                //                 invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
+                //                 ControllDB.updateInvoice(invoice);
+                //                 invoiceTableView.setItems(currentTableData);
+                //                 invoiceTableView.refresh();
+                //                 break;
+                //             }
+                //         }
+                //     }
+                // }
             }
         }
 
