@@ -309,7 +309,15 @@ public class InvoiceController implements Initializable {
             } else  {
                 Optional<ButtonType> result = showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
-                    invoiceTableView.getItems().removeAll(clickedInvoice);
+                    if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
+                        invoiceTableView.getItems().removeAll(clickedInvoice);
+                    }
+                    else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Can't delete invoice !");
+                        alert.setContentText("Check connect to database...");
+                        result = alert.showAndWait();
+                    }
                 }
             }
         }    
