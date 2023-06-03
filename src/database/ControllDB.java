@@ -224,6 +224,17 @@ public class ControllDB {
         return false;
     }
 
+    public static boolean deleteFromInvoices(Invoice invoice){
+        try {
+            String sql = "delete from invoice where invoice_id = " + invoice.getInvoiceID();
+            int checkDelete = ConnectToDB.getConnection().createStatement().executeUpdate(sql);
+            if(checkDelete != 0) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static Invoice getLastestInvoice(){
         try {
             String sql = "select top 1 i.invoice_id, i.date, e.employee_id, e.name, i.total_amount "+ 

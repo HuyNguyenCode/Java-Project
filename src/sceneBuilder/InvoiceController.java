@@ -321,7 +321,15 @@ public class InvoiceController implements Initializable {
                 alert.setContentText("Do you want to delete a invoice ?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) { 
-                    invoiceTableView.getItems().removeAll(clickedInvoice);
+                    if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
+                        invoiceTableView.getItems().removeAll(clickedInvoice);
+                    }
+                    else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Can't delete invoice !");
+                        alert.setContentText("Check connect to database...");
+                        result = alert.showAndWait();
+                    }
                 }
             }
         }    
