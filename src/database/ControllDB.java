@@ -184,7 +184,7 @@ public class ControllDB {
 
     public static ObservableList<Invoice> getListFromInvoices() throws SQLException{
         ObservableList<Invoice> list = FXCollections.observableArrayList();
-        String sql = "select i.invoice_id, i.date, e.name, i.total_amount "+
+        String sql = "select i.invoice_id, i.date, e.employee_id, e.name, i.total_amount "+
                         "from invoice as i, employees as e "+
                         "where i.employee_id = e.employee_id";
         Statement st = ConnectToDB.getConnection().createStatement();
@@ -193,8 +193,9 @@ public class ControllDB {
             list.add(new Invoice(
                 rs.getInt(1), 
                 rs.getDate(2).toString(),
-                rs.getString(3),
-                rs.getDouble(4)
+                rs.getInt(3),
+                rs.getString(4),
+                rs.getDouble(5)
             ));
         }
         return list;
@@ -212,15 +213,32 @@ public class ControllDB {
         return false;
     }
 
+    public static boolean updateInvoice(Invoice invoice){
+        try {
+            String sql = "update invoice set date = '" + invoice.getInvoiceDate() + "', employee_id = " + invoice.getStaffID() + " where invoice_id = " + invoice.getInvoiceID();
+            int isUpdate = ConnectToDB.getConnection().createStatement().executeUpdate(sql);
+            if(isUpdate != 0) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static Invoice getLastestInvoice(){
         try {
-            String sql = "select top 1 i.invoice_id, i.date, e.employee_id, i.total_amount "+ 
+            String sql = "select top 1 i.invoice_id, i.date, e.employee_id, e.name, i.total_amount "+ 
             "from invoice as i, employees as e "+
             "where i.employee_id = e.employee_id "+
             "order by i.invoice_id desc";
             ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery(sql);
             if(rs.next()){
-                return new Invoice(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getDouble(4));
+                return new Invoice(
+                    rs.getInt(1), 
+                    rs.getDate(2).toString(),
+                    rs.getInt(3),
+                    rs.getString(4),
+                    rs.getDouble(5)
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();

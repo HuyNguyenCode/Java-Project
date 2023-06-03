@@ -298,6 +298,7 @@ public class InvoiceController implements Initializable {
                                 invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
                                 invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
                                 invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
+                                ControllDB.updateInvoice(invoice);
                                 invoiceTableView.setItems(currentTableData);
                                 invoiceTableView.refresh();
                                 break;
