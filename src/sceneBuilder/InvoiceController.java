@@ -181,18 +181,6 @@ public class InvoiceController implements Initializable {
         primaryStage.show(); 
     }
 
-    private Controller loadFxml(String fxmlName, Boolean Dialog) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(fxmlName + ".fxml"));
-        // AddInvoiceController addInvoice = fxmlLoader.getController();  
-        DialogPane addInvoiceDialogPane = fxmlLoader.load();
-        if (Dialog) {
-            return fxmlLoader.load();
-        } else {
-            return fxmlLoader.getController();
-        }
-    }
-
     private void showAlert(Alert.AlertType alertType, String alertTitle, String alertContentText) {
         Alert alert = new Alert(alertType);
         alert.setTitle(alertTitle);
@@ -301,6 +289,7 @@ public class InvoiceController implements Initializable {
                                 invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
                                 invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
                                 invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
+                                ControllDB.updateInvoice(invoice);
                                 invoiceTableView.setItems(currentTableData);
                                 invoiceTableView.refresh();
                                 break;

@@ -31,7 +31,7 @@ public class UpdateInvoiceController {
     }
 
     public void setDatePickerDates(String inputDates) {
-        DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy");
 
         LocalDate localDate = LocalDate.parse(inputDates, customDateTimeFormatter);
         

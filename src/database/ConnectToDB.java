@@ -11,7 +11,7 @@ public class ConnectToDB{
         
         try {
             //String serverName = "LAPTOP-1D1J7CQK";
-            String serverName = "MSI";
+            String serverName = "localhost";
             String databaseName = "bookstore";
             String user = "sa";
             String password = "1";

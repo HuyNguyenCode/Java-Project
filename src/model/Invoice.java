@@ -3,15 +3,27 @@ package model;
 public class Invoice {
     private int invoiceID;
     private String invoiceDate;
+    int staffID;
     private String staff;
     private double total;
     
 
-    public Invoice(int invoiceID, String invoiceDate, String staff, double total) {
+    public Invoice(int invoiceID, String invoiceDate, int staffID, String staff, double total) {
         this.invoiceID = invoiceID;
         this.invoiceDate = invoiceDate;
+        this.staffID = staffID;
         this.staff = staff;
         this.total = total;
+    }
+
+
+    public int getStaffID() {
+        return staffID;
+    }
+
+
+    public void setStaffID(int staffID) {
+        this.staffID = staffID;
     }
 
 
