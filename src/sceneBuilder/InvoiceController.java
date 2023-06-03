@@ -1,5 +1,6 @@
 package sceneBuilder;
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +37,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Invoice;
 import model.InvoiceDetail;
+import model.Tool;
 
 public class InvoiceController implements Initializable {
 
@@ -149,7 +151,6 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
 
-
                                     Dialog<ButtonType> dialog = new Dialog<>();
                                     dialog.setDialogPane(invoiceDetailDialogPane);
                                     dialog.setTitle("Invoice Detail");
@@ -171,6 +172,41 @@ public class InvoiceController implements Initializable {
         invoiceTableView.setItems(invoices);
     }
 
+    private void loadScene(String sceneName, MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml"));
+        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(sceneName + " Management");
+        primaryStage.show(); 
+    }
+
+    private Controller loadFxml(String fxmlName, Boolean Dialog) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(fxmlName + ".fxml"));
+        // AddInvoiceController addInvoice = fxmlLoader.getController();  
+        DialogPane addInvoiceDialogPane = fxmlLoader.load();
+        if (Dialog) {
+            return fxmlLoader.load();
+        } else {
+            return fxmlLoader.getController();
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String alertTitle, String alertContentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(alertTitle);
+        alert.setContentText(alertContentText);
+        alert.showAndWait(); 
+    }
+
+    private Optional<ButtonType> showConfirmAlert(String alertTitle, String alertContentText) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(alertTitle);
+        alert.setContentText(alertContentText);
+        return alert.showAndWait();
+    }
+
     @FXML
     void handleClicks(MouseEvent event) throws IOException, SQLException {
         //Handle event on addbtn
@@ -179,23 +215,20 @@ public class InvoiceController implements Initializable {
             //Show dialog to add a new invoice
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("AddInvoice.fxml"));
-
+            AddInvoiceController addInvoice = fxmlLoader.getController();  
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
+            
+            System.out.println(addInvoice);
+
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(addInvoiceDialogPane);
             dialog.setTitle("Add new invoice");
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-      
-            AddInvoiceController addInvoice = fxmlLoader.getController();  
 
             if (clickedButton.get() == ButtonType.OK) { 
                 //Adding Confirmation 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to add a new invoice !");
-                alert.setContentText("Do you want to add a new invoice ?");
-                Optional<ButtonType> result = alert.showAndWait();
-
+                Optional<ButtonType> result = showConfirmAlert("Confirm to add a new invoice !", "Do you want to add a new invoice ?");
                 if (result.get() == ButtonType.OK) {
                     //Add invoice to tableview
                     boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
@@ -207,50 +240,26 @@ public class InvoiceController implements Initializable {
         }
 
         else if (event.getSource() == btnExit) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm to exit program !");
-            alert.setContentText("Do you want to exit ?");
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }
         }
 
         else if (event.getSource() == btnBooks) {
-            Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene bookScene = new Scene(root);
-            primaryStage.setScene(bookScene);
-            primaryStage.setTitle("Books Management");
-            primaryStage.show(); 
+            loadScene("MainScene", event);
         }
 
-        
         else if (event.getSource() == btnSuppliers) {
-            Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene supplierScene = new Scene(root);
-            primaryStage.setScene(supplierScene);
-            primaryStage.setTitle("Suppliers Management");
-            primaryStage.show(); 
+            loadScene("Suppliers", event);
         }
 
         else if (event.getSource() == btnStaffs) {
-            Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene staffScene = new Scene(root);
-            primaryStage.setScene(staffScene);
-            primaryStage.setTitle("Staffs Management");
-            primaryStage.show(); 
+            loadScene("Staffs", event);
         }
 
         else if (event.getSource() == btnInvoiceDashboard) {
-            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene dashboardScene = new Scene(root);
-            primaryStage.setScene(dashboardScene);
-            primaryStage.setTitle("Dashboard");
-            primaryStage.show(); 
+            loadScene("Dashboard", event);
         }
 
     }
@@ -260,7 +269,6 @@ public class InvoiceController implements Initializable {
     
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("UpdateInvoice.fxml"));
-
         DialogPane updateInvoiceDialogPane = fxmlLoader.load();
         UpdateInvoiceController updateInvoice = fxmlLoader.getController();
         
@@ -269,15 +277,14 @@ public class InvoiceController implements Initializable {
         if (event.getSource() == btnUpdateInvoice) {
 
             if(invoices.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait();
+                showAlert(Alert.AlertType.ERROR,
+                 "Empty board error!",
+                "Unable to update the information in the table because the table is empty !");
             } else { 
                 updateInvoice.setTextfiledID(String.valueOf(clickedInvoice.getInvoiceID()));
                 updateInvoice.setTextfiledTotal(String.valueOf(clickedInvoice.getTotal()));
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
-                updateInvoice.setTextfiledStaff(String.valueOf(clickedInvoice.getStaff()));
+                updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
         
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(updateInvoiceDialogPane);
@@ -285,13 +292,9 @@ public class InvoiceController implements Initializable {
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
         
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirm invoice information update!");
-                    alert.setContentText("Do you want to update invoice information ?");
-                    Optional<ButtonType> result = alert.showAndWait();
+                    Optional<ButtonType> result = showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");
                     if (result.get() == ButtonType.OK) { 
                         ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
-
                         int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
                         for (Invoice invoice : currentTableData) {
                             if(invoice.getInvoiceID() == currentID) {
@@ -310,15 +313,12 @@ public class InvoiceController implements Initializable {
 
         else if (event.getSource() == btnDeleteInvoice) { 
             if(invoices.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait(); 
+                showAlert(Alert.AlertType.ERROR,
+                "Empty board error!", 
+                "Unable to delete the information in the table because the table is empty !"
+                );
             } else  {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to delete a invoice !");
-                alert.setContentText("Do you want to delete a invoice ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
                     invoiceTableView.getItems().removeAll(clickedInvoice);
                 }

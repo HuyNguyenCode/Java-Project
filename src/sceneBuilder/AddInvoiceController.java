@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import database.ControllDB;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -63,7 +64,6 @@ public class AddInvoiceController implements Initializable{
         }
         
         this.comboboxStaffID.getItems().addAll(staffIDList);
-        // System.out.println(comboboxStaffID.getValue());
     }
 
     public Integer getComboboxStaffID() {

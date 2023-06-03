@@ -111,10 +111,6 @@ public class DashboardController implements Initializable{
 
             XYChart.Series<String, Integer> barChart = new XYChart.Series<>();
             barChart.setName("Number of books by genre");
-            // barChart.getData().add(new XYChart.Data<String, Integer>("2020", 20));
-            // barChart.getData().add(new XYChart.Data<String, Integer>("2021", 30));
-            // barChart.getData().add(new XYChart.Data<String, Integer>("2022", 15));
-            // barChart.getData().add(new XYChart.Data<String, Integer>("2023", 10));
             for(BarChartData barChartData : barChartDataList){
                 barChart.getData().add(new XYChart.Data<String, Integer>(barChartData.getX(), barChartData.getY()));
             }
@@ -126,11 +122,6 @@ public class DashboardController implements Initializable{
 
             XYChart.Series<String, Double> lineChart = new XYChart.Series<>();
             lineChart.setName("Revenue per year");
-            // lineChart.getData().add(new XYChart.Data<String, Double>("Category1", 98.3));
-            // lineChart.getData().add(new XYChart.Data<String, Double>("Category2", 26.1));
-            // lineChart.getData().add(new XYChart.Data<String, Double>("Category3", 72.8));
-            // lineChart.getData().add(new XYChart.Data<String, Double>("Category4", 41.6));
-            // lineChart.getData().add(new XYChart.Data<String, Double>("Category5", 51.5));
             for(LineChartData lineChartData : lineChartDataList){
                 lineChart.getData().add(new XYChart.Data<String, Double>(lineChartData.getX(), lineChartData.getY()));
             }
