@@ -73,7 +73,6 @@ public class InvoiceDetailTableController implements Initializable{
         bookTitleList.add("Book_2"); 
         bookTitleList.add("Book_3"); 
         this.bookTitleCombobox.getItems().addAll(bookTitleList);
-        // System.out.println(comboboxStaffID.getValue());
     }
 
     public String getBookTitleCombobox() {
