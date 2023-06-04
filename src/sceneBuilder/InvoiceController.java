@@ -170,8 +170,8 @@ public class InvoiceController implements Initializable {
 
             //Show dialog to add a new invoice
             FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "AddInvoice");            
-            AddInvoiceController addInvoice = fxmlLoader.getController();  
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
+            AddInvoiceController addInvoice = fxmlLoader.getController();  
             System.out.println(addInvoice);
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
             if (clickedButton.get() == ButtonType.OK) { 
