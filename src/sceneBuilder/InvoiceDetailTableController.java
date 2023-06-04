@@ -1,8 +1,11 @@
 package sceneBuilder;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.Book;
 import model.InvoiceDetail;
 
 public class InvoiceDetailTableController implements Initializable{
@@ -60,6 +64,7 @@ public class InvoiceDetailTableController implements Initializable{
 
     private ObservableList<String> bookTitleList = FXCollections.observableArrayList();     
 
+    private int invoiceID;
 
     public void initialize(URL location, ResourceBundle resources) {
       
@@ -69,9 +74,15 @@ public class InvoiceDetailTableController implements Initializable{
     }
 
     public void setBookTitleCombobox() {
-        bookTitleList.add("Book_1"); 
-        bookTitleList.add("Book_2"); 
-        bookTitleList.add("Book_3"); 
+        ObservableList<Book> listBooks;
+        try {
+            listBooks = ControllDB.getListFromBooks();
+            for(Book book : listBooks){
+                bookTitleList.add(book.getTitle());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.bookTitleCombobox.getItems().addAll(bookTitleList);
     }
 
@@ -131,14 +142,20 @@ public class InvoiceDetailTableController implements Initializable{
 
         else if (event.getSource() == btnAddInvoiceDetail) {
 
-            invoicesDetailList.add(new InvoiceDetail(
-                123,
-                567,
-                getBookTitleCombobox(),
-                30.000,
-                Integer.parseInt(getQuantityTextfield().getText()), 
-                100.0
-                ));
+            boolean checkInsert = ControllDB.insertValuesIntoInvoiceDetails(invoiceID, ControllDB.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
+
+            if(checkInsert == false) return;
+
+            invoicesDetailList.add(ControllDB.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
+
+            // invoicesDetailList.add(new InvoiceDetail(
+            //     123,
+            //     567,
+            //     getBookTitleCombobox(),
+            //     30.000,
+            //     Integer.parseInt(getQuantityTextfield().getText()), 
+            //     100.0
+            // ));
             
             invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
             bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
@@ -149,9 +166,7 @@ public class InvoiceDetailTableController implements Initializable{
         }
     }
     
-
-
-
-    
-
+    public void setInvoiceID(int invoiceID){
+        this.invoiceID = invoiceID;
+    }
 }

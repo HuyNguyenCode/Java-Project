@@ -135,6 +135,16 @@ public class ControllDB {
         return books;
     }
 
+    public static Integer getBookIDFromName(String name){
+        try {
+            ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery("select book_id from books where title = '" + name + "'");
+            if(rs.next()) return rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getPasswordFromDB(String email){
         try {
             String res = "";
@@ -314,6 +324,46 @@ public class ControllDB {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static InvoiceDetail getInvoiceDetail(int invoiceID, String bookID){
+        try {
+            String sql = "select d.invoice_id, b.book_id, b.title, d.unit_price, d.quantity, d.unit_price * d.quantity " +
+            "from invoice_detail as d, books as b " + 
+            "where d.invoice_id = ? and b.title = ? and d.book_id = b.book_id";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setInt(1, invoiceID);
+            pst.setString(2, bookID);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return new InvoiceDetail(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDouble(4),
+                    rs.getInt(5),
+                    rs.getDouble(6)
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean insertValuesIntoInvoiceDetails(int invoiceID, int bookID, int quantity){
+        try {
+            String sql = "INSERT INTO invoice_detail (invoice_id, book_id, quantity) VALUES (?, ?, ?)";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setInt(1, invoiceID);
+            pst.setInt(2, bookID);
+            pst.setInt(3, quantity);
+            int isExecute = pst.executeUpdate();
+            if(isExecute != 0) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static int countBooksFromDB(){
