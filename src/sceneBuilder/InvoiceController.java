@@ -313,7 +313,7 @@ public class InvoiceController implements Initializable {
                         invoiceTableView.getItems().removeAll(clickedInvoice);
                     }
                     else{
-                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Can't delete invoice !");
                         alert.setContentText("Check connect to database...");
                         result = alert.showAndWait();
