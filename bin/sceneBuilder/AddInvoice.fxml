@@ -41,7 +41,7 @@
             <VBox layoutX="11.0" layoutY="170.0" prefHeight="80.0" prefWidth="335.0">
                <children>
                   <Label prefHeight="34.0" prefWidth="42.0" text="STAFF" />
-                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" text="Kay" />
+                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" />
                </children>
             </VBox>
             <VBox layoutX="208.0" layoutY="68.0" prefHeight="78.0" prefWidth="135.0">

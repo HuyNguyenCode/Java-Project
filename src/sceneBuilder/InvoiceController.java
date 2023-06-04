@@ -1,6 +1,5 @@
 package sceneBuilder;
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -16,16 +15,12 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,7 +28,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Invoice;
 import model.InvoiceDetail;
@@ -81,6 +75,9 @@ public class InvoiceController implements Initializable {
     private TableColumn<Invoice, String> colStaffName;
 
     @FXML
+    private TableColumn<Invoice, Integer> colStaffID;
+
+    @FXML
     private TableColumn<Invoice, Double> colTotal;
 
     @FXML
@@ -95,7 +92,7 @@ public class InvoiceController implements Initializable {
     @FXML
     private TextField searchInput;
 
-    private Stage primaryStage;
+    private Class<InvoiceController> invoiceClass = InvoiceController.class;
 
     ObservableList<Invoice> invoices = FXCollections.observableArrayList();   
 
@@ -116,6 +113,7 @@ public class InvoiceController implements Initializable {
         colIDInvoice.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("invoiceID"));
         colDate.setCellValueFactory(new PropertyValueFactory<Invoice, String>("invoiceDate"));
         colStaffName.setCellValueFactory(new PropertyValueFactory<Invoice, String>("Staff"));
+        colStaffID.setCellValueFactory(new PropertyValueFactory<Invoice, Integer>("staffID"));
         colTotal.setCellValueFactory(new PropertyValueFactory<Invoice, Double>("Total"));
         Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>> cellFactory = new Callback<TableColumn<Invoice, String>, TableCell<Invoice, String>>() {
             @Override
@@ -131,9 +129,7 @@ public class InvoiceController implements Initializable {
                         } else {
                             btnDetail.setOnMouseClicked((MouseEvent event) -> {
                                 Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
-                                FXMLLoader fxmlLoader = new FXMLLoader();
-                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
-
+                                FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "InvoiceDetailTable");
                                 DialogPane invoiceDetailDialogPane;
                                 try {                            
                                                                                         
@@ -150,11 +146,7 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-
-                                    Dialog<ButtonType> dialog = new Dialog<>();
-                                    dialog.setDialogPane(invoiceDetailDialogPane);
-                                    dialog.setTitle("Invoice Detail");
-                                    dialog.showAndWait();
+                                    Tool.showDialogPane("Invoice Detail", invoiceDetailDialogPane);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -167,32 +159,8 @@ public class InvoiceController implements Initializable {
                 return cell;
             }
         };
-
         colDetail.setCellFactory(cellFactory);
         invoiceTableView.setItems(invoices);
-    }
-
-    private void loadScene(String sceneName, MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml"));
-        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle(sceneName + " Management");
-        primaryStage.show(); 
-    }
-
-    private void showAlert(Alert.AlertType alertType, String alertTitle, String alertContentText) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(alertTitle);
-        alert.setContentText(alertContentText);
-        alert.showAndWait(); 
-    }
-
-    private Optional<ButtonType> showConfirmAlert(String alertTitle, String alertContentText) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(alertTitle);
-        alert.setContentText(alertContentText);
-        return alert.showAndWait();
     }
 
     @FXML
@@ -201,113 +169,78 @@ public class InvoiceController implements Initializable {
         if (event.getSource() == btnAddInvoice) {
 
             //Show dialog to add a new invoice
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("AddInvoice.fxml"));
+            FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "AddInvoice");            
             AddInvoiceController addInvoice = fxmlLoader.getController();  
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
-            
             System.out.println(addInvoice);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(addInvoiceDialogPane);
-            dialog.setTitle("Add new invoice");
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-
+            Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
             if (clickedButton.get() == ButtonType.OK) { 
-                //Adding Confirmation 
-                Optional<ButtonType> result = showConfirmAlert("Confirm to add a new invoice !", "Do you want to add a new invoice ?");
-                if (result.get() == ButtonType.OK) {
-                    //Add invoice to tableview
-                    boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
-                    if(isUpdate == false) return;
-                    invoices.add(ControllDB.getLastestInvoice());
-                    addInvoieToTable(invoices);
-                }
+                //Add invoice to tableview
+                boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
+                if(isUpdate == false) return;
+                invoices.add(ControllDB.getLastestInvoice());
+                addInvoieToTable(invoices);
+                
             }
-        }
-
-        else if (event.getSource() == btnExit) {
-            Optional<ButtonType> result = showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
+        } else if (event.getSource() == btnExit) {
+            Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }
+        } else if (event.getSource() == btnBooks) {
+            Tool.loadScene(invoiceClass, "MainScene", event);
+        } else if (event.getSource() == btnSuppliers) {
+            Tool.loadScene(invoiceClass, "Suppliers", event);
+        } else if (event.getSource() == btnStaffs) {
+            Tool.loadScene(invoiceClass, "Staffs", event);
+        } else if (event.getSource() == btnInvoiceDashboard) {
+            Tool.loadScene(invoiceClass, "Dashboard", event);
         }
-
-        else if (event.getSource() == btnBooks) {
-            loadScene("MainScene", event);
-        }
-
-        else if (event.getSource() == btnSuppliers) {
-            loadScene("Suppliers", event);
-        }
-
-        else if (event.getSource() == btnStaffs) {
-            loadScene("Staffs", event);
-        }
-
-        else if (event.getSource() == btnInvoiceDashboard) {
-            loadScene("Dashboard", event);
-        }
-
     }
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
-    
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("UpdateInvoice.fxml"));
+        FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "UpdateInvoice");
         DialogPane updateInvoiceDialogPane = fxmlLoader.load();
         UpdateInvoiceController updateInvoice = fxmlLoader.getController();
         
         Invoice clickedInvoice = invoiceTableView.getSelectionModel().getSelectedItem();
         
         if (event.getSource() == btnUpdateInvoice) {
-
             if(invoices.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR,
-                 "Empty board error!",
+                Tool.showAlert(Alert.AlertType.ERROR,
+                "Empty board error!",
                 "Unable to update the information in the table because the table is empty !");
             } else { 
-                updateInvoice.setTextfiledID(String.valueOf(clickedInvoice.getInvoiceID()));
-                updateInvoice.setTextfiledTotal(String.valueOf(clickedInvoice.getTotal()));
+                updateInvoice.setInvoiceID(clickedInvoice.getInvoiceID());
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
+                updateInvoice.setComboboxStaffID(clickedInvoice.getStaffID());
                 updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
-        
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(updateInvoiceDialogPane);
-                dialog.setTitle("Update invoice");        
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
-        
+                Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update invoice", updateInvoiceDialogPane);
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Optional<ButtonType> result = showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");
-                    if (result.get() == ButtonType.OK) { 
-                        ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
-                        int currentID = Integer.parseInt(updateInvoice.getTextfiledID().getText());
-                        for (Invoice invoice : currentTableData) {
-                            if(invoice.getInvoiceID() == currentID) {
-                                invoice.setStaff(updateInvoice.getTextfiledStaff().getText());
-                                invoice.setTotal(Double.parseDouble(updateInvoice.getTextfiledTotal().getText()));
-                                invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy")));
-                                ControllDB.updateInvoice(invoice);
-                                invoiceTableView.setItems(currentTableData);
-                                invoiceTableView.refresh();
-                                break;
-                            }
+                    ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
+                    int currentID = updateInvoice.getInvoiceID();
+                    for (Invoice invoice : currentTableData) {
+                        if(invoice.getInvoiceID() == currentID) {
+                            invoice.setStaffID(updateInvoice.getComboboxStaffID());
+                            invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
+                            invoice.setStaff(updateInvoice.getTextfiledStaff());
+                            ControllDB.updateInvoice(invoice);
+                            invoiceTableView.setItems(currentTableData);
+                            invoiceTableView.refresh();
+                            break;
                         }
                     }
                 }
             }
-        }
-
-        else if (event.getSource() == btnDeleteInvoice) { 
+        } else if (event.getSource() == btnDeleteInvoice) { 
             if(invoices.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR,
-                "Empty board error!", 
-                "Unable to delete the information in the table because the table is empty !"
+                Tool.showAlert(Alert.AlertType.ERROR,
+            "Empty board error!", 
+            "Unable to delete the information in the table because the table is empty !"
                 );
             } else  {
-                Optional<ButtonType> result = showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
+                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
                     if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
                         invoiceTableView.getItems().removeAll(clickedInvoice);
@@ -317,6 +250,7 @@ public class InvoiceController implements Initializable {
                         alert.setTitle("Can't delete invoice !");
                         alert.setContentText("Check connect to database...");
                         result = alert.showAndWait();
+                        Tool.showAlert(Alert.AlertType.INFORMATION, "Can't delete invoice !", "Check connect to database...");
                     }
                 }
             }
@@ -332,27 +266,24 @@ public class InvoiceController implements Initializable {
                     if (newValue == null) {
                         return true;
                     } 
-                    // String toLowerCaseFilter = newValue.toLowerCase();
+                    String toLowerCaseFilter = newValue.toLowerCase();
                     if (String.valueOf(cust.getInvoiceID()).contains(newValue)) {
                         return true;
-                    } else if (String.valueOf(cust.getStaff()).contains(newValue)) {
+                    } else if (cust.getStaff().toLowerCase().contains(toLowerCaseFilter)) {
+                        return true;
+                    } else if (String.valueOf(cust.getStaffID()).contains(newValue)) {
                         return true;
                     } else if (String.valueOf(cust.getTotal()).contains(newValue)) {
                         return true;
                     } else if (String.valueOf(cust.getInvoiceDate()).contains(newValue)) {
                         return true;
                     }
-
                 return false;
                 });
             }));
-
             final SortedList<Invoice> invoicesSortedList = new SortedList<>(filterData);
             invoicesSortedList.comparatorProperty().bind(invoiceTableView.comparatorProperty());
             invoiceTableView.setItems(invoicesSortedList);
-            
         });
     }
-
-
 }

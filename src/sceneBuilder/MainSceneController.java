@@ -1,5 +1,7 @@
 package sceneBuilder;
 import model.Book;
+import model.Tool;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,13 +18,9 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -35,7 +33,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class MainSceneController implements Initializable {
 
@@ -143,11 +140,10 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private TextField searchInput;
-
-    private Stage primaryStage;
-
     
     ObservableList<Book> books = FXCollections.observableArrayList();   
+
+    private Class<MainSceneController> mainSceneClass = MainSceneController.class;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -159,8 +155,7 @@ public class MainSceneController implements Initializable {
             
             //load fxml and controller
             for (int i = 0; i < recommendedBooks.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Card.fxml"));
+                FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "Card");
                 HBox carBox = fxmlLoader.load();
                 CardController cardController = fxmlLoader.getController();
                 cardController.setData(recommendedBooks.get(i));
@@ -222,128 +217,73 @@ public class MainSceneController implements Initializable {
         if (event.getSource() == btnAddBook) {
             pnBooksManagement.setVisible(true);
             //Show dialog to add a new book
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("AddBook.fxml"));
+            FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "AddBook");
             DialogPane addBookDialogPane = fxmlLoader.load();
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(addBookDialogPane);
-            dialog.setTitle("Add new book");
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new book", addBookDialogPane);
             AddBookController addBook = fxmlLoader.getController();  
 
 
             if (clickedButton.get() == ButtonType.OK) { 
-                //Adding Confirmation 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to add a new book !");
-                alert.setContentText("Do you want to add a new book ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                //Add books to tableview
+                //Iterate through tableview to check duplicate title
+                boolean isTitleDuplicate = false;
+                for (Book book : books) {
+                    if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
+                        isTitleDuplicate = true;
+                        break; 
+                    } 
+                }
 
-                if (result.get() == ButtonType.OK) {
-                    //Add books to tableview
-
-                    //Iterate through tableview to check duplicate title
-                    boolean isTitleDuplicate = false;
-                    for (Book book : books) {
-                        if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
-                            isTitleDuplicate = true;
-                            break; 
-                        } 
+                if (isTitleDuplicate) {
+                    Tool.showAlert(Alert.AlertType.ERROR, "Can't add new book!", "You have entered an existing book title");
+                } else {
+                    Book book = new Book(
+                        -1,
+                        addBook.getTextfiledYear(), 
+                        addBook.getTextfiledStock(), 
+                        addBook.getTextfiledPrice(), 
+                        addBook.getTextfiledTitle(),
+                        null, 
+                        addBook.getTextfiledAuthor(), 
+                        addBook.getTextfiledPublisher(), 
+                        addBook.getTextfiledCategory()
+                    );
+                    boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
+                    if(checkInsert == true){
+                        books.add(ControllDB.getLastestBook());
                     }
-
-                    if (isTitleDuplicate) {
-                        Alert alertError = new Alert(Alert.AlertType.ERROR);
-                        alertError.setTitle("Can't add new book!");
-                        alertError.setContentText("You have entered an existing book title");
-                        alertError.showAndWait();
-                    } else {
-                        Book book = new Book(
-                            -1,
-                            addBook.getTextfiledYear(), 
-                            addBook.getTextfiledStock(), 
-                            addBook.getTextfiledPrice(), 
-                            addBook.getTextfiledTitle(),
-                            null, 
-                            addBook.getTextfiledAuthor(), 
-                            addBook.getTextfiledPublisher(), 
-                            addBook.getTextfiledCategory()
-                        );
-                        boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
-                        if(checkInsert == true){
-                            books.add(ControllDB.getLastestBook());
-                        }
-                        addBooktoTable(books);
-                    }
+                    addBooktoTable(books);
                 }
             }
-        }
-
-        else if (event.getSource() == btnExit) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm to exit program !");
-            alert.setContentText("Do you want to exit ?");
-            Optional<ButtonType> result = alert.showAndWait();
+        } else if (event.getSource() == btnExit) {
+            Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }
-        }
-
-        else if (event.getSource() == btnInvoices) {
-            Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene invoiceScene = new Scene(root);
-            primaryStage.setScene(invoiceScene);
-            primaryStage.setTitle("Invoices Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnStaffs) {
-            Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene staffScene = new Scene(root);
-            primaryStage.setScene(staffScene);
-            primaryStage.setTitle("Staffs Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnSuppliers) {
-            Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene supplierScene = new Scene(root);
-            primaryStage.setScene(supplierScene);
-            primaryStage.setTitle("Suppliers Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnDashboard) {
-            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene dashboardScene = new Scene(root);
-            primaryStage.setScene(dashboardScene);
-            primaryStage.setTitle("Dashboard");
-            primaryStage.show(); 
+        } else if (event.getSource() == btnInvoices) {
+            Tool.loadScene(mainSceneClass,"Invoice", event);
+        } else if (event.getSource() == btnStaffs) {
+            Tool.loadScene(mainSceneClass,"Staffs", event);
+        } else if (event.getSource() == btnSuppliers) {
+            Tool.loadScene(mainSceneClass,"Suppliers", event);
+        } else if (event.getSource() == btnDashboard) {
+            Tool.loadScene(mainSceneClass,"Dashboard", event);
         }
     }
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("UpdateBook.fxml"));
-
+        FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "UpdateBook");
         DialogPane updateBookDialogPane = fxmlLoader.load();
         UpdateBookController updateBook = fxmlLoader.getController();
         updateBook.getTextfiledID().setEditable(false);
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
         
-
         if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
             } else {
                 updateBook.setTextfiledID(String.valueOf(clickedBook.getId()));
                 updateBook.setTextfiledPrice(String.valueOf(clickedBook.getPrice()));
@@ -353,52 +293,38 @@ public class MainSceneController implements Initializable {
                 updateBook.setTextfiledCategory(clickedBook.getCategory());
                 updateBook.setTextfiledPublisher(clickedBook.getPublisher());
                 updateBook.setTextfiledTitle(clickedBook.getTitle());
-        
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(updateBookDialogPane);
-                dialog.setTitle("Update book");        
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+               
+                Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update book", updateBookDialogPane);
 
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirm book information update!");
-                    alert.setContentText("Do you want to update book information ?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) { 
-                        ObservableList<Book> currentTableData = booksTableView.getItems();
-                        int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
-                        for (Book book : currentTableData) {
-                            if(book.getId() == currentID) {
-                                book.setTitle(updateBook.getTextfiledTitle().getText());
-                                book.setAuthor(updateBook.getTextfiledAuthor().getText());
-                                book.setCategory(updateBook.getTextfiledCategory().getText());
-                                book.setPublisher(updateBook.getTextfiledPublisher().getText());
-                                book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
-                                book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
-                                book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                                ControllDB.updateBooks(book);
-                                booksTableView.setItems(currentTableData);
-                                booksTableView.refresh();
-                                break;
-                            }
-                            
+                    ObservableList<Book> currentTableData = booksTableView.getItems();
+                    int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
+                    for (Book book : currentTableData) {
+                        if(book.getId() == currentID) {
+                            book.setTitle(updateBook.getTextfiledTitle().getText());
+                            book.setAuthor(updateBook.getTextfiledAuthor().getText());
+                            book.setCategory(updateBook.getTextfiledCategory().getText());
+                            book.setPublisher(updateBook.getTextfiledPublisher().getText());
+                            book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
+                            book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
+                            book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
+                            ControllDB.updateBooks(book);
+                            booksTableView.setItems(currentTableData);
+                            booksTableView.refresh();
+                            break;
                         }
+                        
                     }
+                    
                 }
             }
         }
 
         else if (event.getSource() == btnDelete) { 
             if(books.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
             } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to delete a book !");
-                alert.setContentText("Do you want to delete a book ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a book !", "Do you want to delete a book ?");
                 if (result.get() == ButtonType.OK) { 
                     booksTableView.getItems().removeAll(clickedBook);
                     ControllDB.deleteFromBooks(clickedBook);

@@ -1,81 +1,93 @@
 package sceneBuilder;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import database.ControllDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.Staff;
 
 public class UpdateInvoiceController {
 
     @FXML
     private DatePicker datePickerDates;
-
+    
     @FXML
-    private TextField textfiledAmount;
-
-    @FXML
-    private TextField textfiledID;
-
-    @FXML
-    private TextField textfiledProductName;
+    private ComboBox<Integer> comboboxStaffID;
 
     @FXML
     private TextField textfiledStaff;
 
-    @FXML
-    private TextField textfiledTotal;
+    private int invoiceID;
+
+    private ObservableList<Integer> staffIDList = FXCollections.observableArrayList();     
+    private ObservableList<Staff> listStaffs;
+    
+    public void setInvoiceID(int invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
+    public int getInvoiceID() {
+        return invoiceID;
+    }
+    
+    public String binding(Integer id){
+        if(id == null){
+            return null;
+        }
+        for(Staff st : listStaffs){
+            if(st.getId() == id) return st.getStaffName();
+        }
+        return null;
+    }
+
+    public void setComboboxStaffID(int inputStaffID) {
+        try {
+            listStaffs = ControllDB.getListFromStaffs();
+            for(Staff st : listStaffs){
+                staffIDList.add(st.getId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.comboboxStaffID.getItems().addAll(staffIDList);
+        this.comboboxStaffID.setValue(inputStaffID);
+        comboboxStaffID.setOnAction(event -> {
+            Integer id = comboboxStaffID.getValue();
+            if(id != null){
+                textfiledStaff.setText(binding(id));
+            }
+            else textfiledStaff.setText("");
+        });
+    }
+
+    public Integer getComboboxStaffID() {
+        return comboboxStaffID.getValue();
+    }
 
     public DatePicker getDatePickerDates() {
         return datePickerDates;
     }
 
     public void setDatePickerDates(String inputDates) {
-        DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyy");
+        DateTimeFormatter customDateTimeFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd");
 
         LocalDate localDate = LocalDate.parse(inputDates, customDateTimeFormatter);
         
         this.datePickerDates.setValue(localDate);
     }
 
-    public TextField getTextfiledAmount() {
-        return textfiledAmount;
+    public String getTextfiledStaff() {
+        return textfiledStaff.getText();
     }
 
-    public void setTextfiledAmount(String inputAmount) {
-        this.textfiledAmount.setText(inputAmount);
+    public void setTextfiledStaff(String textfiledStaff) {
+        this.textfiledStaff.setText(textfiledStaff);;
     }
-
-    public TextField getTextfiledID() {
-        return textfiledID;
-    }
-
-    public void setTextfiledID(String inputID) {
-        this.textfiledID.setText(inputID);
-    }
-
-    public TextField getTextfiledProductName() {
-        return textfiledProductName;
-    }
-
-    public void setTextfiledProductName(String inputProductName) {
-        this.textfiledProductName.setText(inputProductName); 
-    }
-
-    public TextField getTextfiledStaff() {
-        return textfiledStaff;
-    }
-
-    public void setTextfiledStaff(String inputStaff) {
-        this.textfiledStaff.setText(inputStaff);;
-    }
-
-    public TextField getTextfiledTotal() {
-        return textfiledTotal;
-    }
-
-    public void setTextfiledTotal(String inputTotal) {
-        this.textfiledTotal.setText(inputTotal);
-    }    
-
+    
 }
