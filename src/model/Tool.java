@@ -21,6 +21,7 @@ public class Tool {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle(sceneName + " Management");
+        primaryStage.centerOnScreen();
         primaryStage.show(); 
     }
 
