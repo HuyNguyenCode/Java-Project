@@ -73,6 +73,8 @@ public class SuppliersController implements Initializable {
     @FXML
     private TableView<Supplier> suppliersTableView;
 
+    private Class<SuppliersController> suppliersClass = SuppliersController.class;
+
     ObservableList<Supplier> suppliers = FXCollections.observableArrayList();   
 
    // @Override
@@ -102,13 +104,13 @@ public class SuppliersController implements Initializable {
                 javafx.application.Platform.exit();
             }
         } else if (event.getSource() == btnInvoices) {
-            Tool.loadScene(SuppliersController.class, "Invoice", event);
+            Tool.loadScene(suppliersClass, "Invoice", event);
         } else if (event.getSource() == btnStaffs) {
-            Tool.loadScene(SuppliersController.class, "Staffs", event);
+            Tool.loadScene(suppliersClass, "Staffs", event);
         } else if (event.getSource() == btnBooks) {
-            Tool.loadScene(SuppliersController.class, "MainScene", event);
+            Tool.loadScene(suppliersClass, "MainScene", event);
         } else if (event.getSource() == btnDashboard) {
-            Tool.loadScene(SuppliersController.class, "Dashboard", event);
+            Tool.loadScene(suppliersClass, "Dashboard", event);
         }
     }
 }

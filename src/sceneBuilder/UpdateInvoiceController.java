@@ -23,20 +23,18 @@ public class UpdateInvoiceController {
     @FXML
     private TextField textfiledStaff;
 
+    private int invoiceID;
+
     private ObservableList<Integer> staffIDList = FXCollections.observableArrayList();     
     private ObservableList<Staff> listStaffs;
+    
+    public void setInvoiceID(int invoiceID) {
+        this.invoiceID = invoiceID;
+    }
 
-
-    // public void initialize(URL location, ResourceBundle resources) {
-    //     setComboboxStaffID(1);
-    //     comboboxStaffID.setOnAction(event -> {
-    //         Integer id = comboboxStaffID.getValue();
-    //         if(id != null){
-    //             textfiledStaff.setText(binding(id));
-    //         }
-    //         else textfiledStaff.setText("");
-    //     });
-    // }
+    public int getInvoiceID() {
+        return invoiceID;
+    }
     
     public String binding(Integer id){
         if(id == null){

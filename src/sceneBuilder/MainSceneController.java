@@ -143,6 +143,8 @@ public class MainSceneController implements Initializable {
     
     ObservableList<Book> books = FXCollections.observableArrayList();   
 
+    private Class<MainSceneController> mainSceneClass = MainSceneController.class;
+
     public void initialize(URL location, ResourceBundle resources) {
 
         // String userName = SigninController.user.getFullName();
@@ -153,7 +155,7 @@ public class MainSceneController implements Initializable {
             
             //load fxml and controller
             for (int i = 0; i < recommendedBooks.size(); i++) {
-                FXMLLoader fxmlLoader = Tool.getFxml("Card");
+                FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "Card");
                 HBox carBox = fxmlLoader.load();
                 CardController cardController = fxmlLoader.getController();
                 cardController.setData(recommendedBooks.get(i));
@@ -215,7 +217,7 @@ public class MainSceneController implements Initializable {
         if (event.getSource() == btnAddBook) {
             pnBooksManagement.setVisible(true);
             //Show dialog to add a new book
-            FXMLLoader fxmlLoader = Tool.getFxml("AddBook");
+            FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "AddBook");
             DialogPane addBookDialogPane = fxmlLoader.load();
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new book", addBookDialogPane);
             AddBookController addBook = fxmlLoader.getController();  
@@ -264,20 +266,20 @@ public class MainSceneController implements Initializable {
                 javafx.application.Platform.exit();
             }
         } else if (event.getSource() == btnInvoices) {
-            Tool.loadScene(MainSceneController.class,"Invoice", event);
+            Tool.loadScene(mainSceneClass,"Invoice", event);
         } else if (event.getSource() == btnStaffs) {
-            Tool.loadScene(MainSceneController.class,"Staffs", event);
+            Tool.loadScene(mainSceneClass,"Staffs", event);
         } else if (event.getSource() == btnSuppliers) {
-            Tool.loadScene(MainSceneController.class,"Suppliers", event);
+            Tool.loadScene(mainSceneClass,"Suppliers", event);
         } else if (event.getSource() == btnDashboard) {
-            Tool.loadScene(MainSceneController.class,"Dashboard", event);
+            Tool.loadScene(mainSceneClass,"Dashboard", event);
         }
     }
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
-        FXMLLoader fxmlLoader = Tool.getFxml("UpdateBook");
+        FXMLLoader fxmlLoader = Tool.getFxml(mainSceneClass, "UpdateBook");
         DialogPane updateBookDialogPane = fxmlLoader.load();
         UpdateBookController updateBook = fxmlLoader.getController();
         updateBook.getTextfiledID().setEditable(false);

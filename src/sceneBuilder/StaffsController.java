@@ -69,7 +69,7 @@ public class StaffsController implements Initializable {
 
     @FXML
     private TableView<Staff> staffsTableView;
-
+    private Class<StaffsController> staffsClass = StaffsController.class;
     ObservableList<Staff> staffs = FXCollections.observableArrayList();   
 
     // @Override
@@ -97,13 +97,13 @@ public class StaffsController implements Initializable {
                 javafx.application.Platform.exit();
             }
         } else if (event.getSource() == btnInvoices) {
-            Tool.loadScene(StaffsController.class, "Invoice", event);
+            Tool.loadScene(staffsClass, "Invoice", event);
         } else if (event.getSource() == btnSuppliers) {
-            Tool.loadScene(StaffsController.class, "Suppliers", event);
+            Tool.loadScene(staffsClass, "Suppliers", event);
         } else if (event.getSource() == btnBooks) {
-            Tool.loadScene(StaffsController.class, "MainScene", event);
+            Tool.loadScene(staffsClass, "MainScene", event);
         } else if (event.getSource() == btnDashboard) {
-            Tool.loadScene(StaffsController.class, "Dashboard", event);
+            Tool.loadScene(staffsClass, "Dashboard", event);
         }
     }    
 }

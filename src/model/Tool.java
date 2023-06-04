@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import sceneBuilder.InvoiceController;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -25,9 +24,9 @@ public class Tool {
         primaryStage.show(); 
     }
 
-    public static FXMLLoader getFxml(String fxmlFileName) {
+    public static FXMLLoader getFxml(Class<?> classBeingCalled, String fxmlFileName) {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(InvoiceController.class.getResource(fxmlFileName + ".fxml"));
+        fxmlLoader.setLocation(classBeingCalled.getResource(fxmlFileName + ".fxml"));
         return fxmlLoader;
     }
 
@@ -58,7 +57,4 @@ public class Tool {
         dialog.setTitle(dialogTitle);
         dialog.showAndWait();
     }
-
-
-
 }
