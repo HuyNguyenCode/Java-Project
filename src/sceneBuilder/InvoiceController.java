@@ -98,8 +98,8 @@ public class InvoiceController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources){
 
-        // String userName = SigninController.user.getFullName();
-        // this.userNameInScene.setText(userName);
+        String userName = SigninController.user.getFullName();
+        this.userNameInScene.setText(userName);
 
         try {
             invoices = ControllDB.getListFromInvoices();
@@ -244,13 +244,6 @@ public class InvoiceController implements Initializable {
                 if (result.get() == ButtonType.OK) { 
                     if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
                         invoiceTableView.getItems().removeAll(clickedInvoice);
-                    }
-                    else{
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Can't delete invoice !");
-                        alert.setContentText("Check connect to database...");
-                        result = alert.showAndWait();
-                        Tool.showAlert(Alert.AlertType.INFORMATION, "Can't delete invoice !", "Check connect to database...");
                     }
                 }
             }

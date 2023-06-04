@@ -95,12 +95,12 @@ public class DashboardController implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // String userName = SigninController.user.getFullName();
+            String userName = SigninController.user.getFullName();
             String totalBooks = Integer.toString(ControllDB.countBooksFromDB());   
             String totalInvoices = Integer.toString(ControllDB.countInvoicesFromDB());    
             String totalStaffs = Integer.toString(ControllDB.countStaffsFromDB());  
             
-            // this.userNameInScene.setText(userName);
+            this.userNameInScene.setText(userName);
             this.totalBooks.setText(totalBooks);
             this.totalInvoices.setText(totalInvoices);
             this.totalStaffs.setText(totalStaffs);  
