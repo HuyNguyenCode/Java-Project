@@ -72,7 +72,7 @@ public class AddInvoiceController implements Initializable{
 
 
     public String getDatePickerDates() {
-        return datePickerDates.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyy"));
+        return datePickerDates.getValue().format(DateTimeFormatter.ofPattern("yyy-MM-dd"));
     }
 
     public String getTextfiledStaff() {
