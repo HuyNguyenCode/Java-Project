@@ -3,10 +3,6 @@ package sceneBuilder;
 import java.io.IOException;
 import database.ControllDB;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import model.Tool;
 import model.User;
 
 public class SignupController {
@@ -51,16 +47,10 @@ public class SignupController {
 
     @FXML
     private Label termsOfService_text;
-    private Stage primaryStage;
 
     @FXML
     void switchScene(MouseEvent event) throws IOException { 
-        Parent root = FXMLLoader.load(getClass().getResource("Signin.fxml"));
-        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene signInScene = new Scene(root);
-        primaryStage.setScene(signInScene);
-        primaryStage.setTitle("Sign In");
-        primaryStage.show();
+        Tool.loadScene(SigninController.class, "Signin", event);
     }
 
 
@@ -98,22 +88,19 @@ public class SignupController {
                 String password = password_signup.getText();
                 User temp = new User(fullName,email,password);
                 boolean checkSignUp = ControllDB.insertValuesIntoUsers(temp);
-                if(checkSignUp == false){
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("SignUp Fail!");
-                    alert.setContentText("Your account already exists!");
-                    alert.showAndWait(); 
+                if(checkSignUp == false){ 
+                    Tool.showAlert(Alert.AlertType.WARNING, 
+                    "SignUp Fail!",
+                    "Your account already exists!");
                 } else{
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("SignUp Success!");
-                    alert.setContentText("You can signin with new account!");
-                    alert.showAndWait();
+                    Tool.showAlert(Alert.AlertType.INFORMATION,
+                    "SignUp Success!", 
+                    "You can signin with new account!");
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Agree on term!");
-                alert.setContentText("Please indicate that you have read and agree to the 'Terms of service'!");
-                alert.showAndWait(); 
+                Tool.showAlert(Alert.AlertType.WARNING,
+                "Warning Agree on term!",
+                "Please indicate that you have read and agree to the 'Terms of service'!");
             }
         }
 
