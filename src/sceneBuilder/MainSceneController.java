@@ -224,40 +224,35 @@ public class MainSceneController implements Initializable {
 
 
             if (clickedButton.get() == ButtonType.OK) { 
-                //Adding Confirmation                 
-                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to add a new book !", "Do you want to add a new book ?");
+                //Add books to tableview
+                //Iterate through tableview to check duplicate title
+                boolean isTitleDuplicate = false;
+                for (Book book : books) {
+                    if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
+                        isTitleDuplicate = true;
+                        break; 
+                    } 
+                }
 
-                if (result.get() == ButtonType.OK) {
-                    //Add books to tableview
-
-                    //Iterate through tableview to check duplicate title
-                    boolean isTitleDuplicate = false;
-                    for (Book book : books) {
-                        if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
-                            isTitleDuplicate = true;
-                            break; 
-                        } 
+                if (isTitleDuplicate) {
+                    Tool.showAlert(Alert.AlertType.ERROR, "Can't add new book!", "You have entered an existing book title");
+                } else {
+                    Book book = new Book(
+                        -1,
+                        addBook.getTextfiledYear(), 
+                        addBook.getTextfiledStock(), 
+                        addBook.getTextfiledPrice(), 
+                        addBook.getTextfiledTitle(),
+                        null, 
+                        addBook.getTextfiledAuthor(), 
+                        addBook.getTextfiledPublisher(), 
+                        addBook.getTextfiledCategory()
+                    );
+                    boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
+                    if(checkInsert == true){
+                        books.add(ControllDB.getLastestBook());
                     }
-                    if (isTitleDuplicate) {
-                        Tool.showAlert(Alert.AlertType.ERROR, "Can't add new book!", "You have entered an existing book title");
-                    } else {
-                        Book book = new Book(
-                            -1,
-                            addBook.getTextfiledYear(), 
-                            addBook.getTextfiledStock(), 
-                            addBook.getTextfiledPrice(), 
-                            addBook.getTextfiledTitle(),
-                            null, 
-                            addBook.getTextfiledAuthor(), 
-                            addBook.getTextfiledPublisher(), 
-                            addBook.getTextfiledCategory()
-                        );
-                        boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
-                        if(checkInsert == true){
-                            books.add(ControllDB.getLastestBook());
-                        }
-                        addBooktoTable(books);
-                    }
+                    addBooktoTable(books);
                 }
             }
         } else if (event.getSource() == btnExit) {
@@ -302,27 +297,25 @@ public class MainSceneController implements Initializable {
                 Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update book", updateBookDialogPane);
 
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Optional<ButtonType> result = Tool.showConfirmAlert("Confirm book information update!", "Do you want to update book information ?");
-                    if (result.get() == ButtonType.OK) { 
-                        ObservableList<Book> currentTableData = booksTableView.getItems();
-                        int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
-                        for (Book book : currentTableData) {
-                            if(book.getId() == currentID) {
-                                book.setTitle(updateBook.getTextfiledTitle().getText());
-                                book.setAuthor(updateBook.getTextfiledAuthor().getText());
-                                book.setCategory(updateBook.getTextfiledCategory().getText());
-                                book.setPublisher(updateBook.getTextfiledPublisher().getText());
-                                book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
-                                book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
-                                book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                                ControllDB.updateBooks(book);
-                                booksTableView.setItems(currentTableData);
-                                booksTableView.refresh();
-                                break;
-                            }
-                            
+                    ObservableList<Book> currentTableData = booksTableView.getItems();
+                    int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
+                    for (Book book : currentTableData) {
+                        if(book.getId() == currentID) {
+                            book.setTitle(updateBook.getTextfiledTitle().getText());
+                            book.setAuthor(updateBook.getTextfiledAuthor().getText());
+                            book.setCategory(updateBook.getTextfiledCategory().getText());
+                            book.setPublisher(updateBook.getTextfiledPublisher().getText());
+                            book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
+                            book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
+                            book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
+                            ControllDB.updateBooks(book);
+                            booksTableView.setItems(currentTableData);
+                            booksTableView.refresh();
+                            break;
                         }
+                        
                     }
+                    
                 }
             }
         }

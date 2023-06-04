@@ -48,11 +48,7 @@ public class SignupController {
     @FXML
     private Label termsOfService_text;
 
-    @FXML
-    void switchScene(MouseEvent event) throws IOException { 
-        Tool.loadScene(SigninController.class, "Signin", event);
-    }
-
+    private Class<SigninController> signinClass = SigninController.class;
 
     void setPassword(PasswordField password_signup) {
         this.password_signup = password_signup;
@@ -79,7 +75,12 @@ public class SignupController {
     }
 
     @FXML
-    void handleClicks(MouseEvent event) {
+    void switchScene(MouseEvent event) throws IOException { 
+        Tool.loadScene(signinClass, "Signin", event);
+    }
+
+    @FXML
+    void handleClicks(MouseEvent event) throws IOException {
         if(event.getSource() == btn_auth) {
             if (agreeCheckbox.isSelected()) {
              // Handle the event after ticking the checkbox and clicking "Sign up" here
@@ -96,6 +97,7 @@ public class SignupController {
                     Tool.showAlert(Alert.AlertType.INFORMATION,
                     "SignUp Success!", 
                     "You can signin with new account!");
+                    Tool.loadScene(signinClass, "Signin", event);
                 }
             } else {
                 Tool.showAlert(Alert.AlertType.WARNING,

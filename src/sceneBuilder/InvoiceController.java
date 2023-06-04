@@ -174,18 +174,13 @@ public class InvoiceController implements Initializable {
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
             System.out.println(addInvoice);
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
-
-
             if (clickedButton.get() == ButtonType.OK) { 
-                //Adding Confirmation 
-                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to add a new invoice !", "Do you want to add a new invoice ?");
-                if (result.get() == ButtonType.OK) {
-                    //Add invoice to tableview
-                    boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
-                    if(isUpdate == false) return;
-                    invoices.add(ControllDB.getLastestInvoice());
-                    addInvoieToTable(invoices);
-                }
+                //Add invoice to tableview
+                boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
+                if(isUpdate == false) return;
+                invoices.add(ControllDB.getLastestInvoice());
+                addInvoieToTable(invoices);
+                
             }
         } else if (event.getSource() == btnExit) {
             Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
@@ -221,25 +216,19 @@ public class InvoiceController implements Initializable {
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
                 updateInvoice.setComboboxStaffID(clickedInvoice.getStaffID());
                 updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
-
-
                 Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update invoice", updateInvoiceDialogPane);
-
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Optional<ButtonType> result = Tool.showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");
-                    if (result.get() == ButtonType.OK) { 
-                        ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
-                        int currentID = updateInvoice.getInvoiceID();
-                        for (Invoice invoice : currentTableData) {
-                            if(invoice.getInvoiceID() == currentID) {
-                                invoice.setStaffID(updateInvoice.getComboboxStaffID());
-                                invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
-                                invoice.setStaff(updateInvoice.getTextfiledStaff());
-                                ControllDB.updateInvoice(invoice);
-                                invoiceTableView.setItems(currentTableData);
-                                invoiceTableView.refresh();
-                                break;
-                            }
+                    ObservableList<Invoice> currentTableData = invoiceTableView.getItems();
+                    int currentID = updateInvoice.getInvoiceID();
+                    for (Invoice invoice : currentTableData) {
+                        if(invoice.getInvoiceID() == currentID) {
+                            invoice.setStaffID(updateInvoice.getComboboxStaffID());
+                            invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
+                            invoice.setStaff(updateInvoice.getTextfiledStaff());
+                            ControllDB.updateInvoice(invoice);
+                            invoiceTableView.setItems(currentTableData);
+                            invoiceTableView.refresh();
+                            break;
                         }
                     }
                 }
