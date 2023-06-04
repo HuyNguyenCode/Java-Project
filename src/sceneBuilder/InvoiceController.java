@@ -15,8 +15,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -24,7 +22,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,7 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Invoice;
 import model.InvoiceDetail;
@@ -96,9 +92,6 @@ public class InvoiceController implements Initializable {
 
     @FXML
     private TextField searchInput;
-
-    private Stage primaryStage;
-
     ObservableList<Invoice> invoices = FXCollections.observableArrayList();   
 
     public void initialize(URL location, ResourceBundle resources){
@@ -112,21 +105,6 @@ public class InvoiceController implements Initializable {
             e.printStackTrace();
         }
         addInvoieToTable(invoices);    
-    }
-
-    private void loadScene(String sceneName, MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml"));
-        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle(sceneName + " Management");
-        primaryStage.show(); 
-    }
-
-    public FXMLLoader getFxml(String fxmlFileName) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(fxmlFileName + ".fxml"));
-        return fxmlLoader;
     }
 
     public void addInvoieToTable(ObservableList<Invoice> invoices) {
@@ -149,9 +127,7 @@ public class InvoiceController implements Initializable {
                         } else {
                             btnDetail.setOnMouseClicked((MouseEvent event) -> {
                                 Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
-                                FXMLLoader fxmlLoader = new FXMLLoader();
-                                fxmlLoader.setLocation(getClass().getResource("InvoiceDetailTable.fxml"));
-
+                                FXMLLoader fxmlLoader = Tool.getFxml("InvoiceDetailTable");
                                 DialogPane invoiceDetailDialogPane;
                                 try {                            
                                                                                         
@@ -168,11 +144,7 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-
-                                    Dialog<ButtonType> dialog = new Dialog<>();
-                                    dialog.setDialogPane(invoiceDetailDialogPane);
-                                    dialog.setTitle("Invoice Detail");
-                                    dialog.showAndWait();
+                                    Tool.showDialogPane("Invoice Detail", invoiceDetailDialogPane);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -197,12 +169,11 @@ public class InvoiceController implements Initializable {
         if (event.getSource() == btnAddInvoice) {
 
             //Show dialog to add a new invoice
-            FXMLLoader fxmlLoader = getFxml("AddInvoice");            
+            FXMLLoader fxmlLoader = Tool.getFxml("AddInvoice");            
             AddInvoiceController addInvoice = fxmlLoader.getController();  
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
-            
             System.out.println(addInvoice);
-            Optional<ButtonType> clickedButton = Tool.showDialogPane("Add new invoice", addInvoiceDialogPane);
+            Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
 
 
             if (clickedButton.get() == ButtonType.OK) { 
@@ -222,20 +193,20 @@ public class InvoiceController implements Initializable {
                 javafx.application.Platform.exit();
             }
         } else if (event.getSource() == btnBooks) {
-            loadScene("MainScene", event);
+            Tool.loadScene(InvoiceController.class, "MainScene", event);
         } else if (event.getSource() == btnSuppliers) {
-            loadScene("Suppliers", event);
+            Tool.loadScene(InvoiceController.class, "Suppliers", event);
         } else if (event.getSource() == btnStaffs) {
-            loadScene("Staffs", event);
+            Tool.loadScene(InvoiceController.class, "Staffs", event);
         } else if (event.getSource() == btnInvoiceDashboard) {
-            loadScene("Dashboard", event);
+            Tool.loadScene(InvoiceController.class, "Dashboard", event);
         }
     }
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
-        FXMLLoader fxmlLoader = getFxml("UpdateInvoice");
+        FXMLLoader fxmlLoader = Tool.getFxml("UpdateInvoice");
         DialogPane updateInvoiceDialogPane = fxmlLoader.load();
         UpdateInvoiceController updateInvoice = fxmlLoader.getController();
         
@@ -251,7 +222,7 @@ public class InvoiceController implements Initializable {
                 updateInvoice.setComboboxStaffID(clickedInvoice.getStaffID());
                 updateInvoice.setTextfiledStaff(clickedInvoice.getStaff());
 
-                Optional<ButtonType> clickedButton = Tool.showDialogPane("Update invoice", updateInvoiceDialogPane);
+                Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update invoice", updateInvoiceDialogPane);
 
                 if(clickedButton.get() == ButtonType.APPLY) { 
                     Optional<ButtonType> result = Tool.showConfirmAlert("Confirm invoice information update!", "Do you want to update invoice information ?");

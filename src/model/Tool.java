@@ -1,15 +1,13 @@
 package model;
-
 import java.util.Optional;
-
-// import java.io.IOException;
-
-// import javafx.fxml.FXMLLoader;
-// import javafx.scene.Parent;
-// import javafx.scene.Scene;
-// import javafx.scene.input.MouseEvent;
-// import javafx.stage.Stage;
-// import javafx.scene.Node;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import sceneBuilder.InvoiceController;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -17,22 +15,21 @@ import javafx.scene.control.DialogPane;
 
 
 public class Tool {
-    // private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger($CLASS$.class);
-    // private static Stage primaryStage;
-    // public static void loadScene(String sceneName, MouseEvent event) throws IOException {
-    //     Parent root = FXMLLoader.load(getClass().getResource(sceneName + ".fxml"));
-    //     primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    //     Scene scene = new Scene(root);
-    //     primaryStage.setScene(scene);
-    //     primaryStage.setTitle(sceneName + " Management");
-    //     primaryStage.show(); 
-    // }
+    private static Stage primaryStage;
+    public static void loadScene(Class<?> classBeingCalled, String sceneName, MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(classBeingCalled.getResource(sceneName + ".fxml"));
+        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(sceneName + " Management");
+        primaryStage.show(); 
+    }
 
-    // public static FXMLLoader getFxml(String fxmlFileName) {
-    //     FXMLLoader fxmlLoader = new FXMLLoader();
-    //     fxmlLoader.setLocation(getClass().getResource(fxmlFileName + ".fxml"));
-    //     return fxmlLoader;
-    // }
+    public static FXMLLoader getFxml(String fxmlFileName) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(InvoiceController.class.getResource(fxmlFileName + ".fxml"));
+        return fxmlLoader;
+    }
 
     public static void showAlert(Alert.AlertType alertType, String alertTitle, String alertContentText) {
         Alert alert = new Alert(alertType);
@@ -48,11 +45,18 @@ public class Tool {
         return alert.showAndWait();
     }
 
-    public static Optional<ButtonType> showDialogPane(String dialogTitle, DialogPane dialogPaneName) {
+    public static Optional<ButtonType> showDialogPaneOptional(String dialogTitle, DialogPane dialogPaneName) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPaneName);
         dialog.setTitle(dialogTitle);
         return dialog.showAndWait();
+    }
+
+    public static void showDialogPane(String dialogTitle, DialogPane dialogPaneName) {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPaneName);
+        dialog.setTitle(dialogTitle);
+        dialog.showAndWait();
     }
 
 

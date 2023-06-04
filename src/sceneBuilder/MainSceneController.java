@@ -18,9 +18,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -36,7 +33,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class MainSceneController implements Initializable {
 
@@ -144,9 +140,6 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private TextField searchInput;
-
-    private Stage primaryStage;
-
     
     ObservableList<Book> books = FXCollections.observableArrayList();   
 
@@ -160,8 +153,7 @@ public class MainSceneController implements Initializable {
             
             //load fxml and controller
             for (int i = 0; i < recommendedBooks.size(); i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("Card.fxml"));
+                FXMLLoader fxmlLoader = Tool.getFxml("Card");
                 HBox carBox = fxmlLoader.load();
                 CardController cardController = fxmlLoader.getController();
                 cardController.setData(recommendedBooks.get(i));
@@ -223,10 +215,9 @@ public class MainSceneController implements Initializable {
         if (event.getSource() == btnAddBook) {
             pnBooksManagement.setVisible(true);
             //Show dialog to add a new book
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("AddBook.fxml"));
+            FXMLLoader fxmlLoader = Tool.getFxml("AddBook");
             DialogPane addBookDialogPane = fxmlLoader.load();
-            Optional<ButtonType> clickedButton = Tool.showDialogPane("Add new book", addBookDialogPane);
+            Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new book", addBookDialogPane);
             AddBookController addBook = fxmlLoader.getController();  
 
 
@@ -245,7 +236,6 @@ public class MainSceneController implements Initializable {
                             break; 
                         } 
                     }
-
                     if (isTitleDuplicate) {
                         Tool.showAlert(Alert.AlertType.ERROR, "Can't add new book!", "You have entered an existing book title");
                     } else {
@@ -268,65 +258,32 @@ public class MainSceneController implements Initializable {
                     }
                 }
             }
-        }
-
-        else if (event.getSource() == btnExit) {
+        } else if (event.getSource() == btnExit) {
             Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }
-        }
-
-        else if (event.getSource() == btnInvoices) {
-            Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene invoiceScene = new Scene(root);
-            primaryStage.setScene(invoiceScene);
-            primaryStage.setTitle("Invoices Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnStaffs) {
-            Parent root = FXMLLoader.load(getClass().getResource("Staffs.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene staffScene = new Scene(root);
-            primaryStage.setScene(staffScene);
-            primaryStage.setTitle("Staffs Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnSuppliers) {
-            Parent root = FXMLLoader.load(getClass().getResource("Suppliers.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene supplierScene = new Scene(root);
-            primaryStage.setScene(supplierScene);
-            primaryStage.setTitle("Suppliers Management");
-            primaryStage.show(); 
-        }
-
-        else if (event.getSource() == btnDashboard) {
-            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
-            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene dashboardScene = new Scene(root);
-            primaryStage.setScene(dashboardScene);
-            primaryStage.setTitle("Dashboard");
-            primaryStage.show(); 
+        } else if (event.getSource() == btnInvoices) {
+            Tool.loadScene(MainSceneController.class,"Invoice", event);
+        } else if (event.getSource() == btnStaffs) {
+            Tool.loadScene(MainSceneController.class,"Staffs", event);
+        } else if (event.getSource() == btnSuppliers) {
+            Tool.loadScene(MainSceneController.class,"Suppliers", event);
+        } else if (event.getSource() == btnDashboard) {
+            Tool.loadScene(MainSceneController.class,"Dashboard", event);
         }
     }
 
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("UpdateBook.fxml"));
-
+        FXMLLoader fxmlLoader = Tool.getFxml("UpdateBook");
         DialogPane updateBookDialogPane = fxmlLoader.load();
         UpdateBookController updateBook = fxmlLoader.getController();
         updateBook.getTextfiledID().setEditable(false);
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
         
-
         if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {
                 Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
@@ -340,7 +297,7 @@ public class MainSceneController implements Initializable {
                 updateBook.setTextfiledPublisher(clickedBook.getPublisher());
                 updateBook.setTextfiledTitle(clickedBook.getTitle());
                
-                Optional<ButtonType> clickedButton = Tool.showDialogPane("Update book", updateBookDialogPane);
+                Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Update book", updateBookDialogPane);
 
                 if(clickedButton.get() == ButtonType.APPLY) { 
                     Optional<ButtonType> result = Tool.showConfirmAlert("Confirm book information update!", "Do you want to update book information ?");
