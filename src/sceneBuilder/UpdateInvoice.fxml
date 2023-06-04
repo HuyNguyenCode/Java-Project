@@ -7,11 +7,12 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="210.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.UpdateInvoiceController">
+<DialogPane prefHeight="279.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.UpdateInvoiceController">
    <content>
       <AnchorPane prefHeight="164.0" prefWidth="449.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
@@ -36,7 +37,13 @@
             <VBox layoutX="199.0" layoutY="64.0" prefHeight="80.0" prefWidth="151.0">
                <children>
                   <Label prefHeight="34.0" prefWidth="54.0" text="STAFF ID" />
-                  <ComboBox prefHeight="45.0" prefWidth="150.0" />
+                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="14.0" layoutY="151.0" prefHeight="80.0" prefWidth="335.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="42.0" text="STAFF" />
+                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" />
                </children>
             </VBox>
          </children>

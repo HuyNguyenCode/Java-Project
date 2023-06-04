@@ -1,5 +1,7 @@
 package sceneBuilder;
 import model.Book;
+import model.Tool;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -225,19 +226,13 @@ public class MainSceneController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("AddBook.fxml"));
             DialogPane addBookDialogPane = fxmlLoader.load();
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(addBookDialogPane);
-            dialog.setTitle("Add new book");
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            Optional<ButtonType> clickedButton = Tool.showDialogPane("Add new book", addBookDialogPane);
             AddBookController addBook = fxmlLoader.getController();  
 
 
             if (clickedButton.get() == ButtonType.OK) { 
-                //Adding Confirmation 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to add a new book !");
-                alert.setContentText("Do you want to add a new book ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                //Adding Confirmation                 
+                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to add a new book !", "Do you want to add a new book ?");
 
                 if (result.get() == ButtonType.OK) {
                     //Add books to tableview
@@ -252,10 +247,7 @@ public class MainSceneController implements Initializable {
                     }
 
                     if (isTitleDuplicate) {
-                        Alert alertError = new Alert(Alert.AlertType.ERROR);
-                        alertError.setTitle("Can't add new book!");
-                        alertError.setContentText("You have entered an existing book title");
-                        alertError.showAndWait();
+                        Tool.showAlert(Alert.AlertType.ERROR, "Can't add new book!", "You have entered an existing book title");
                     } else {
                         Book book = new Book(
                             -1,
@@ -279,10 +271,7 @@ public class MainSceneController implements Initializable {
         }
 
         else if (event.getSource() == btnExit) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirm to exit program !");
-            alert.setContentText("Do you want to exit ?");
-            Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }
@@ -340,10 +329,7 @@ public class MainSceneController implements Initializable {
 
         if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
             } else {
                 updateBook.setTextfiledID(String.valueOf(clickedBook.getId()));
                 updateBook.setTextfiledPrice(String.valueOf(clickedBook.getPrice()));
@@ -353,17 +339,11 @@ public class MainSceneController implements Initializable {
                 updateBook.setTextfiledCategory(clickedBook.getCategory());
                 updateBook.setTextfiledPublisher(clickedBook.getPublisher());
                 updateBook.setTextfiledTitle(clickedBook.getTitle());
-        
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(updateBookDialogPane);
-                dialog.setTitle("Update book");        
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+               
+                Optional<ButtonType> clickedButton = Tool.showDialogPane("Update book", updateBookDialogPane);
 
                 if(clickedButton.get() == ButtonType.APPLY) { 
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirm book information update!");
-                    alert.setContentText("Do you want to update book information ?");
-                    Optional<ButtonType> result = alert.showAndWait();
+                    Optional<ButtonType> result = Tool.showConfirmAlert("Confirm book information update!", "Do you want to update book information ?");
                     if (result.get() == ButtonType.OK) { 
                         ObservableList<Book> currentTableData = booksTableView.getItems();
                         int currentID = Integer.parseInt(updateBook.getTextfiledID().getText());
@@ -390,15 +370,9 @@ public class MainSceneController implements Initializable {
 
         else if (event.getSource() == btnDelete) { 
             if(books.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
             } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to delete a book !");
-                alert.setContentText("Do you want to delete a book ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a book !", "Do you want to delete a book ?");
                 if (result.get() == ButtonType.OK) { 
                     booksTableView.getItems().removeAll(clickedBook);
                     ControllDB.deleteFromBooks(clickedBook);
