@@ -5,15 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-// import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-// @SpringBootApplication
 public class App extends Application {
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Signin.fxml"));
-            Scene invoiceScene = new Scene(root);
-            primaryStage.setScene(invoiceScene);
+            Parent root = FXMLLoader.load(getClass().getResource("Invoice.fxml"));
+            Scene mainScene = new Scene(root);
+            primaryStage.setScene(mainScene);
             primaryStage.setTitle("Book Store Management");
             primaryStage.show();
         } catch (IOException e) {}
