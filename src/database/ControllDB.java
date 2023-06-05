@@ -351,6 +351,18 @@ public class ControllDB {
         return null;
     }
 
+    public static Integer getInvoiceTotal(int invoiceID){
+        try {
+            ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery("select total_amount from invoice where invoice_id = " + invoiceID);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static boolean insertValuesIntoInvoiceDetails(int invoiceID, int bookID, int quantity){
         try {
             String sql = "INSERT INTO invoice_detail (invoice_id, book_id, quantity) VALUES (?, ?, ?)";
