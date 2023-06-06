@@ -2,8 +2,8 @@ package database;
 import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+// import javafx.scene.web.WebEngine;
+// import javafx.scene.web.WebView;
 import model.BarChartData;
 import model.Book;
 import model.Invoice;
@@ -402,29 +402,5 @@ public class ControllDB {
             e.printStackTrace();
             return null;
         }
-    }
-
-    // private String project_id = "javaproject-388811";
-    // private String client_id = "1006621371158-l2qimjeo8puouv34j5ce20t5rf5cp6gd.apps.googleusercontent.com";
-    // private String client_secret = "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";
-    // private String redirect_uris = "http://localhost";
-    // private String auth_uri = "https://accounts.google.com/o/oauth2/auth";
-    // private String token_uri = "https://oauth2.googleapis.com/token";
-    // private String auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs";
-    
-    // public void loginAsGoogle() {
-    //     // DefaultFacebookClient
-
-    //     WebView webview = new WebView();
-    //     WebEngine eg = webview.getEngine();
-    //     eg.load(auth_provider_x509_cert_url);
-    //     eg.locationProperty().addListener((obs, oldLocation, newLocation) -> {
-    //         if(newLocation != null && newLocation.startsWith("http://localhost")) {
-    //             int codeOffset = newLocation.indexOf("code=");
-    //             String code = newLocation.substring(codeOffset + "code=".length());
-    //             token_uri += code;
-            
-    //         }
-    //     });
-    // }
+    }    
 }

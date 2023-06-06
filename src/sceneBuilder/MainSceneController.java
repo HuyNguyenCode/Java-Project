@@ -147,8 +147,8 @@ public class MainSceneController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        String userName = SigninController.user.getFullName();
-        this.userNameInScene.setText(userName);
+        // String userName = SigninController.user.getFullName();
+        // this.userNameInScene.setText(userName);
         recommendedBooks = new ArrayList<>(recommendedBooks());
 
         try {
