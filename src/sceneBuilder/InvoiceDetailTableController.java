@@ -135,7 +135,15 @@ public class InvoiceDetailTableController implements Initializable{
                 alert.setContentText("Do you want to delete a invoice ?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) { 
+                    boolean isDelete = ControllDB.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
+                    if(isDelete == false){
+                        Alert _alert = new Alert(Alert.AlertType.ERROR);
+                        _alert.setTitle("Delete Error !");
+                        _alert.setContentText("Try again...");
+                        Optional<ButtonType> _result = _alert.showAndWait();
+                    }
                     tableviewDetail.getItems().removeAll(clickedInvoiceDetail);
+                    setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
                 }
             }
         }
