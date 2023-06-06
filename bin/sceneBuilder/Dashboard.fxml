@@ -381,7 +381,7 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="450.0" stylesheets="@../css/styles.css">
+                        <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="581.0" stylesheets="@../css/styles.css">
                            <styleClass>
                               <String fx:value="dashboard_background" />
                               <String fx:value="white-background" />
@@ -400,13 +400,13 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </AnchorPane>
-                        <AnchorPane prefHeight="506.0" prefWidth="608.0" stylesheets="@../css/styles.css">
+                        <AnchorPane prefHeight="506.0" prefWidth="0.0" stylesheets="@../css/styles.css">
                            <styleClass>
                               <String fx:value="white-background" />
                               <String fx:value="dashboard_background" />
                            </styleClass>
                            <children>
-                              <LineChart fx:id="booksSoldChart" prefHeight="502.0" prefWidth="524.0" title="Revenue per year">
+                              <LineChart fx:id="booksSoldChart" layoutX="1.0" prefHeight="502.0" prefWidth="398.0" title="Revenue Per Year">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>

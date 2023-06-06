@@ -62,7 +62,8 @@
 #btnExit, 
 #btnLogout,
 #btnSettings,
-#btnReport {
+#btnReport,
+#btnBookEntry {
     -fx-cursor: hand;   
 }
 
