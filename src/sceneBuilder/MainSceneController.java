@@ -80,6 +80,9 @@ public class MainSceneController implements Initializable {
     private HBox btnStaffs;
 
     @FXML
+    private HBox btnBookEntry;
+
+    @FXML
     private HBox btnSuppliers;
 
     @FXML
@@ -268,6 +271,8 @@ public class MainSceneController implements Initializable {
             Tool.loadScene(mainSceneClass,"Suppliers", event);
         } else if (event.getSource() == btnDashboard) {
             Tool.loadScene(mainSceneClass,"Dashboard", event);
+        }  else if (event.getSource() == btnBookEntry) {
+            Tool.loadScene(mainSceneClass, "BookEntry", event);
         }
     }
 

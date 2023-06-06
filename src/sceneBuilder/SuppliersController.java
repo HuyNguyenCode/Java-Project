@@ -44,6 +44,9 @@ public class SuppliersController implements Initializable {
     private HBox btnInvoices;
 
     @FXML
+    private HBox btnBookEntry;
+
+    @FXML
     private HBox btnStaffs;
 
     @FXML
@@ -111,6 +114,8 @@ public class SuppliersController implements Initializable {
             Tool.loadScene(suppliersClass, "MainScene", event);
         } else if (event.getSource() == btnDashboard) {
             Tool.loadScene(suppliersClass, "Dashboard", event);
+        }  else if (event.getSource() == btnBookEntry) {
+            Tool.loadScene(suppliersClass, "BookEntry", event);
         }
     }
 }

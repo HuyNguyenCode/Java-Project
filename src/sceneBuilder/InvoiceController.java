@@ -61,7 +61,10 @@ public class InvoiceController implements Initializable {
 
     @FXML
     private HBox btnSuppliers;
-
+    
+    @FXML
+    private HBox btnBookEntry;
+    
     @FXML
     private HBox btnUpdateInvoice;
 
@@ -146,7 +149,10 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailTable.setTotal_detail(String.valueOf(invoiceClicked.getTotal()));
                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
-                                    Tool.showDialogPane("Invoice Detail", invoiceDetailDialogPane);
+                                    Optional<ButtonType> res = Tool.showDialogPaneOptional("Invoice Detail", invoiceDetailDialogPane);
+                                    if (res.get() == ButtonType.APPLY) {
+                                        Tool.loadScene(invoiceClass, "Invoice", event);
+                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -194,6 +200,8 @@ public class InvoiceController implements Initializable {
             Tool.loadScene(invoiceClass, "Staffs", event);
         } else if (event.getSource() == btnInvoiceDashboard) {
             Tool.loadScene(invoiceClass, "Dashboard", event);
+        } else if (event.getSource() == btnBookEntry) {
+            Tool.loadScene(invoiceClass, "BookEntry", event);
         }
     }
 

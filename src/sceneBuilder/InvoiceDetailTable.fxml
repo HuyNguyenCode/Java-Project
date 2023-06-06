@@ -123,6 +123,7 @@
       </AnchorPane>
    </content>
    <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
       <ButtonType fx:constant="CLOSE" />
    </buttonTypes>
 </DialogPane>

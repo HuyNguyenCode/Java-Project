@@ -1,5 +1,6 @@
 package sceneBuilder;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -24,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import model.Book;
 import model.InvoiceDetail;
+import model.Tool;
 
 public class InvoiceDetailTableController implements Initializable{
 
@@ -119,7 +121,7 @@ public class InvoiceDetailTableController implements Initializable{
     }
 
     @FXML
-    void handleClicks(MouseEvent event) {
+    void handleClicks(MouseEvent event) throws IOException {
         if (event.getSource() == btnDeleteInvoiceDetail) {
 
             InvoiceDetail clickedInvoiceDetail = tableviewDetail.getSelectionModel().getSelectedItem();
@@ -137,10 +139,9 @@ public class InvoiceDetailTableController implements Initializable{
                 if (result.get() == ButtonType.OK) { 
                     boolean isDelete = ControllDB.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
                     if(isDelete == false){
-                        Alert _alert = new Alert(Alert.AlertType.ERROR);
-                        _alert.setTitle("Delete Error !");
-                        _alert.setContentText("Try again...");
-                        Optional<ButtonType> _result = _alert.showAndWait();
+                        Tool.showAlert(Alert.AlertType.ERROR, 
+                        "Delete Error !", 
+                        "Try again...");
                     }
                     tableviewDetail.getItems().removeAll(clickedInvoiceDetail);
                     setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
@@ -153,23 +154,13 @@ public class InvoiceDetailTableController implements Initializable{
             boolean checkInsert = ControllDB.insertValuesIntoInvoiceDetails(invoiceID, ControllDB.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
 
             if(checkInsert == false){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Delete fail !");
-                alert.setContentText("Try again with less quantity !");
-                Optional<ButtonType> result = alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.INFORMATION, 
+                "Delete fail !", 
+                "Try again with less quantity !" );
             }
 
             invoicesDetailList.add(ControllDB.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
             setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
-
-            // invoicesDetailList.add(new InvoiceDetail(
-            //     123,
-            //     567,
-            //     getBookTitleCombobox(),
-            //     30.000,
-            //     Integer.parseInt(getQuantityTextfield().getText()), 
-            //     100.0
-            // ));
             
             invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
             bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
@@ -177,6 +168,7 @@ public class InvoiceDetailTableController implements Initializable{
             unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
             quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
             tableviewDetail.setItems(invoicesDetailList);
+            Tool.loadScene(InvoiceDetail.class,"Invoice", event);
         }
     }
     

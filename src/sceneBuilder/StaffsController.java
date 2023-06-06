@@ -35,6 +35,9 @@ public class StaffsController implements Initializable {
     private HBox btnDashboard;
 
     @FXML
+    private HBox btnBookEntry;
+
+    @FXML
     private Button btnExit;
 
     @FXML
@@ -104,6 +107,8 @@ public class StaffsController implements Initializable {
             Tool.loadScene(staffsClass, "MainScene", event);
         } else if (event.getSource() == btnDashboard) {
             Tool.loadScene(staffsClass, "Dashboard", event);
+        }  else if (event.getSource() == btnBookEntry) {
+            Tool.loadScene(staffsClass, "BookEntry", event);
         }
     }    
 }
