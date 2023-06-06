@@ -1,8 +1,11 @@
 package sceneBuilder;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.Book;
 import model.InvoiceDetail;
 
 public class InvoiceDetailTableController implements Initializable{
@@ -60,6 +64,7 @@ public class InvoiceDetailTableController implements Initializable{
 
     private ObservableList<String> bookTitleList = FXCollections.observableArrayList();     
 
+    private int invoiceID;
 
     public void initialize(URL location, ResourceBundle resources) {
       
@@ -69,9 +74,15 @@ public class InvoiceDetailTableController implements Initializable{
     }
 
     public void setBookTitleCombobox() {
-        bookTitleList.add("Book_1"); 
-        bookTitleList.add("Book_2"); 
-        bookTitleList.add("Book_3"); 
+        ObservableList<Book> listBooks;
+        try {
+            listBooks = ControllDB.getListFromBooks();
+            for(Book book : listBooks){
+                bookTitleList.add(book.getTitle());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.bookTitleCombobox.getItems().addAll(bookTitleList);
     }
 
@@ -124,21 +135,41 @@ public class InvoiceDetailTableController implements Initializable{
                 alert.setContentText("Do you want to delete a invoice ?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) { 
+                    boolean isDelete = ControllDB.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
+                    if(isDelete == false){
+                        Alert _alert = new Alert(Alert.AlertType.ERROR);
+                        _alert.setTitle("Delete Error !");
+                        _alert.setContentText("Try again...");
+                        Optional<ButtonType> _result = _alert.showAndWait();
+                    }
                     tableviewDetail.getItems().removeAll(clickedInvoiceDetail);
+                    setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
                 }
             }
         }
 
         else if (event.getSource() == btnAddInvoiceDetail) {
 
-            invoicesDetailList.add(new InvoiceDetail(
-                123,
-                567,
-                getBookTitleCombobox(),
-                30.000,
-                Integer.parseInt(getQuantityTextfield().getText()), 
-                100.0
-                ));
+            boolean checkInsert = ControllDB.insertValuesIntoInvoiceDetails(invoiceID, ControllDB.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
+
+            if(checkInsert == false){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Delete fail !");
+                alert.setContentText("Try again with less quantity !");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+
+            invoicesDetailList.add(ControllDB.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
+            setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
+
+            // invoicesDetailList.add(new InvoiceDetail(
+            //     123,
+            //     567,
+            //     getBookTitleCombobox(),
+            //     30.000,
+            //     Integer.parseInt(getQuantityTextfield().getText()), 
+            //     100.0
+            // ));
             
             invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
             bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
@@ -149,9 +180,7 @@ public class InvoiceDetailTableController implements Initializable{
         }
     }
     
-
-
-
-    
-
+    public void setInvoiceID(int invoiceID){
+        this.invoiceID = invoiceID;
+    }
 }

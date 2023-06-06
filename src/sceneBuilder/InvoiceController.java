@@ -136,7 +136,7 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailDialogPane = fxmlLoader.load();
                                     InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
                                     invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
-
+                                    invoiceDetailTable.setInvoiceID(invoiceClicked.getInvoiceID());
                                     invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
                                     invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
                                     invoiceDetailTable.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
@@ -172,7 +172,6 @@ public class InvoiceController implements Initializable {
             FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "AddInvoice");            
             DialogPane addInvoiceDialogPane = fxmlLoader.load();
             AddInvoiceController addInvoice = fxmlLoader.getController();  
-            System.out.println(addInvoice);
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
             if (clickedButton.get() == ButtonType.OK) { 
                 //Add invoice to tableview

@@ -135,6 +135,16 @@ public class ControllDB {
         return books;
     }
 
+    public static Integer getBookIDFromName(String name){
+        try {
+            ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery("select book_id from books where title = '" + name + "'");
+            if(rs.next()) return rs.getInt(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getPasswordFromDB(String email){
         try {
             String res = "";
@@ -228,8 +238,11 @@ public class ControllDB {
 
     public static boolean deleteFromInvoices(Invoice invoice){
         try {
-            String sql = "delete from invoice where invoice_id = " + invoice.getInvoiceID();
+            String sql;
+            sql = "delete from invoice_detail where invoice_id = " + invoice.getInvoiceID();
             int checkDelete = ConnectToDB.getConnection().createStatement().executeUpdate(sql);
+            sql = "delete from invoice where invoice_id = " + invoice.getInvoiceID();
+            checkDelete = ConnectToDB.getConnection().createStatement().executeUpdate(sql);
             if(checkDelete != 0) return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -257,6 +270,16 @@ public class ControllDB {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean deleteInvoiceDetail(int invoiceID, int bookID){
+        try {
+            int isDelete = ConnectToDB.getConnection().createStatement().executeUpdate("delete from invoice_detail where invoice_id = "+invoiceID+" and book_id = " + bookID);
+            if(isDelete != 0) return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static ObservableList<Staff> getListFromStaffs() throws SQLException{
@@ -316,6 +339,58 @@ public class ControllDB {
         return list;
     }
 
+    public static InvoiceDetail getInvoiceDetail(int invoiceID, String bookID){
+        try {
+            String sql = "select d.invoice_id, b.book_id, b.title, d.unit_price, d.quantity, d.unit_price * d.quantity " +
+            "from invoice_detail as d, books as b " + 
+            "where d.invoice_id = ? and b.title = ? and d.book_id = b.book_id";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setInt(1, invoiceID);
+            pst.setString(2, bookID);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return new InvoiceDetail(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getDouble(4),
+                    rs.getInt(5),
+                    rs.getDouble(6)
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Double getInvoiceTotal(int invoiceID){
+        try {
+            ResultSet rs = ConnectToDB.getConnection().createStatement().executeQuery("select total_amount from invoice where invoice_id = " + invoiceID);
+            if(rs.next()){
+                return rs.getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean insertValuesIntoInvoiceDetails(int invoiceID, int bookID, int quantity){
+        try {
+            String sql = "INSERT INTO invoice_detail (invoice_id, book_id, quantity) VALUES (?, ?, ?)";
+            PreparedStatement pst = ConnectToDB.getConnection().prepareStatement(sql);
+            pst.setInt(1, invoiceID);
+            pst.setInt(2, bookID);
+            pst.setInt(3, quantity);
+            int isExecute = pst.executeUpdate();
+            if(isExecute != 0) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static int countBooksFromDB(){
         try {
             String sql = "select sum(stock) from books";
@@ -364,9 +439,9 @@ public class ControllDB {
     public static ObservableList<BarChartData> getBarChartDataFromDB(){
         ObservableList<BarChartData> list = FXCollections.observableArrayList();
         try {
-            String sql = "select category, count(stock) "+
-            "from books "+
-            "group by category";
+            String sql = "select b.category, sum(d.quantity) "+
+            "from invoice_detail d inner join books b on d.book_id = b.book_id "+
+            "group by b.category";
             Statement st = ConnectToDB.getConnection().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
@@ -386,8 +461,7 @@ public class ControllDB {
         ObservableList<LineChartData> list = FXCollections.observableArrayList();
         try {
             String sql = "select year(i.date) as year, sum(i.total_amount) as Revenue "+
-            "from invoice i, invoice_detail d "+
-            "where i.invoice_id = d.invoice_id "+
+            "from invoice i "+
             "group by year(i.date)";
             Statement st = ConnectToDB.getConnection().createStatement();
             ResultSet rs = st.executeQuery(sql);
