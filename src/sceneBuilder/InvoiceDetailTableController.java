@@ -140,7 +140,7 @@ public class InvoiceDetailTableController implements Initializable{
                         Alert _alert = new Alert(Alert.AlertType.ERROR);
                         _alert.setTitle("Delete Error !");
                         _alert.setContentText("Try again...");
-                        Optional<ButtonType> _result = _alert.showAndWait();
+                        _alert.showAndWait();
                     }
                     tableviewDetail.getItems().removeAll(clickedInvoiceDetail);
                     setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
@@ -156,7 +156,7 @@ public class InvoiceDetailTableController implements Initializable{
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Delete fail !");
                 alert.setContentText("Try again with less quantity !");
-                Optional<ButtonType> result = alert.showAndWait();
+                alert.showAndWait();
             }
 
             invoicesDetailList.add(ControllDB.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
