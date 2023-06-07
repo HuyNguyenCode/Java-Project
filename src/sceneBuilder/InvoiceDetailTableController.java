@@ -156,10 +156,7 @@ public class InvoiceDetailTableController implements Initializable{
             boolean checkInsert = ControlInvoiceDetails.insertValuesIntoInvoiceDetails(invoiceID, ControlBooks.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
 
             if(checkInsert == false){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Delete fail !");
-                alert.setContentText("Try again with less quantity !");
-                Optional<ButtonType> result = alert.showAndWait();
+                Tool.showAlert(Alert.AlertType.INFORMATION, "Delete fail !", "Try again with less quantity !");
             }
 
             invoicesDetailList.add(ControlInvoiceDetails.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
