@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sceneBuilder.SigninController;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -57,5 +58,13 @@ public class Tool {
         dialog.setDialogPane(dialogPaneName);
         dialog.setTitle(dialogTitle);
         dialog.showAndWait();
+    }
+
+    public static String getUserFullName(){
+        User user = SigninController.getUser();
+        if(user == null){
+            return "______";
+        }
+        return user.getFullName();
     }
 }

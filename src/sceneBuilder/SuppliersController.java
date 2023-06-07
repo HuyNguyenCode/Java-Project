@@ -5,9 +5,8 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import database.ControlSuppliers;
 import model.Tool;
-
-import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,6 +41,9 @@ public class SuppliersController implements Initializable {
 
     @FXML
     private HBox btnInvoices;
+
+    @FXML
+    private HBox btnBookEntry;
 
     @FXML
     private HBox btnStaffs;
@@ -80,11 +82,10 @@ public class SuppliersController implements Initializable {
    // @Override
    public void initialize(URL location, ResourceBundle resources) {
 
-        String userName = SigninController.user.getFullName();
-        this.userNameInScene.setText(userName);
+        this.userNameInScene.setText(Tool.getUserFullName());
         
         try {
-        suppliers = ControllDB.getListFromSuppliers();
+        suppliers = ControlSuppliers.getListFromSuppliers();
         colIDSupplier.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
         colAddress.setCellValueFactory(new PropertyValueFactory<Supplier, String>("address"));
         colName.setCellValueFactory(new PropertyValueFactory<Supplier, String>("supplierName"));
@@ -111,6 +112,8 @@ public class SuppliersController implements Initializable {
             Tool.loadScene(suppliersClass, "MainScene", event);
         } else if (event.getSource() == btnDashboard) {
             Tool.loadScene(suppliersClass, "Dashboard", event);
+        }  else if (event.getSource() == btnBookEntry) {
+            Tool.loadScene(suppliersClass, "BookEntry", event);
         }
     }
 }

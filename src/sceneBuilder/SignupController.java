@@ -1,7 +1,10 @@
 package sceneBuilder;
 
 import java.io.IOException;
-import database.ControllDB;
+
+import database.ControlUsers;
+
+import java.awt.Desktop;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -88,7 +91,7 @@ public class SignupController {
                 String email = email_signup.getText();
                 String password = password_signup.getText();
                 User temp = new User(fullName,email,password);
-                boolean checkSignUp = ControllDB.insertValuesIntoUsers(temp);
+                boolean checkSignUp = ControlUsers.insertValuesIntoUsers(temp);
                 if(checkSignUp == false){ 
                     Tool.showAlert(Alert.AlertType.WARNING, 
                     "SignUp Fail!",
@@ -108,7 +111,9 @@ public class SignupController {
 
         else if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign up with Google" button here
-            
+            // Tool.loadScene(signinClass, "Webview", event);
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(java.net.URI.create("https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/src/webhandle/LoginGoogleHandler&response_type=code&client_id=1006621371158-1p5a6ulo2ct6m68isapqanff7o0ur7su.apps.googleusercontent.com&approval_prompt=force"));
         }
 
         else if(event.getSource() == termsOfService_text) {
