@@ -10,9 +10,7 @@ public class ControlChartValues {
     public static ObservableList<BarChartData> getBarChartDataFromDB(){
         ObservableList<BarChartData> list = FXCollections.observableArrayList();
         try {
-            String sql = "select b.category, sum(d.quantity) "+
-            "from invoice_detail d inner join books b on d.book_id = b.book_id "+
-            "group by b.category";
+            String sql = "select category, sum(stock) from books group by category";
             Statement st = ConnectToDB.getConnection().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
