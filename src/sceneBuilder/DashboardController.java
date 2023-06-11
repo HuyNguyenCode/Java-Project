@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import database.ControlBooks;
-import database.ControlChartValues;
+import database.ControllBooks;
+import database.ControllChartValues;
 import database.ControlInvoices;
-import database.ControlStaffs;
+import database.ControllStaffs;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -103,9 +103,9 @@ public class DashboardController implements Initializable{
         try {
             this.userNameInScene.setText(Tool.getUserFullName());
             
-            String totalBooks = Integer.toString(ControlBooks.countBooksFromDB());   
+            String totalBooks = Integer.toString(ControllBooks.countBooksFromDB());   
             String totalInvoices = Integer.toString(ControlInvoices.countInvoicesFromDB());    
-            String totalStaffs = Integer.toString(ControlStaffs.countStaffsFromDB());  
+            String totalStaffs = Integer.toString(ControllStaffs.countStaffsFromDB());  
             
             this.totalBooks.setText(totalBooks);
             this.totalInvoices.setText(totalInvoices);
@@ -113,7 +113,7 @@ public class DashboardController implements Initializable{
 
             // BarChart - salesChart
             
-            ObservableList<BarChartData> barChartDataList = ControlChartValues.getBarChartDataFromDB();
+            ObservableList<BarChartData> barChartDataList = ControllChartValues.getBarChartDataFromDB();
 
             XYChart.Series<String, Integer> barChart = new XYChart.Series<>();
             barChart.setName("Number of books by genre");
@@ -124,7 +124,7 @@ public class DashboardController implements Initializable{
 
             // LineChart - Double
             
-            ObservableList<LineChartData> lineChartDataList = ControlChartValues.getLineChartDataFromDB();
+            ObservableList<LineChartData> lineChartDataList = ControllChartValues.getLineChartDataFromDB();
 
             XYChart.Series<String, Double> lineChart = new XYChart.Series<>();
             lineChart.setName("Revenue per year");

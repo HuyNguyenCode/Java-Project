@@ -5,7 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import database.ControlBooks;
+import database.ControllBooks;
 import database.ControlInvoiceDetails;
 import database.ControlInvoices;
 import javafx.collections.FXCollections;
@@ -87,7 +87,7 @@ public class InvoiceDetailTableController implements Initializable{
     public void setBookTitleCombobox() {
         ObservableList<Book> listBooks;
         try {
-            listBooks = ControlBooks.getListFromBooks();
+            listBooks = ControllBooks.getListFromBooks();
             for(Book book : listBooks){
                 bookTitleList.add(book.getTitle());
             }
@@ -153,7 +153,7 @@ public class InvoiceDetailTableController implements Initializable{
         
         if (event.getSource() == btnAddInvoiceDetail) {
 
-            boolean checkInsert = ControlInvoiceDetails.insertValuesIntoInvoiceDetails(invoiceID, ControlBooks.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
+            boolean checkInsert = ControlInvoiceDetails.insertValuesIntoInvoiceDetails(invoiceID, ControllBooks.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
 
             if(checkInsert == false){
                 Tool.showAlert(Alert.AlertType.INFORMATION, "Delete fail !", "Try again with less quantity !");

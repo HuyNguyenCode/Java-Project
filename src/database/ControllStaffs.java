@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Staff;
 
-public class ControlStaffs {
+public class ControllStaffs {
     public static ObservableList<Staff> getListFromStaffs() throws SQLException{
         ObservableList<Staff> list = FXCollections.observableArrayList();
         String sql = "Select * from employees";

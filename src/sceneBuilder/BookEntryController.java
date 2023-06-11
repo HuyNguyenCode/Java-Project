@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import database.ControlBookEntry;
+import database.ControllBookEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -100,7 +100,7 @@ public class BookEntryController implements Initializable {
         this.userNameInScene.setText(Tool.getUserFullName());
          
         try {
-            bookEntries = ControlBookEntry.getListFromBookEntry();
+            bookEntries = ControllBookEntry.getListFromBookEntry();
             colIDEntry.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("entryID"));
             colSupplierID.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("supplierID"));
             colStaffID.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("staffID"));

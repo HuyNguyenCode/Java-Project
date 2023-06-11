@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import database.ControlBooks;
+import database.ControllBooks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -163,7 +163,7 @@ public class MainSceneController implements Initializable {
                 cardLayout.getChildren().add(carBox);
             }
 
-            books = ControlBooks.getListFromBooks();
+            books = ControllBooks.getListFromBooks();
             addBooktoTable(books);
 
         } catch (Exception e) {
@@ -249,9 +249,9 @@ public class MainSceneController implements Initializable {
                         addBook.getTextfiledPublisher(), 
                         addBook.getTextfiledCategory()
                     );
-                    boolean checkInsert = ControlBooks.insertValuesIntoBooks(book);
+                    boolean checkInsert = ControllBooks.insertValuesIntoBooks(book);
                     if(checkInsert == true){
-                        books.add(ControlBooks.getLastestBook());
+                        books.add(ControllBooks.getLastestBook());
                     }
                     addBooktoTable(books);
                 }
@@ -311,7 +311,7 @@ public class MainSceneController implements Initializable {
                             book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
                             book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
                             book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                            ControlBooks.updateBooks(book);
+                            ControllBooks.updateBooks(book);
                             booksTableView.setItems(currentTableData);
                             booksTableView.refresh();
                             break;
@@ -329,7 +329,7 @@ public class MainSceneController implements Initializable {
             } else {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a book !", "Do you want to delete a book ?");
                 if (result.get() == ButtonType.OK) { 
-                    boolean checkDelete = ControlBooks.deleteFromBooks(clickedBook);
+                    boolean checkDelete = ControllBooks.deleteFromBooks(clickedBook);
                     if(checkDelete == true){
                         booksTableView.getItems().removeAll(clickedBook);
                     }

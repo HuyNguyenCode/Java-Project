@@ -1,6 +1,6 @@
 package sceneBuilder;
 import java.io.IOException;
-import database.ControlUsers;
+import database.ControllUsers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -67,7 +67,7 @@ public class SigninController {
 
             String email = email_signin.getText();
             String password = password_signin.getText();
-            String p = ControlUsers.getPasswordFromDB(email);
+            String p = ControllUsers.getPasswordFromDB(email);
             if(email.isEmpty() || password.isEmpty()) return;
             if(p.equals("-1")){
                 Tool.showAlert(Alert.AlertType.WARNING,
@@ -76,7 +76,7 @@ public class SigninController {
             }
             else if(password.equals(p)){
                 System.out.println("Login Success!");
-                user = ControlUsers.getUserFromDB(email);
+                user = ControllUsers.getUserFromDB(email);
                 Tool.loadScene(signinClass, "Dashboard", event);
             }
             else{
