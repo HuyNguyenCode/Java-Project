@@ -150,7 +150,7 @@ public class InvoiceController implements Initializable {
                                     invoiceDetailTable.setInvoiceNo_detail(String.format("%03d", getIndex() + 1));
                                     invoiceDetailTable.tableviewDetail.setItems(invoiceDetailTable.invoicesDetailList);
                                     Optional<ButtonType> res = Tool.showDialogPaneOptional("Invoice Detail", invoiceDetailDialogPane);
-                                    if (res.get() == ButtonType.APPLY) {
+                                    if (res.get() == ButtonType.CLOSE) {
                                         Tool.loadScene(invoiceClass, "Invoice", event);
                                     }
                                 } catch (IOException e) {
@@ -188,7 +188,9 @@ public class InvoiceController implements Initializable {
                 
             }
         } else if (event.getSource() == btnExit) {
-            Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to exit program !", "Do you want to exit ?");
+            Optional<ButtonType> result = Tool.showConfirmAlert(
+                "Confirm to exit program !", 
+                "Do you want to exit ?");
             if (result.get() == ButtonType.OK) { 
                 javafx.application.Platform.exit();
             }

@@ -7,7 +7,10 @@ import java.util.ResourceBundle;
 import database.ControllDB;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -20,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.BarChartData;
 import model.LineChartData;
 import model.Tool;
@@ -89,6 +93,8 @@ public class DashboardController implements Initializable{
     @FXML
     private TextField searchInput;
 
+    private Stage primaryStage;
+
     private Class<DashboardController> dashboarClass = DashboardController.class;
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -157,7 +163,15 @@ public class DashboardController implements Initializable{
         }
 
         if (event.getSource() == btnReport) {
-            
+            FXMLLoader fxmlLoader = Tool.getFxml(PrintReportController.class, "PrintReport");
+            Node root = fxmlLoader.load();            
+            System.out.println("Report Dashboard Printer!");
+            PrinterJob job = PrinterJob.createPrinterJob();
+            if(job != null){
+                job.showPrintDialog(primaryStage); 
+                job.printPage(root);
+                job.endJob();
+            }
         }
     }
 }

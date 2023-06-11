@@ -95,7 +95,7 @@
                               <Image url="@../img/icon/report.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="37.0" prefWidth="134.0" text="Report">
+                        <Label prefHeight="37.0" prefWidth="134.0" text="Print Report">
                            <font>
                               <Font name="Berlin Sans FB" size="18.0" />
                            </font>

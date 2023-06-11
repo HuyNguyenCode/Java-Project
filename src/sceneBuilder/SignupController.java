@@ -1,8 +1,6 @@
 package sceneBuilder;
-
 import java.io.IOException;
-
-import java.awt.Desktop;
+// import java.awt.Desktop;
 import database.ControllDB;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,7 +16,6 @@ import model.Tool;
 import model.User;
 
 public class SignupController {
-
 
     @FXML
     private CheckBox agreeCheckbox;
@@ -111,8 +108,8 @@ public class SignupController {
         else if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign up with Google" button here
             // Tool.loadScene(signinClass, "Webview", event);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.browse(java.net.URI.create("https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/src/webhandle/LoginGoogleHandler&response_type=code&client_id=1006621371158-1p5a6ulo2ct6m68isapqanff7o0ur7su.apps.googleusercontent.com&approval_prompt=force"));
+            // Desktop desktop = Desktop.getDesktop();
+            // desktop.browse(java.net.URI.create("https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost/src/webhandle/LoginGoogleHandler&response_type=code&client_id=1006621371158-1p5a6ulo2ct6m68isapqanff7o0ur7su.apps.googleusercontent.com&approval_prompt=force"));
         }
 
         else if(event.getSource() == termsOfService_text) {

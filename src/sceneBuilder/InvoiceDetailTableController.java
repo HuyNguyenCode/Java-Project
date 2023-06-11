@@ -5,12 +5,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import database.ControllDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,7 +28,7 @@ import javafx.scene.text.Text;
 import model.Book;
 import model.InvoiceDetail;
 import model.Tool;
-
+import javafx.stage.Stage;
 public class InvoiceDetailTableController implements Initializable{
 
     @FXML TableView<InvoiceDetail> tableviewDetail;
@@ -55,7 +57,12 @@ public class InvoiceDetailTableController implements Initializable{
     private Button btnDeleteInvoiceDetail;
 
     @FXML
+    private Button btnPrint;
+
+    @FXML
     private AnchorPane updateInvoiceDetail;
+
+    private Stage primaryStage;
     
     ObservableList<InvoiceDetail> invoicesDetailList = FXCollections.observableArrayList();   
 
@@ -100,7 +107,6 @@ public class InvoiceDetailTableController implements Initializable{
         this.quantityTextfield = quantityTextfield;
     }
 
-
     public void setInvoiceDate_detail(String invoiceDate_detail) {
         this.invoiceDate_detail.setText(invoiceDate_detail);
     }
@@ -127,15 +133,9 @@ public class InvoiceDetailTableController implements Initializable{
             InvoiceDetail clickedInvoiceDetail = tableviewDetail.getSelectionModel().getSelectedItem();
 
             if(invoicesDetailList.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Empty board error!");
-                alert.setContentText("Unable to update the information in the table because the table is empty !");
-                alert.showAndWait(); 
+                Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
             } else  {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm to delete a invoice !");
-                alert.setContentText("Do you want to delete a invoice ?");
-                Optional<ButtonType> result = alert.showAndWait();
+                Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
                     boolean isDelete = ControllDB.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
                     if(isDelete == false){
@@ -147,9 +147,9 @@ public class InvoiceDetailTableController implements Initializable{
                     setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
                 }
             }
-        }
-
-        else if (event.getSource() == btnAddInvoiceDetail) {
+        } 
+        
+        if (event.getSource() == btnAddInvoiceDetail) {
 
             boolean checkInsert = ControllDB.insertValuesIntoInvoiceDetails(invoiceID, ControllDB.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
 
@@ -168,11 +168,39 @@ public class InvoiceDetailTableController implements Initializable{
             unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
             quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
             tableviewDetail.setItems(invoicesDetailList);
+            
             Tool.loadScene(InvoiceDetail.class,"Invoice", event);
+        }
+
+        if (event.getSource() == btnPrint) {
+            
+            FXMLLoader fxmlLoader = Tool.getFxml(InvoiceDetailTableController.class, "PrintInvoiceDetail");
+            
+            Node root = fxmlLoader.load();
+            
+            PrintInvoiceDetailController printInvoiceDetail = fxmlLoader.getController();
+            printInvoiceDetail.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
+            printInvoiceDetail.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
+            printInvoiceDetail.bookTitle_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, String>("bookTitle"));
+            printInvoiceDetail.unitPrice_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Double>("unitPrice"));
+            printInvoiceDetail.quantity_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("quantity"));
+            printInvoiceDetail.setInvoiceDate_detail(invoiceDate_detail.getText());
+            printInvoiceDetail.setTotal_detail(total_detail.getText());
+            printInvoiceDetail.setInvoiceNo_detail(invoiceNo_detail.getText());
+            printInvoiceDetail.tableviewDetail.setItems(invoicesDetailList);
+    
+            System.out.println("Invoice Detail Printer!");
+            PrinterJob job = PrinterJob.createPrinterJob();
+            if(job != null){
+                job.showPrintDialog(primaryStage); 
+                job.printPage(root);
+                job.endJob();
+            }
         }
     }
     
     public void setInvoiceID(int invoiceID){
         this.invoiceID = invoiceID;
-    }
+    } 
+        
 }
