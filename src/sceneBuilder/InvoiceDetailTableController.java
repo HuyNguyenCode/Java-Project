@@ -5,7 +5,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import database.ControllDB;
+import database.ControlBooks;
+import database.ControlInvoiceDetails;
+import database.ControlInvoices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -85,7 +87,7 @@ public class InvoiceDetailTableController implements Initializable{
     public void setBookTitleCombobox() {
         ObservableList<Book> listBooks;
         try {
-            listBooks = ControllDB.getListFromBooks();
+            listBooks = ControlBooks.getListFromBooks();
             for(Book book : listBooks){
                 bookTitleList.add(book.getTitle());
             }
@@ -137,30 +139,28 @@ public class InvoiceDetailTableController implements Initializable{
             } else  {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
-                    boolean isDelete = ControllDB.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
+                    boolean isDelete = ControlInvoiceDetails.deleteInvoiceDetail(invoiceID, clickedInvoiceDetail.getBookID());
                     if(isDelete == false){
                         Tool.showAlert(Alert.AlertType.ERROR, 
                         "Delete Error !", 
                         "Try again...");
                     }
                     tableviewDetail.getItems().removeAll(clickedInvoiceDetail);
-                    setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
+                    setTotal_detail(ControlInvoices.getInvoiceTotal(invoiceID).toString());
                 }
             }
         } 
         
         if (event.getSource() == btnAddInvoiceDetail) {
 
-            boolean checkInsert = ControllDB.insertValuesIntoInvoiceDetails(invoiceID, ControllDB.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
+            boolean checkInsert = ControlInvoiceDetails.insertValuesIntoInvoiceDetails(invoiceID, ControlBooks.getBookIDFromName(getBookTitleCombobox()), Integer.parseInt(getQuantityTextfield().getText()));
 
             if(checkInsert == false){
-                Tool.showAlert(Alert.AlertType.INFORMATION, 
-                "Delete fail !", 
-                "Try again with less quantity !" );
+                Tool.showAlert(Alert.AlertType.INFORMATION, "Delete fail !", "Try again with less quantity !");
             }
 
-            invoicesDetailList.add(ControllDB.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
-            setTotal_detail(ControllDB.getInvoiceTotal(invoiceID).toString());
+            invoicesDetailList.add(ControlInvoiceDetails.getInvoiceDetail(invoiceID, getBookTitleCombobox()));
+            setTotal_detail(ControlInvoices.getInvoiceTotal(invoiceID).toString());
             
             invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
             bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));

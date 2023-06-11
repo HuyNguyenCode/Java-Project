@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import database.ControlBookEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -96,12 +97,10 @@ public class BookEntryController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // String userName = SigninController.user.getFullName();
-        // this.userNameInScene.setText(userName);
+        this.userNameInScene.setText(Tool.getUserFullName());
          
         try {
-            // bookEntries = ControllDB.getListFromSuppliers(); @FXML
-            // bookEntries.add(new BookEntry(1, "12-06-2020", 1, 1, 100));
+            bookEntries = ControlBookEntry.getListFromBookEntry();
             colIDEntry.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("entryID"));
             colSupplierID.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("supplierID"));
             colStaffID.setCellValueFactory(new PropertyValueFactory<BookEntry, Integer>("staffID"));

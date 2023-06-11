@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-
-import database.ControllDB;
+import database.ControlInvoiceDetails;
+import database.ControlInvoices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -101,11 +101,10 @@ public class InvoiceController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources){
 
-        // String userName = SigninController.user.getFullName();
-        // this.userNameInScene.setText(userName);
-
+        this.userNameInScene.setText(Tool.getUserFullName());
+        
         try {
-            invoices = ControllDB.getListFromInvoices();
+            invoices = ControlInvoices.getListFromInvoices();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,7 +137,7 @@ public class InvoiceController implements Initializable {
                                                                                         
                                     invoiceDetailDialogPane = fxmlLoader.load();
                                     InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
-                                    invoiceDetailTable.invoicesDetailList = ControllDB.getDetailsFromDB(invoiceClicked.getInvoiceID());
+                                    invoiceDetailTable.invoicesDetailList = ControlInvoiceDetails.getDetailsFromDB(invoiceClicked.getInvoiceID());
                                     invoiceDetailTable.setInvoiceID(invoiceClicked.getInvoiceID());
                                     invoiceDetailTable.invoiceID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("invoiceID"));
                                     invoiceDetailTable.bookID_detail.setCellValueFactory(new PropertyValueFactory<InvoiceDetail, Integer>("bookID"));
@@ -181,9 +180,9 @@ public class InvoiceController implements Initializable {
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new invoice", addInvoiceDialogPane);
             if (clickedButton.get() == ButtonType.OK) { 
                 //Add invoice to tableview
-                boolean isUpdate = ControllDB.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
+                boolean isUpdate = ControlInvoices.insertValuesIntoInvoices(addInvoice.getDatePickerDates(), addInvoice.getComboboxStaffID());
                 if(isUpdate == false) return;
-                invoices.add(ControllDB.getLastestInvoice());
+                invoices.add(ControlInvoices.getLastestInvoice());
                 addInvoieToTable(invoices);
                 
             }
@@ -234,7 +233,7 @@ public class InvoiceController implements Initializable {
                             invoice.setStaffID(updateInvoice.getComboboxStaffID());
                             invoice.setInvoiceDate(updateInvoice.getDatePickerDates().getValue().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
                             invoice.setStaff(updateInvoice.getTextfiledStaff());
-                            ControllDB.updateInvoice(invoice);
+                            ControlInvoices.updateInvoice(invoice);
                             invoiceTableView.setItems(currentTableData);
                             invoiceTableView.refresh();
                             break;
@@ -251,7 +250,7 @@ public class InvoiceController implements Initializable {
             } else  {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 
-                    if(ControllDB.deleteFromInvoices(clickedInvoice) == true){
+                    if(ControlInvoices.deleteFromInvoices(clickedInvoice) == true){
                         invoiceTableView.getItems().removeAll(clickedInvoice);
                     }
                 }

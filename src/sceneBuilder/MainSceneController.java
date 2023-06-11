@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-
-import database.ControllDB;
+import database.ControlBooks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -150,8 +149,7 @@ public class MainSceneController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        // String userName = SigninController.user.getFullName();
-        // this.userNameInScene.setText(userName);
+        this.userNameInScene.setText(Tool.getUserFullName());
         recommendedBooks = new ArrayList<>(recommendedBooks());
 
         try {
@@ -165,7 +163,7 @@ public class MainSceneController implements Initializable {
                 cardLayout.getChildren().add(carBox);
             }
 
-            books = ControllDB.getListFromBooks();
+            books = ControlBooks.getListFromBooks();
             addBooktoTable(books);
 
         } catch (Exception e) {
@@ -251,9 +249,9 @@ public class MainSceneController implements Initializable {
                         addBook.getTextfiledPublisher(), 
                         addBook.getTextfiledCategory()
                     );
-                    boolean checkInsert = ControllDB.insertValuesIntoBooks(book);
+                    boolean checkInsert = ControlBooks.insertValuesIntoBooks(book);
                     if(checkInsert == true){
-                        books.add(ControllDB.getLastestBook());
+                        books.add(ControlBooks.getLastestBook());
                     }
                     addBooktoTable(books);
                 }
@@ -313,7 +311,7 @@ public class MainSceneController implements Initializable {
                             book.setYear(Integer.parseInt(updateBook.getTextfiledYear().getText()));
                             book.setPrice(Double.parseDouble(updateBook.getTextfiledPrice().getText()));
                             book.setStock(Integer.parseInt(updateBook.getTextfiledStock().getText()));
-                            ControllDB.updateBooks(book);
+                            ControlBooks.updateBooks(book);
                             booksTableView.setItems(currentTableData);
                             booksTableView.refresh();
                             break;
@@ -331,8 +329,13 @@ public class MainSceneController implements Initializable {
             } else {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a book !", "Do you want to delete a book ?");
                 if (result.get() == ButtonType.OK) { 
-                    booksTableView.getItems().removeAll(clickedBook);
-                    ControllDB.deleteFromBooks(clickedBook);
+                    boolean checkDelete = ControlBooks.deleteFromBooks(clickedBook);
+                    if(checkDelete == true){
+                        booksTableView.getItems().removeAll(clickedBook);
+                    }
+                    else{
+                        Tool.showAlert(Alert.AlertType.ERROR, "Delete fail!", "This book in invoice details!");
+                    }
                 }
             }
         }  

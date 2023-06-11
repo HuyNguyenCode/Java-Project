@@ -1,7 +1,6 @@
 package sceneBuilder;
 import java.io.IOException;
-
-import database.ControllDB;
+import database.ControlUsers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -32,13 +31,17 @@ public class SigninController {
     @FXML
     private Button btn_google;
 
-    public static User user;
+    private static User user;
 
     private Class<SigninController> signinClass = SigninController.class;
 
     @FXML
     void switchScene(MouseEvent event) throws IOException {
         Tool.loadScene(signinClass, "Signup", event);
+    }
+
+    public static User getUser(){
+        return user;
     }
 
     void setPassword(PasswordField password_signin) {
@@ -64,7 +67,7 @@ public class SigninController {
 
             String email = email_signin.getText();
             String password = password_signin.getText();
-            String p = ControllDB.getPasswordFromDB(email);
+            String p = ControlUsers.getPasswordFromDB(email);
             if(email.isEmpty() || password.isEmpty()) return;
             if(p.equals("-1")){
                 Tool.showAlert(Alert.AlertType.WARNING,
@@ -73,7 +76,7 @@ public class SigninController {
             }
             else if(password.equals(p)){
                 System.out.println("Login Success!");
-                user = ControllDB.getUserFromDB(email);
+                user = ControlUsers.getUserFromDB(email);
                 Tool.loadScene(signinClass, "Dashboard", event);
             }
             else{

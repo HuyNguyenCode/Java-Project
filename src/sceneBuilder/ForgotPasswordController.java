@@ -1,6 +1,6 @@
 package sceneBuilder;
 import java.io.IOException;
-import database.ControllDB;
+import database.ControlUsers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -42,7 +42,7 @@ public class ForgotPasswordController {
     void handleClicks(MouseEvent event) {
         if (event.getSource() == btn_auth) {
             //handle Forgot password
-            String password = ControllDB.getPasswordFromDB(getEmail());
+            String password = ControlUsers.getPasswordFromDB(getEmail());
             if(password.equals("-1")){
                 Tool.showAlert(Alert.AlertType.INFORMATION, "Get Password Fail!", "Your account not exists!");
             } else if (password != null){
