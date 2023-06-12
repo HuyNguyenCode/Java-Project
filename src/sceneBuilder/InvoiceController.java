@@ -167,6 +167,7 @@ public class InvoiceController implements Initializable {
         invoiceTableView.setItems(invoices);
     }
 
+    
     @FXML
     void handleClicks(MouseEvent event) throws IOException, SQLException {
         //Handle event on addbtn
@@ -205,6 +206,14 @@ public class InvoiceController implements Initializable {
         }
     }
 
+    public boolean checkClickedInvoice(Invoice clickedInvoice) {
+        if (clickedInvoice == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
         FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "UpdateInvoice");
@@ -214,10 +223,15 @@ public class InvoiceController implements Initializable {
         Invoice clickedInvoice = invoiceTableView.getSelectionModel().getSelectedItem();
         
         if (event.getSource() == btnUpdateInvoice) {
+
             if(invoices.isEmpty()) {
                 Tool.showAlert(Alert.AlertType.ERROR,
                 "Empty board error!",
                 "Unable to update the information in the table because the table is empty !");
+            }
+            
+            if (!checkClickedInvoice(clickedInvoice)) {
+                Tool.showAlert(Alert.AlertType.WARNING, "Warning no invoices have been selected yet !"," Please select the invoice to update");
             } else { 
                 updateInvoice.setInvoiceID(clickedInvoice.getInvoiceID());
                 updateInvoice.setDatePickerDates(clickedInvoice.getInvoiceDate());
@@ -246,6 +260,10 @@ public class InvoiceController implements Initializable {
             "Empty board error!", 
             "Unable to delete the information in the table because the table is empty !"
                 );
+            } 
+            
+            if (!checkClickedInvoice(clickedInvoice)) {
+                Tool.showAlert(Alert.AlertType.WARNING, "Warning no invoices have been selected yet !"," Please select the invoice to delete");
             } else  {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a invoice !", "Do you want to delete a invoice ?");
                 if (result.get() == ButtonType.OK) { 

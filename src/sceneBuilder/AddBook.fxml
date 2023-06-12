@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -42,7 +43,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label stylesheets="@../css/titleCustom.css" text="Book ID" textFill="#9a9ea9">
+                  <Label text="Book ID" textFill="#9a9ea9">
                      <opaqueInsets>
                         <Insets left="15.0" />
                      </opaqueInsets>
@@ -51,7 +52,13 @@
                      </font>
                   </Label>
                   <TextField fx:id="textfiledID" prefHeight="71.0" prefWidth="166.0" stylesheets="@../css/styles.css" GridPane.rowIndex="1" />
-                  <ImageView fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../img/icon/id_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin></ImageView>
                </children>
             </GridPane>
             <GridPane layoutX="193.0" layoutY="77.0" prefHeight="83.0" prefWidth="166.0">
@@ -68,6 +75,14 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font></Label>
                   <TextField fx:id="textfiledStock" prefHeight="71.0" prefWidth="181.0" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../img/icon/stock_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="11.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="161.0" prefHeight="83.0" prefWidth="520.0">
@@ -100,6 +115,14 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font></Label>
                   <TextField fx:id="textfiledPrice" prefHeight="110.0" prefWidth="166.0" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="20.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../img/icon/price_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="255.0" prefHeight="83.0" prefWidth="520.0">
@@ -151,6 +174,14 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font></Label>
                   <TextField fx:id="textfiledYear" prefHeight="93.0" prefWidth="258.0" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../img/icon/year_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
             </GridPane>
             <GridPane layoutX="16.0" layoutY="444.0" prefHeight="83.0" prefWidth="242.0">
@@ -167,8 +198,21 @@
                         <Font name="Arial Bold" size="14.0" />
                      </font></Label>
                   <TextField fx:id="textfiledCategory" prefHeight="226.0" prefWidth="242.0" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT">
+                     <image>
+                        <Image url="@../img/icon/category_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
             </GridPane>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="506.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icon/add_book.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </content>

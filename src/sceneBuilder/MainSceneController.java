@@ -212,6 +212,13 @@ public class MainSceneController implements Initializable {
         lsPn.add(pnBooksManagement); 
     }
 
+    // boolean checkNullInput(AddBookController addBook) {
+    //     if(addBook.getTextfiledTitle() == "" || addBook.getTextfiledAuthor() == "" || addBook.getTextfiledPublisher() == "") {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
         //Handle event on addbtn
@@ -223,16 +230,23 @@ public class MainSceneController implements Initializable {
             Optional<ButtonType> clickedButton = Tool.showDialogPaneOptional("Add new book", addBookDialogPane);
             AddBookController addBook = fxmlLoader.getController();  
 
-
             if (clickedButton.get() == ButtonType.OK) { 
                 //Add books to tableview
                 //Iterate through tableview to check duplicate title
+                try {
+                    addBook.getTextfiledYear();
+                    addBook.getTextfiledStock(); 
+                    addBook.getTextfiledPrice();
+                } catch (NumberFormatException e) {
+                    Tool.showAlert(Alert.AlertType.ERROR, "Data type does not match", "This field allows input of Integer data only");
+                }
+
                 boolean isTitleDuplicate = false;
                 for (Book book : books) {
                     if(book.getTitle().toLowerCase().equals(addBook.getTextfiledTitle().toLowerCase())) {
                         isTitleDuplicate = true;
                         break; 
-                    } 
+                    }
                 }
 
                 if (isTitleDuplicate) {
@@ -250,7 +264,7 @@ public class MainSceneController implements Initializable {
                         addBook.getTextfiledCategory()
                     );
                     boolean checkInsert = ControlBooks.insertValuesIntoBooks(book);
-                    if(checkInsert == true){
+                    if(checkInsert){
                         books.add(ControlBooks.getLastestBook());
                     }
                     addBooktoTable(books);
@@ -274,6 +288,14 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    public boolean checkClickedBook(Book clickedBook) {
+        if (clickedBook == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @FXML
     void handleUpdate(MouseEvent event) throws IOException { 
     
@@ -283,10 +305,15 @@ public class MainSceneController implements Initializable {
         updateBook.getTextfiledID().setEditable(false);
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
+
+  
         
         if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {
                 Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
+            } 
+            if (!checkClickedBook(clickedBook)) {
+                Tool.showAlert(Alert.AlertType.WARNING, "Warning no books have been selected yet !"," Please select the book to update");
             } else {
                 updateBook.setTextfiledID(String.valueOf(clickedBook.getId()));
                 updateBook.setTextfiledPrice(String.valueOf(clickedBook.getPrice()));
@@ -326,6 +353,9 @@ public class MainSceneController implements Initializable {
         else if (event.getSource() == btnDelete) { 
             if(books.isEmpty()) {
                 Tool.showAlert(Alert.AlertType.ERROR, "Empty board error!", "Unable to update the information in the table because the table is empty !");
+            } 
+            if (!checkClickedBook(clickedBook)) {
+                Tool.showAlert(Alert.AlertType.WARNING, "Warning no books have been selected yet !"," Please select the book to delete");
             } else {
                 Optional<ButtonType> result = Tool.showConfirmAlert("Confirm to delete a book !", "Do you want to delete a book ?");
                 if (result.get() == ButtonType.OK) { 

@@ -8,6 +8,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +20,7 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <AnchorPane prefHeight="272.0" prefWidth="370.0" styleClass="white-background" stylesheets="@../css/styles.css">
+      <AnchorPane prefHeight="246.0" prefWidth="370.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
             <Label layoutY="14.0" text="Add new invoice">
                <opaqueInsets>
@@ -41,7 +43,7 @@
                   <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" promptText="Pick a date" styleClass="white-background" stylesheets="@../css/datePicker.css" />
                </children>
             </VBox>
-            <VBox layoutX="11.0" layoutY="170.0" prefHeight="80.0" prefWidth="335.0">
+            <VBox layoutX="11.0" layoutY="155.0" prefHeight="80.0" prefWidth="335.0">
                <children>
                   <Label prefHeight="34.0" prefWidth="42.0" text="Staff" textFill="#9a9ea9">
                      <font>
@@ -53,15 +55,20 @@
                      </font></TextField>
                </children>
             </VBox>
-            <VBox layoutX="208.0" layoutY="68.0" prefHeight="78.0" prefWidth="135.0">
+            <VBox layoutX="196.0" layoutY="68.0" prefHeight="80.0" prefWidth="150.0">
                <children>
                   <Label prefHeight="34.0" prefWidth="62.0" text="Staff ID" textFill="#9a9ea9">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font></Label>
-                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="135.0" promptText="Select Staff ID" style="-fx-border-radius: 5; -fx-background-radius: 5;" stylesheets="@../css/comboboxCustom.css" />
+                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="150.0" promptText="Select Staff ID" style="-fx-border-radius: 5; -fx-background-radius: 5;" stylesheets="@../css/comboboxCustom.css" />
                </children>
             </VBox>
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="313.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icon/add_invoice.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </content>
