@@ -212,13 +212,6 @@ public class MainSceneController implements Initializable {
         lsPn.add(pnBooksManagement); 
     }
 
-    // boolean checkNullInput(AddBookController addBook) {
-    //     if(addBook.getTextfiledTitle() == "" || addBook.getTextfiledAuthor() == "" || addBook.getTextfiledPublisher() == "") {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
     @FXML
     void handleClicks(MouseEvent event) throws IOException {
         //Handle event on addbtn
@@ -305,8 +298,6 @@ public class MainSceneController implements Initializable {
         updateBook.getTextfiledID().setEditable(false);
         
         Book clickedBook = booksTableView.getSelectionModel().getSelectedItem();
-
-  
         
         if (event.getSource() == btnUpdate) {
             if(books.isEmpty()) {

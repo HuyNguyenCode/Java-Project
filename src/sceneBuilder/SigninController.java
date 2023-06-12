@@ -88,6 +88,7 @@ public class SigninController {
 
         else if(event.getSource() == btn_google) {
             // Handle event after clicking "Sign in with Google" button here
+            Tool.showAlert(Alert.AlertType.INFORMATION, "Maintenance Feature", "Feature is under maintenance, please come back later");
         }
     }
 

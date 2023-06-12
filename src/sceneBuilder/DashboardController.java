@@ -17,6 +17,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -160,7 +161,7 @@ public class DashboardController implements Initializable{
         }
 
         if (event.getSource() == btnSettings) {
-
+            Tool.showAlert(Alert.AlertType.INFORMATION, "Maintenance Feature", "Feature is under maintenance, please come back later");
         }
 
         if (event.getSource() == btnReport) {
