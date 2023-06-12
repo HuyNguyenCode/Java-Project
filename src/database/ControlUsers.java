@@ -4,7 +4,7 @@ import java.sql.*;
 
 import model.User;
 
-public class ControllUsers {
+public class ControlUsers {
     public static String getPasswordFromDB(String email){
         try {
             String res = "";

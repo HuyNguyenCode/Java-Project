@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import database.ControllStaffs;
+import database.ControlStaffs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,7 +49,7 @@ public class UpdateInvoiceController {
 
     public void setComboboxStaffID(int inputStaffID) {
         try {
-            listStaffs = ControllStaffs.getListFromStaffs();
+            listStaffs = ControlStaffs.getListFromStaffs();
             for(Staff st : listStaffs){
                 staffIDList.add(st.getId());
             }

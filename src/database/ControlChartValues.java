@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import model.BarChartData;
 import model.LineChartData;
 
-public class ControllChartValues {
+public class ControlChartValues {
     public static ObservableList<BarChartData> getBarChartDataFromDB(){
         ObservableList<BarChartData> list = FXCollections.observableArrayList();
         try {

@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Supplier;
 
-public class ControllSuppliers {
+public class ControlSuppliers {
     public static ObservableList<Supplier> getListFromSuppliers() throws SQLException{
         ObservableList<Supplier> list = FXCollections.observableArrayList();
         String sql = "Select * from suppliers";

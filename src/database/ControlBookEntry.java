@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import model.BookEntry;
 
-public class ControllBookEntry {
+public class ControlBookEntry {
     public static ObservableList<BookEntry> getListFromBookEntry(){
         ObservableList<BookEntry> list = FXCollections.observableArrayList();
         try {

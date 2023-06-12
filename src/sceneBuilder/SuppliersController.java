@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import database.ControllSuppliers;
+import database.ControlSuppliers;
 import model.Tool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,7 +85,7 @@ public class SuppliersController implements Initializable {
         this.userNameInScene.setText(Tool.getUserFullName());
         
         try {
-        suppliers = ControllSuppliers.getListFromSuppliers();
+        suppliers = ControlSuppliers.getListFromSuppliers();
         colIDSupplier.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("id"));
         colAddress.setCellValueFactory(new PropertyValueFactory<Supplier, String>("address"));
         colName.setCellValueFactory(new PropertyValueFactory<Supplier, String>("supplierName"));

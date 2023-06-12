@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class ControllBooks {
+public class ControlBooks {
     public static Book getLastestBook(){
         Book res = null;
         String sql = "Select * from Books where book_id = (select max(book_id) from Books)";

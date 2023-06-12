@@ -1,7 +1,7 @@
 package sceneBuilder;
 import java.io.IOException;
 
-import database.ControllUsers;
+import database.ControlUsers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -87,7 +87,7 @@ public class SignupController {
                 String email = email_signup.getText();
                 String password = password_signup.getText();
                 User temp = new User(fullName,email,password);
-                boolean checkSignUp = ControllUsers.insertValuesIntoUsers(temp);
+                boolean checkSignUp = ControlUsers.insertValuesIntoUsers(temp);
                 if(checkSignUp == false){ 
                     Tool.showAlert(Alert.AlertType.WARNING, 
                     "SignUp Fail!",
