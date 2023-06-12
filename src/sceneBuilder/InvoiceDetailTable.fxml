@@ -10,6 +10,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -108,7 +110,17 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Button fx:id="btnPrint" layoutX="682.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#handleClicks" text="Print Invoice" />
+            <Button fx:id="btnPrint" alignment="CENTER" layoutX="717.0" layoutY="55.0" mnemonicParsing="false" onMouseClicked="#handleClicks" prefHeight="32.0" prefWidth="42.0" style="-fx-border-radius: 10; -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 ); -fx-background-color: #e2e3e8; -fx-background-radius: 10; -fx-cursor: hand;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icon/printer.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <Separator layoutX="215.0" layoutY="504.0" prefHeight="0.0" prefWidth="646.0" />
             <Label layoutX="55.0" layoutY="490.0" style="-fx-border-width: 1px;" text="Update Invoice Details">
                <font>

@@ -133,8 +133,7 @@ public class InvoiceController implements Initializable {
                                 Invoice invoiceClicked = getTableView().getItems().get(getIndex());                                                                                   
                                 FXMLLoader fxmlLoader = Tool.getFxml(invoiceClass, "InvoiceDetailTable");
                                 DialogPane invoiceDetailDialogPane;
-                                try {                            
-                                                                                        
+                                try {                                                                   
                                     invoiceDetailDialogPane = fxmlLoader.load();
                                     InvoiceDetailTableController invoiceDetailTable = fxmlLoader.getController();
                                     invoiceDetailTable.invoicesDetailList = ControlInvoiceDetails.getDetailsFromDB(invoiceClicked.getInvoiceID());

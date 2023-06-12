@@ -304,7 +304,7 @@
                   <TableColumn fx:id="colStaffID" prefWidth="75.0" text="Staff ID" />
                   <TableColumn fx:id="colStaffName" prefWidth="75.0" text="Staff Name" />
                   <TableColumn fx:id="colTotal" prefWidth="75.0" text="Total" />
-                  <TableColumn fx:id="colDetail" prefWidth="75.0" text="Detail" />
+                  <TableColumn fx:id="colDetail" prefWidth="75.0" style="-fx-alignment: center;" text="Detail" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

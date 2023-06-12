@@ -30,20 +30,29 @@
             <Separator layoutX="14.0" layoutY="44.0" prefHeight="0.0" prefWidth="336.0" />
             <VBox layoutX="14.0" layoutY="64.0" prefHeight="78.0" prefWidth="182.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="42.0" text="DATES" />
-                  <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" />
+                  <Label prefHeight="34.0" prefWidth="42.0" text="Dates" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" stylesheets="@../css/datePicker.css" />
                </children>
             </VBox>
             <VBox layoutX="199.0" layoutY="64.0" prefHeight="80.0" prefWidth="151.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="54.0" text="STAFF ID" />
-                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="150.0" />
+                  <Label prefHeight="34.0" prefWidth="54.0" text="Staff ID" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" stylesheets="@../css/comboboxCustom.css" />
                </children>
             </VBox>
             <VBox layoutX="14.0" layoutY="151.0" prefHeight="80.0" prefWidth="335.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="42.0" text="STAFF" />
-                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" />
+                  <Label prefHeight="34.0" prefWidth="42.0" text="Staff" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" stylesheets="@../css/textfieldCustom.css" />
                </children>
             </VBox>
          </children>

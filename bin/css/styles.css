@@ -45,6 +45,7 @@
 	-fx-focus-color: -fx-secondary-color;
 }
 
+
 /*Custom btn side bar*/
 #btnInvoiceDashboard,
 #btnAddInvoice,
@@ -139,38 +140,6 @@
     /* -fx-background-color: #a9a9a9 , white , white;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1; */
 }
-
-
-/*Custome Tableview*/
-/* .table-view {
-    -fx-background-color: transparent;
-    -fx-padding: 0px;
-    -fx-border-color:  linear-gradient(to bottom right, #bdc3c7, #2c3e50);
-
-    -fx-border-width:2px;
-    -fx-border-radius:8px;
-}
-
-.table-view .table-column {
-    -fx-alignment: CENTER;
-}
-
-.table-view .column-header-background {
-    -fx-background-color:  linear-gradient(to bottom right, #bdc3c7, #2c3e50);
-    -fx-background-radius: 8px, 8px, 0px, 0px;
-    -fx-background-inset: 0, 0, 0, 0;
-}
-
-.table-view .column-header, .filter {
-    -fx-background-color: transparent;
-    -fx-size: 40px;
-}
-
-.table-view .column-header, .lable {
-    -fx-text-fill:  #fff;
-    -fx-font-family: "Arial";
-} */
-
 
 .text-field {
     -fx-background-color: -fx-text-box-border, -fx-background ;

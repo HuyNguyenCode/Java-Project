@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="341.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.AddInvoiceController">
+<DialogPane maxWidth="-Infinity" minHeight="-Infinity" prefHeight="316.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sceneBuilder.AddInvoiceController">
    <buttonTypes>
       <ButtonType fx:constant="OK" />
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <AnchorPane prefHeight="295.0" prefWidth="378.0" styleClass="white-background" stylesheets="@../css/styles.css">
+      <AnchorPane prefHeight="272.0" prefWidth="370.0" styleClass="white-background" stylesheets="@../css/styles.css">
          <children>
             <Label layoutY="14.0" text="Add new invoice">
                <opaqueInsets>
@@ -32,22 +32,34 @@
                </font>
             </Label>
             <Separator layoutX="14.0" layoutY="44.0" prefHeight="0.0" prefWidth="330.0" />
-            <VBox layoutX="14.0" layoutY="68.0" prefHeight="78.0" prefWidth="182.0">
+            <VBox layoutX="14.0" layoutY="68.0" prefHeight="78.0" prefWidth="182.0" style="-fx-border-width: 2;">
                <children>
-                  <Label prefHeight="34.0" prefWidth="42.0" text="DATES" />
-                  <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" />
+                  <Label prefHeight="34.0" prefWidth="42.0" text="Dates" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <DatePicker fx:id="datePickerDates" prefHeight="45.0" prefWidth="173.0" promptText="Pick a date" styleClass="white-background" stylesheets="@../css/datePicker.css" />
                </children>
             </VBox>
             <VBox layoutX="11.0" layoutY="170.0" prefHeight="80.0" prefWidth="335.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="42.0" text="STAFF" />
-                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" />
+                  <Label prefHeight="34.0" prefWidth="42.0" text="Staff" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="textfiledStaff" prefHeight="46.0" prefWidth="366.0" promptText="Staff name" stylesheets="@../css/textfieldCustom.css">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></TextField>
                </children>
             </VBox>
             <VBox layoutX="208.0" layoutY="68.0" prefHeight="78.0" prefWidth="135.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="62.0" text="STAFF ID" />
-                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="135.0" />
+                  <Label prefHeight="34.0" prefWidth="62.0" text="Staff ID" textFill="#9a9ea9">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font></Label>
+                  <ComboBox fx:id="comboboxStaffID" prefHeight="45.0" prefWidth="135.0" promptText="Select Staff ID" style="-fx-border-radius: 5; -fx-background-radius: 5;" stylesheets="@../css/comboboxCustom.css" />
                </children>
             </VBox>
          </children>
