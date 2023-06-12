@@ -161,7 +161,7 @@ public class DashboardController implements Initializable{
         }
 
         if (event.getSource() == btnSettings) {
-            Tool.showAlert(Alert.AlertType.INFORMATION, "Maintenance Feature", "Feature is under maintenance, please come back later");
+            Tool.showAlert(Alert.AlertType.INFORMATION, "Maintenance Feature!", "Feature is under maintenance, please come back later");
         }
 
         if (event.getSource() == btnReport) {
