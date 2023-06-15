@@ -184,6 +184,12 @@ public class InvoiceController implements Initializable {
                 if(isUpdate == false) return;
                 invoices.add(ControlInvoices.getLastestInvoice());
                 addInvoieToTable(invoices);
+
+                FXMLLoader fxmlInvoiceDetailLoader = Tool.getFxml(invoiceClass, "InvoiceDetailTable");            
+                DialogPane invoiceDetailDialogPane = fxmlInvoiceDetailLoader.load();
+                // InvoiceDetailTableController invoicedetail = fxmlLoader.getController();
+                
+                Tool.showDialogPane("null", invoiceDetailDialogPane);
                 
             }
         } else if (event.getSource() == btnExit) {

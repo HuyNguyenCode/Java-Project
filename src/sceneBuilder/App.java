@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             Scene mainScene = new Scene(root);
             primaryStage.setScene(mainScene);
             primaryStage.setTitle("Book Store Management");
